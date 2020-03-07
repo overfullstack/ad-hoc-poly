@@ -10,15 +10,15 @@ import arrow.fx.reactor.k
 import arrow.fx.typeclasses.Async
 import reactor.core.publisher.Mono
 
+fun <R, F> Async<F>.forMono(thunk: suspend () -> Mono<R>) = effect { thunk().k().suspended() }
+fun <R, F> Async<F>.forIO(thunk: suspend () -> R) = effect { thunk() }
+
 interface RepoTC<F> : Async<F> {
     fun User.get(): Kind<F, User?>
     fun User.doesUserExistWith(): Kind<F, Boolean>
     fun User.doesCityExistWith(): Kind<F, Boolean>
     fun User.update(): Kind<F, Any?>
     fun User.insert(): Kind<F, Any?>
-
-    fun <R> forMono(thunk: suspend () -> Mono<R>) = effect { thunk().k().suspended() }
-    fun <R> forIO(thunk: () -> R) = effect { thunk() }
 
     fun User.validateUserForRegister(): Kind<F, Either<String, User>> = fx.async {
         val user = !get().handleError { null } // null indicating user doesn't exist

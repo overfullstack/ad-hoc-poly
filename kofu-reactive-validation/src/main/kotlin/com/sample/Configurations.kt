@@ -8,6 +8,7 @@ import arrow.fx.typeclasses.Async
 import com.validation.City
 import com.validation.RepoTC
 import com.validation.User
+import com.validation.forMono
 import org.springframework.boot.context.event.ApplicationReadyEvent
 import org.springframework.data.r2dbc.core.DatabaseClient
 import org.springframework.fu.kofu.configuration

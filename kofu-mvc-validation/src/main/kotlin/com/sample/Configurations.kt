@@ -7,6 +7,7 @@ import arrow.fx.typeclasses.Async
 import com.validation.City
 import com.validation.RepoTC
 import com.validation.User
+import com.validation.forIO
 import org.springframework.boot.context.event.ApplicationReadyEvent
 import org.springframework.boot.jdbc.DataSourceBuilder
 import org.springframework.fu.kofu.configuration
