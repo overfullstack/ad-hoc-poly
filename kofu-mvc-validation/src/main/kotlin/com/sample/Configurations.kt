@@ -30,8 +30,8 @@ val dataConfig = configuration {
         bean<RepoTC<ForIO>> {
             object : RepoTC<ForIO>, Async<ForIO> by IO.async() {
                 override fun User.get() = forIO { ref<UserRepository>().findOne(login) }
-                override fun User.doesUserExistWith() = forIO { ref<UserRepository>().doesUserExistWith(login) }
-                override fun User.doesCityExistWith() = forIO { ref<UserRepository>().doesUserExistWith(city) }
+                override fun User.doesUserExist() = forIO { ref<UserRepository>().doesUserExistWith(login) }
+                override fun User.doesUserCityExist() = forIO { ref<UserRepository>().doesUserExistWith(city) }
                 override fun User.update() = forIO { ref<UserRepository>().update(this) }
                 override fun User.insert() = forIO { ref<UserRepository>().save(this) }
             }

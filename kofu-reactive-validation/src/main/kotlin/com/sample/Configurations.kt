@@ -21,8 +21,8 @@ val dataConfig = configuration {
         bean<RepoTC<ForMonoK>> {
             object : RepoTC<ForMonoK>, Async<ForMonoK> by MonoK.async() {
                 override fun User.get() = forMono { ref<UserRepository>().findOne(login) }
-                override fun User.doesUserExistWith() = forMono { ref<UserRepository>().doesUserExistWith(login) }.map { it!! }
-                override fun User.doesCityExistWith() = forMono { ref<UserRepository>().doesUserExistWith(city) }.map { it!! }
+                override fun User.doesUserExist() = forMono { ref<UserRepository>().doesUserExistWith(login) }.map { it!! }
+                override fun User.doesUserCityExist() = forMono { ref<UserRepository>().doesUserExistWith(city) }.map { it!! }
                 override fun User.update() = forMono { ref<UserRepository>().update(this) }
                 override fun User.insert() = forMono { ref<UserRepository>().save(this) }
             }

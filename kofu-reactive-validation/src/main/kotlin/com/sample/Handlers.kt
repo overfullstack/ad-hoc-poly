@@ -5,10 +5,7 @@ import arrow.core.left
 import arrow.core.right
 import arrow.fx.reactor.ForMonoK
 import arrow.fx.reactor.fix
-import com.validation.Email
-import com.validation.RepoTC
-import com.validation.Rules
-import com.validation.User
+import com.validation.*
 import org.springframework.http.MediaType
 import org.springframework.web.reactive.function.server.ServerRequest
 import org.springframework.web.reactive.function.server.ServerResponse.badRequest
@@ -32,9 +29,9 @@ class UserHandler(
                                     isLoginExists.fold(
                                             { badRequest().bodyValue("User with same login exists!!") },
                                             {
-                                                val isEmailValid = Rules failFast {
-                                                    Email(user.login).validateEmail().fix()
-                                                }
+                                                val isEmailValid = Rules.failFast<ValidationError>().run {
+                                                    emailRuleRunner(user.email)
+                                                }.fix()
                                                 isEmailValid.fold(
                                                         { badRequest().bodyValue("$user email validation error: ${it.head}") },
                                                         {
@@ -67,9 +64,9 @@ class UserHandler(
     fun upsert(request: ServerRequest) =
             request.bodyToMono<User>()
                     .flatMap { user ->
-                        val isEmailValid = Rules failFast {
-                            Email(user.login).validateEmail().fix()
-                        }
+                        val isEmailValid = Rules.failFast<ValidationError>().run { 
+                            emailRuleRunner(user.email) 
+                        }.fix()
                         isEmailValid.fold(
                                 { badRequest().bodyValue("$user email validation error: ${it.head}") },
                                 {

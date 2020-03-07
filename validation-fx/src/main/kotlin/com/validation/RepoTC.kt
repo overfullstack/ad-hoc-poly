@@ -15,8 +15,8 @@ fun <R, F> Async<F>.forIO(thunk: suspend () -> R) = effect { thunk() }
 
 interface RepoTC<F> : Async<F> {
     fun User.get(): Kind<F, User?>
-    fun User.doesUserExistWith(): Kind<F, Boolean>
-    fun User.doesCityExistWith(): Kind<F, Boolean>
+    fun User.doesUserExist(): Kind<F, Boolean>
+    fun User.doesUserCityExist(): Kind<F, Boolean>
     fun User.update(): Kind<F, Any?>
     fun User.insert(): Kind<F, Any?>
 
@@ -33,8 +33,8 @@ interface RepoTC<F> : Async<F> {
         this@validateUserForUpsert.isValidEmail().fold(
                 { it.left() as Either<String, String> },
                 {
-                    if (!doesCityExistWith()) {
-                        if (!doesUserExistWith()) {
+                    if (!doesUserCityExist()) {
+                        if (!doesUserExist()) {
                             it.update()
                             "Updated!! $it".right()
                         } else {
@@ -48,15 +48,16 @@ interface RepoTC<F> : Async<F> {
         )
     }
 
-    private fun User.isValidEmail() = Either.fx<String, User> {
-        val isEmailValid = Rules failFast {
-            Email(email).validateEmail().fix()
-        }
-        !isEmailValid.bimap(
-                { "$this@isValidEmail email validation error: ${it.head}" },
-                { this@isValidEmail }
-        )
+    private fun User.isValidEmail(): Either<String, User> {
+        return Rules.failFast<ValidationError>().run {
+                    emailRuleRunner("nowhere.com")
+                }.fix()
+                .bimap(
+                        { "$this@isValidEmail email validation error: ${it.head}" },
+                        { this@isValidEmail }
+                )
     }
+
 }
 
 

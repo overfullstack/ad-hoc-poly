@@ -1,12 +1,9 @@
 package com.sample
 
-import com.validation.Email
-import com.validation.RepoTC
-import com.validation.Rules
 import arrow.core.fix
 import arrow.fx.ForIO
 import arrow.fx.fix
-import com.validation.User
+import com.validation.*
 import org.springframework.dao.EmptyResultDataAccessException
 import org.springframework.http.MediaType
 import org.springframework.web.servlet.function.ServerRequest
@@ -34,9 +31,9 @@ class Handlers(private val userRepository: UserRepository,
             userRepository.findOne(user.login)
             badRequest().body("com.validation.User with same login exists!!")
         } catch (ex: EmptyResultDataAccessException) {
-            val isEmailValid = Rules failFast {
-                Email(user.login).validateEmail().fix()
-            }
+            val isEmailValid = Rules.failFast<ValidationError>().run {
+                emailRuleRunner(user.email)
+            }.fix()
             isEmailValid.fold(
                     { badRequest().body("$user email validation error: ${it.head}") },
                     {
@@ -60,9 +57,9 @@ class Handlers(private val userRepository: UserRepository,
 
     fun upsert(request: ServerRequest): ServerResponse {
         val user = request.body<User>()
-        val isEmailValid = Rules failFast {
-            Email(user.login).validateEmail().fix()
-        }
+        val isEmailValid = Rules.failFast<ValidationError>().run {
+            emailRuleRunner(user.email)
+        }.fix()
         return isEmailValid.fold(
                 { badRequest().body("$user email validation error: ${it.head}") },
                 {
