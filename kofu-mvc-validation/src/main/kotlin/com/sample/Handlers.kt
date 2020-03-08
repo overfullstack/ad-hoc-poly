@@ -31,14 +31,14 @@ class Handlers(private val userRepository: UserRepository,
             userRepository.findOne(user.login)
             badRequest().body("com.validation.User with same login exists!!")
         } catch (ex: EmptyResultDataAccessException) {
-            val isEmailValid = Rules.failFast<ValidationError>().run {
+            val isEmailValid = RulesRunnerStrategy.failFast<ValidationError>().run {
                 emailRuleRunner(user.email)
             }.fix()
             isEmailValid.fold(
                     { badRequest().body("$user email validation error: ${it.head}") },
                     {
                         userRepository.save(user)
-                        ok().body("Created!! $user")
+                        ok().body("Inserted!! $user")
                     }
             )
         }
@@ -51,13 +51,13 @@ class Handlers(private val userRepository: UserRepository,
                     { badRequest().body(it) },
                     {
                         userRepository.save(it)
-                        ok().body("Created!! $it")
+                        ok().body("Inserted!! $it")
                     }
             )
 
     fun upsert(request: ServerRequest): ServerResponse {
         val user = request.body<User>()
-        val isEmailValid = Rules.failFast<ValidationError>().run {
+        val isEmailValid = RulesRunnerStrategy.failFast<ValidationError>().run {
             emailRuleRunner(user.email)
         }.fix()
         return isEmailValid.fold(
@@ -69,7 +69,7 @@ class Handlers(private val userRepository: UserRepository,
                             ok().body("Updated!! $user")
                         } else {
                             userRepository.save(user)
-                            ok().body("Created!! $user")
+                            ok().body("Inserted!! $user")
                         }
                     } else {
                         badRequest().body("com.validation.City is invalid!! : $user")
@@ -80,7 +80,9 @@ class Handlers(private val userRepository: UserRepository,
 
     fun upsertX(request: ServerRequest) =
             blockingRepo.run {
-                request.body<User>().validateUserForUpsert().fix().unsafeRunSync()
+                RulesRunnerStrategy.accumulateErrors<ValidationError>().run {
+                    validateForUpsert(request.body()).fix().unsafeRunSync()
+                }
             }.fold(
                     { badRequest().body(it) },
                     { ok().body(it) }

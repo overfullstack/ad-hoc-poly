@@ -29,14 +29,14 @@ class UserHandler(
                                     isLoginExists.fold(
                                             { badRequest().bodyValue("User with same login exists!!") },
                                             {
-                                                val isEmailValid = Rules.failFast<ValidationError>().run {
+                                                val isEmailValid = RulesRunnerStrategy.failFast<ValidationError>().run {
                                                     emailRuleRunner(user.email)
                                                 }.fix()
                                                 isEmailValid.fold(
                                                         { badRequest().bodyValue("$user email validation error: ${it.head}") },
                                                         {
                                                             userRepository.save(user)
-                                                            ok().bodyValue("Created!! $user")
+                                                            ok().bodyValue("Inserted!! $user")
                                                         }
                                                 )
                                             }
@@ -56,7 +56,7 @@ class UserHandler(
                                 { badRequest().bodyValue(it) },
                                 {
                                     userRepository.save(it)
-                                    ok().bodyValue("Created!! $it")
+                                    ok().bodyValue("Inserted!! $it")
                                 }
                         )
                     }
@@ -64,7 +64,7 @@ class UserHandler(
     fun upsert(request: ServerRequest) =
             request.bodyToMono<User>()
                     .flatMap { user ->
-                        val isEmailValid = Rules.failFast<ValidationError>().run { 
+                        val isEmailValid = RulesRunnerStrategy.failFast<ValidationError>().run { 
                             emailRuleRunner(user.email) 
                         }.fix()
                         isEmailValid.fold(
@@ -80,7 +80,7 @@ class UserHandler(
                                                                     ok().bodyValue("Updated!! $user")
                                                                 } else {
                                                                     userRepository.save(user)
-                                                                    ok().bodyValue("Created!! $user")
+                                                                    ok().bodyValue("Inserted!! $user")
                                                                 }
                                                             }
                                                 } else {
@@ -95,7 +95,9 @@ class UserHandler(
             request.bodyToMono<User>()
                     .flatMap { user ->
                         nonBlockingReactorRepo.run {
-                            user.validateUserForUpsert().fix().mono
+                            RulesRunnerStrategy.failFast<ValidationError>().run {
+                                validateForUpsert(user).fix().mono
+                            }
                         }
                     }.flatMap { validationResult ->
                         validationResult.fold(

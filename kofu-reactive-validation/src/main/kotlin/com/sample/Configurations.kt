@@ -18,11 +18,12 @@ import org.springframework.fu.kofu.webflux.webFlux
 val dataConfig = configuration {
     beans {
         bean<UserRepository>()
+        bean<CityRepository>()
         bean<RepoTC<ForMonoK>> {
             object : RepoTC<ForMonoK>, Async<ForMonoK> by MonoK.async() {
                 override fun User.get() = forMono { ref<UserRepository>().findOne(login) }
-                override fun User.doesUserExist() = forMono { ref<UserRepository>().doesUserExistWith(login) }.map { it!! }
-                override fun User.doesUserCityExist() = forMono { ref<UserRepository>().doesUserExistWith(city) }.map { it!! }
+                override fun User.doesUserLoginExist() = forMono { ref<UserRepository>().doesUserExistWith(login) }.map { it!! }
+                override fun User.isUserCityValid() = forMono { ref<CityRepository>().doesCityExistWith(city) }.map { it!! }
                 override fun User.update() = forMono { ref<UserRepository>().update(this) }
                 override fun User.insert() = forMono { ref<UserRepository>().save(this) }
             }
@@ -53,15 +54,16 @@ val webFlux = configuration {
 fun init(client: DatabaseClient,
          userRepository: UserRepository,
          cityRepository: CityRepository) {
-
-    client.execute("CREATE TABLE IF NOT EXISTS users (login varchar PRIMARY KEY, firstname varchar, lastname varchar);").then()
+    val createUsers = "CREATE TABLE IF NOT EXISTS users (login varchar PRIMARY KEY, email varchar, firstname varchar, lastname varchar, city varchar);"
+    val createCity = "CREATE TABLE IF NOT EXISTS city (name varchar PRIMARY KEY);"
+    client.execute(createUsers).then()
             .then(userRepository.deleteAll())
             .then(userRepository.save(User("smaldini", "smaldini@kt.com", "Stéphane", "Maldini", "london")))
             .then(userRepository.save(User("sdeleuze", "sdeleuze@kt.com", "Sébastien", "Deleuze", "sydney")))
             .then(userRepository.save(User("bclozel", "bclozel@kt.com", "Brian", "Clozel", "istanbul")))
             .block()
 
-    client.execute("CREATE TABLE IF NOT EXISTS city (name varchar PRIMARY KEY);").then()
+    client.execute(createCity).then()
             .then(cityRepository.deleteAll())
             .then(cityRepository.save(City("london")))
             .then(cityRepository.save(City("sydney")))

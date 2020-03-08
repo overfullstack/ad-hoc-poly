@@ -20,4 +20,8 @@ sealed class ValidationError(val msg: String) {
     data class DoesNotContain(val value: String) : ValidationError("Did not contain $value")
     data class MaxLength(val value: Int) : ValidationError("Exceeded length of $value")
     data class NotAnEmail(val reasons: Nel<ValidationError>) : ValidationError("Not a valid email")
+    
+    data class UserLoginExits(val login: String): ValidationError("User exists with Login - $login")
+    data class UserCityInvalid(val city: String): ValidationError("Invalid User city - $city")
+    data class InvalidUser(val reasons: Nel<ValidationError>) : ValidationError("Not a valid user")
 }

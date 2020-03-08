@@ -27,11 +27,12 @@ val dataConfig = configuration {
         }
         bean<NamedParameterJdbcTemplate>()
         bean<UserRepository>()
+        bean<CityRepository>()
         bean<RepoTC<ForIO>> {
             object : RepoTC<ForIO>, Async<ForIO> by IO.async() {
                 override fun User.get() = forIO { ref<UserRepository>().findOne(login) }
-                override fun User.doesUserExist() = forIO { ref<UserRepository>().doesUserExistWith(login) }
-                override fun User.doesUserCityExist() = forIO { ref<UserRepository>().doesUserExistWith(city) }
+                override fun User.doesUserLoginExist() = forIO { ref<UserRepository>().doesUserExistWith(login) }.handleError { false }
+                override fun User.isUserCityValid() = forIO { ref<CityRepository>().doesCityExitsWith(city) }.handleError { false }
                 override fun User.update() = forIO { ref<UserRepository>().update(this) }
                 override fun User.insert() = forIO { ref<UserRepository>().save(this) }
             }
@@ -47,7 +48,7 @@ fun init(
         userRepository: UserRepository,
         cityRepository: CityRepository
 ) {
-    val createUsers = "CREATE TABLE IF NOT EXISTS users (login varchar PRIMARY KEY, email varchar, firstname varchar, lastname varchar);"
+    val createUsers = "CREATE TABLE IF NOT EXISTS users (login varchar PRIMARY KEY, email varchar, firstname varchar, lastname varchar, city varchar);"
     val createCity = "CREATE TABLE IF NOT EXISTS city (name varchar PRIMARY KEY);"
     client.execute(createUsers + createCity)
     { ps -> ps.execute() }
