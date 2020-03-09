@@ -1,8 +1,6 @@
 package com.sample
 
 import arrow.core.fix
-import arrow.core.left
-import arrow.core.right
 import arrow.fx.reactor.ForMonoK
 import arrow.fx.reactor.fix
 import com.validation.*
@@ -19,53 +17,15 @@ class UserHandler(
         private val cityRepository: CityRepository,
         private val nonBlockingReactorRepo: RepoTC<ForMonoK>
 ) {
-
-    fun register(request: ServerRequest) =
-            request.bodyToMono<User>()
-                    .flatMap { user ->
-                        userRepository.findOne(user.login)
-                                .map { existingUser -> if (existingUser != null) Unit.left() else Unit.right() }
-                                .flatMap { isLoginExists ->
-                                    isLoginExists.fold(
-                                            { badRequest().bodyValue("User with same login exists!!") },
-                                            {
-                                                val isEmailValid = RulesRunnerStrategy.failFast<ValidationError>().run {
-                                                    emailRuleRunner(user.email)
-                                                }.fix()
-                                                isEmailValid.fold(
-                                                        { badRequest().bodyValue("$user email validation error: ${it.head}") },
-                                                        {
-                                                            userRepository.save(user)
-                                                            ok().bodyValue("Inserted!! $user")
-                                                        }
-                                                )
-                                            }
-                                    )
-                                }
-                    }
-
-
-    fun registerX(request: ServerRequest) =
-            request.bodyToMono<User>()
-                    .flatMap { user ->
-                        nonBlockingReactorRepo.run {
-                            user.validateUserForRegister().fix().mono
-                        }
-                    }.flatMap { validationResult ->
-                        validationResult.fold(
-                                { badRequest().bodyValue(it) },
-                                {
-                                    userRepository.save(it)
-                                    ok().bodyValue("Inserted!! $it")
-                                }
-                        )
-                    }
+    fun listApi(request: ServerRequest) =
+            ok().contentType(MediaType.APPLICATION_JSON)
+                    .body(userRepository.findAll())
 
     fun upsert(request: ServerRequest) =
             request.bodyToMono<User>()
                     .flatMap { user ->
-                        val isEmailValid = RulesRunnerStrategy.failFast<ValidationError>().run { 
-                            emailRuleRunner(user.email) 
+                        val isEmailValid = RulesRunnerStrategy.failFast<ValidationError>().run {
+                            emailRuleRunner(user.email)
                         }.fix()
                         isEmailValid.fold(
                                 { badRequest().bodyValue("$user email validation error: ${it.head}") },
@@ -106,7 +66,4 @@ class UserHandler(
                         )
                     }
 
-    fun listApi(request: ServerRequest) =
-            ok().contentType(MediaType.APPLICATION_JSON)
-                    .body(userRepository.findAll())
 }

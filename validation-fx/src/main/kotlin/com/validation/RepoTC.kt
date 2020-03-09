@@ -12,28 +12,6 @@ interface RepoTC<F> : Async<F> {
     fun User.update(): Kind<F, Any?>
     fun User.insert(): Kind<F, Any?>
 
-    @Deprecated("TODO: To be enhanced")
-    fun User.validateUserForRegister() = fx.async {
-        val user = !get().handleError { null } // null indicating user doesn't exist.
-        Either.fx<String, User> {
-            val isLoginExists = if (user != null) "$user exists".left() else Unit.right()
-            !isLoginExists
-            !this@validateUserForRegister.isValidEmail()
-        }
-    }
-
-    @Deprecated("TODO: To be enhanced")
-    private fun User.isValidEmail(): Either<String, User> {
-        val run = RulesRunnerStrategy.failFast<ValidationError>().run {
-            emailRuleRunner(email)
-        }
-        return run.fix()
-                .bimap(
-                        { "$this@isValidEmail email validation error: ${it.head}" },
-                        { this@isValidEmail }
-                )
-    }
-
     /**
      * ------------User Rules------------
      */

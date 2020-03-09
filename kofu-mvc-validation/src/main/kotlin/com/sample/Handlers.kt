@@ -20,41 +20,7 @@ class Handlers(private val userRepository: UserRepository,
     fun listApi(request: ServerRequest): ServerResponse {
         return ok().contentType(MediaType.APPLICATION_JSON).body(userRepository.findAll())
     }
-
-    fun userApi(request: ServerRequest) =
-            ok().contentType(MediaType.APPLICATION_JSON)
-                    .body(userRepository.findOne(request.pathVariable("login")) ?: "USER NOT FOUND")
-
-    fun register(request: ServerRequest): ServerResponse {
-        val user = request.body<User>()
-        return try {
-            userRepository.findOne(user.login)
-            badRequest().body("com.validation.User with same login exists!!")
-        } catch (ex: EmptyResultDataAccessException) {
-            val isEmailValid = RulesRunnerStrategy.failFast<ValidationError>().run {
-                emailRuleRunner(user.email)
-            }.fix()
-            isEmailValid.fold(
-                    { badRequest().body("$user email validation error: ${it.head}") },
-                    {
-                        userRepository.save(user)
-                        ok().body("Inserted!! $user")
-                    }
-            )
-        }
-    }
-
-    fun registerX(request: ServerRequest) =
-            blockingRepo.run {
-                request.body<User>().validateUserForRegister().fix().unsafeRunSync()
-            }.fold(
-                    { badRequest().body(it) },
-                    {
-                        userRepository.save(it)
-                        ok().body("Inserted!! $it")
-                    }
-            )
-
+    
     fun upsert(request: ServerRequest): ServerResponse {
         val user = request.body<User>()
         val isEmailValid = RulesRunnerStrategy.failFast<ValidationError>().run {

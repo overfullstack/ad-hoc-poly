@@ -48,7 +48,6 @@ val webConfig = configuration {
         port = if (profiles.contains("test")) 8181 else 8080
         router {
             val handler = ref<Handlers>()
-            POST("/api/register", handler::registerX)
             POST("/api/upsert", handler::upsertX)
             GET("/api/user/all", handler::listApi)
         }
