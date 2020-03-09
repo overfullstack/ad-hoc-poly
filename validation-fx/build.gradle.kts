@@ -12,10 +12,7 @@ dependencies {
     
     implementation("io.arrow-kt:arrow-core:$arrowSnapshotVersion")
     implementation("io.arrow-kt:arrow-fx:$arrowSnapshotVersion")
-    implementation("io.arrow-kt:arrow-optics:$arrowSnapshotVersion")
     implementation("io.arrow-kt:arrow-fx-reactor:$arrowSnapshotVersion")
-    implementation("io.arrow-kt:arrow-syntax:$arrowSnapshotVersion")
-    implementation("io.arrow-kt:arrow-mtl:$arrowVersion")
 }
 
 repositories {

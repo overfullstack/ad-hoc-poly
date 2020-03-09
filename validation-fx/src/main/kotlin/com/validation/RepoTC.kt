@@ -70,7 +70,7 @@ interface RepoTC<F> : Async<F> {
                             user.update()
                             "Updated!! $user".right()
                         }
-                        else -> "Cannot insert or upsert, reasons: $reasons".left()
+                        else -> "Cannot Upsert!!, reasons: $reasons".left()
                     }
                 },
                 {

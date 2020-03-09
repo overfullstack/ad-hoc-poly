@@ -17,14 +17,12 @@ dependencies {
 
 	implementation("io.arrow-kt:arrow-core:$arrowSnapshotVersion")
 	implementation("io.arrow-kt:arrow-fx:$arrowSnapshotVersion")
-	implementation("io.arrow-kt:arrow-optics:$arrowSnapshotVersion")
-	implementation("io.arrow-kt:arrow-syntax:$arrowSnapshotVersion")
-	implementation("io.arrow-kt:arrow-mtl:$arrowVersion")
 
 	implementation(project(":validation-fx"))
 
 	runtimeOnly("com.h2database:h2")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("org.springframework.boot:spring-boot-starter-webflux")
 }
 
 repositories {

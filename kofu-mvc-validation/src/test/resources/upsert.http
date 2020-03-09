@@ -1,0 +1,14 @@
+// Cannot insert or upsert
+POST http://localhost:8080/api/upsert
+Content-Type: application/json
+
+{
+  "login": "gakshintala",
+  "email": "gakshin@kt.com",
+  "firstname": "gopal",
+  "lastname": "sarma",
+  "city": "hyd"
+}
+
+###
+
