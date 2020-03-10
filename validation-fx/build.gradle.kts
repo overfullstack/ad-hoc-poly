@@ -9,6 +9,7 @@ val arrowVersion = "0.10.4"
 
 dependencies {
     implementation("io.r2dbc:r2dbc-h2:0.8.2.RELEASE")
+    implementation("org.springframework.data:spring-data-r2dbc:1.0.0.RC1")
     
     implementation("io.arrow-kt:arrow-core:$arrowSnapshotVersion")
     implementation("io.arrow-kt:arrow-fx:$arrowSnapshotVersion")

@@ -4,6 +4,7 @@ import arrow.core.fix
 import arrow.fx.ForIO
 import arrow.fx.fix
 import com.validation.*
+import com.validation.ValidationError.UserLoginExits
 import org.springframework.http.MediaType
 import org.springframework.web.servlet.function.ServerRequest
 import org.springframework.web.servlet.function.ServerResponse
@@ -36,7 +37,7 @@ class Handlers(private val userRepository: UserRepository,
                             ok().body("Inserted!! $user")
                         }
                     } else {
-                        badRequest().body("com.validation.City is invalid!! : $user")
+                        badRequest().body("City is invalid!! : $user")
                     }
                 }
         )
@@ -51,7 +52,7 @@ class Handlers(private val userRepository: UserRepository,
         }.fix().fold(
                 { reasons ->
                     when (reasons.head) {
-                        ValidationError.UserLoginExits(user.login) -> {
+                        UserLoginExits(user.login) -> {
                             userRepository.update(user)
                             ok().body("Updated!! $user")
                         }

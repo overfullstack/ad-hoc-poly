@@ -3,6 +3,8 @@ package com.validation
 import arrow.Kind
 import arrow.core.nel
 import arrow.fx.typeclasses.Async
+import com.validation.ValidationError.UserCityInvalid
+import com.validation.ValidationError.UserLoginExits
 
 interface RepoTC<F> : Async<F> {
     fun User.get(): Kind<F, User?>
@@ -18,12 +20,12 @@ interface RepoTC<F> : Async<F> {
     fun <F1> RulesRunnerStrategy<F1, ValidationError>.userCityShouldBeValid(user: User) = fx.async {
         val cityValid = user.isUserCityValid().bind()
         if (cityValid) this@userCityShouldBeValid.just(cityValid)
-        else raiseError(ValidationError.UserCityInvalid(user.city).nel())
+        else raiseError(UserCityInvalid(user.city).nel())
     }
 
     fun <F1> RulesRunnerStrategy<F1, ValidationError>.userLoginShouldNotExit(user: User) = fx.async {
         val userExists = user.doesUserLoginExist().bind()
-        if (userExists) raiseError(ValidationError.UserLoginExits(user.login).nel())
+        if (userExists) raiseError(UserLoginExits(user.login).nel())
         else this@userLoginShouldNotExit.just(userExists)
     }
 
@@ -34,7 +36,7 @@ interface RepoTC<F> : Async<F> {
                     !userLoginShouldNotExit(user)
             ) {
                 user
-            }.handleErrorWith { reasons -> raiseError(ValidationError.InvalidUser(reasons).nel()) }
+            }.handleErrorWith { raiseError(it) }
     }
 
 }

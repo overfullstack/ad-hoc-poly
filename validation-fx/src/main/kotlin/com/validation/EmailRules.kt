@@ -25,4 +25,4 @@ fun <F> RulesRunnerStrategy<F, ValidationError>.emailRuleRunner(emailValue: Stri
                 maxLength(emailValue, 250)
         ) {
                 Email(emailValue)
-        }.handleErrorWith { reasons -> raiseError(ValidationError.NotAnEmail(reasons).nel()) }
+        }.handleErrorWith { raiseError(it) }
