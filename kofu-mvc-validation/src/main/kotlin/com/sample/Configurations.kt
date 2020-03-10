@@ -31,10 +31,10 @@ val dataConfig = configuration {
         bean<RepoTC<ForIO>> {
             object : RepoTC<ForIO>, Async<ForIO> by IO.async() {
                 override fun User.get() = forIO { ref<UserRepository>().findOne(login) }
-                override fun User.doesUserLoginExist() = forIO { ref<UserRepository>().doesUserExistWith(login) }.handleError { false }
-                override fun User.isUserCityValid() = forIO { ref<CityRepository>().doesCityExitsWith(city) }.handleError { false }
+                override fun User.doesUserLoginExist() = forIO { ref<UserRepository>().findFirstUserWith(login) }.handleError { false }
+                override fun User.isUserCityValid() = forIO { ref<CityRepository>().findFirstCityWith(city) }.handleError { false }
                 override fun User.update() = forIO { ref<UserRepository>().update(this) }
-                override fun User.insert() = forIO { ref<UserRepository>().save(this) }
+                override fun User.insert() = forIO { ref<UserRepository>().insert(this) }
             }
         }
     }
@@ -69,9 +69,9 @@ fun init(
     { ps -> ps.execute() }
 
     userRepository.deleteAll()
-    userRepository.save(User("smaldini", "smaldini@kt.com", "Stéphane", "Maldini", "london"))
-    userRepository.save(User("sdeleuze", "sdeleuze@kt.com", "Sébastien", "Deleuze", "sydney"))
-    userRepository.save(User("bclozel", "bclozel@kt.com", "Brian", "Clozel", "istanbul"))
+    userRepository.insert(User("smaldini", "smaldini@kt.com", "Stéphane", "Maldini", "london"))
+    userRepository.insert(User("sdeleuze", "sdeleuze@kt.com", "Sébastien", "Deleuze", "sydney"))
+    userRepository.insert(User("bclozel", "bclozel@kt.com", "Brian", "Clozel", "istanbul"))
 
     cityRepository.deleteAll()
     cityRepository.save(City("london"))

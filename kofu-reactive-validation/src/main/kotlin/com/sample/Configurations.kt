@@ -22,10 +22,10 @@ val dataConfig = configuration {
         bean<RepoTC<ForMonoK>> {
             object : RepoTC<ForMonoK>, Async<ForMonoK> by MonoK.async() {
                 override fun User.get() = forMono { ref<UserRepository>().findOne(login) }
-                override fun User.doesUserLoginExist() = forMono { ref<UserRepository>().doesUserExistWith(login) }.map { it!! }
-                override fun User.isUserCityValid() = forMono { ref<CityRepository>().doesCityExistWith(city) }.map { it!! }
+                override fun User.doesUserLoginExist() = forMono { ref<UserRepository>().findFirstUserWith(login) }.map { it == 1 }
+                override fun User.isUserCityValid() = forMono { ref<CityRepository>().findFirstCityWith(city) }.map { it == 1 }
                 override fun User.update() = forMono { ref<UserRepository>().update(this) }
-                override fun User.insert() = forMono { ref<UserRepository>().save(this) }
+                override fun User.insert() = forMono { ref<UserRepository>().insert(this) }
             }
         }
     }
@@ -52,14 +52,15 @@ val webFlux = configuration {
 
 fun init(client: DatabaseClient,
          userRepository: UserRepository,
-         cityRepository: CityRepository) {
+         cityRepository: CityRepository
+) {
     val createUsers = "CREATE TABLE IF NOT EXISTS users (login varchar PRIMARY KEY, email varchar, firstname varchar, lastname varchar, city varchar);"
     val createCity = "CREATE TABLE IF NOT EXISTS city (name varchar PRIMARY KEY);"
     client.execute(createUsers).then()
             .then(userRepository.deleteAll())
-            .then(userRepository.save(User("smaldini", "smaldini@kt.com", "Stéphane", "Maldini", "london")))
-            .then(userRepository.save(User("sdeleuze", "sdeleuze@kt.com", "Sébastien", "Deleuze", "sydney")))
-            .then(userRepository.save(User("bclozel", "bclozel@kt.com", "Brian", "Clozel", "istanbul")))
+            .then(userRepository.insert(User("smaldini", "smaldini@kt.com", "Stéphane", "Maldini", "london")))
+            .then(userRepository.insert(User("sdeleuze", "sdeleuze@kt.com", "Sébastien", "Deleuze", "sydney")))
+            .then(userRepository.insert(User("bclozel", "bclozel@kt.com", "Brian", "Clozel", "istanbul")))
             .block()
 
     client.execute(createCity).then()

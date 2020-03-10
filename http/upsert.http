@@ -1,4 +1,4 @@
-// Cannot insert or upsert
+// Cannot insert or upsert - Invalid City
 POST http://localhost:8080/api/upsert
 Content-Type: application/json
 

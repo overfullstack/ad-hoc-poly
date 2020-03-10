@@ -1,8 +1,7 @@
 package com.validation
 
 import arrow.Kind
-import arrow.core.*
-import arrow.core.extensions.fx
+import arrow.core.nel
 import arrow.fx.typeclasses.Async
 
 interface RepoTC<F> : Async<F> {
@@ -15,7 +14,7 @@ interface RepoTC<F> : Async<F> {
     /**
      * ------------User Rules------------
      */
-
+    // TODO 3/9/20 gakshintala: Change the argument to City.
     fun <F1> RulesRunnerStrategy<F1, ValidationError>.userCityShouldBeValid(user: User) = fx.async {
         val cityValid = user.isUserCityValid().bind()
         if (cityValid) this@userCityShouldBeValid.just(cityValid)
@@ -29,7 +28,6 @@ interface RepoTC<F> : Async<F> {
     }
 
     fun <F1> RulesRunnerStrategy<F1, ValidationError>.userRuleRunner(user: User) = fx.async {
-        RulesRunnerStrategy.failFast<ValidationError>().run {
             mapN(
                     emailRuleRunner(user.email),
                     !userCityShouldBeValid(user),
@@ -37,25 +35,6 @@ interface RepoTC<F> : Async<F> {
             ) {
                 user
             }.handleErrorWith { reasons -> raiseError(ValidationError.InvalidUser(reasons).nel()) }
-        }
-    }
-
-    fun <F1> RulesRunnerStrategy<F1, ValidationError>.validateForUpsert(user: User) = fx.async {
-        userRuleRunner(user).bind().fix().fold(
-                { reasons ->
-                    when (reasons.head) {
-                        ValidationError.UserLoginExits(user.login) -> {
-                            user.update()
-                            "Updated!! $user".right()
-                        }
-                        else -> "Cannot Upsert!!, reasons: $reasons".left()
-                    }
-                },
-                {
-                    user.insert()
-                    "Inserted!! $user".right()
-                }
-        )
     }
 
 }

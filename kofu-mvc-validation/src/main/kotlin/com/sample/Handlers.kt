@@ -4,7 +4,6 @@ import arrow.core.fix
 import arrow.fx.ForIO
 import arrow.fx.fix
 import com.validation.*
-import org.springframework.dao.EmptyResultDataAccessException
 import org.springframework.http.MediaType
 import org.springframework.web.servlet.function.ServerRequest
 import org.springframework.web.servlet.function.ServerResponse
@@ -12,7 +11,6 @@ import org.springframework.web.servlet.function.ServerResponse.badRequest
 import org.springframework.web.servlet.function.ServerResponse.ok
 import org.springframework.web.servlet.function.body
 
-@Suppress("UNUSED_PARAMETER")
 class Handlers(private val userRepository: UserRepository,
                private val cityRepository: CityRepository,
                private val blockingRepo: RepoTC<ForIO>) {
@@ -29,12 +27,12 @@ class Handlers(private val userRepository: UserRepository,
         return isEmailValid.fold(
                 { badRequest().body("$user email validation error: ${it.head}") },
                 {
-                    if (cityRepository.doesCityExitsWith(user.city)) {
-                        if (userRepository.doesUserExistWith(user.login)) {
+                    if (cityRepository.findFirstCityWith(user.city)) {
+                        if (userRepository.findFirstUserWith(user.login)) {
                             userRepository.update(user)
                             ok().body("Updated!! $user")
                         } else {
-                            userRepository.save(user)
+                            userRepository.insert(user)
                             ok().body("Inserted!! $user")
                         }
                     } else {
@@ -44,13 +42,26 @@ class Handlers(private val userRepository: UserRepository,
         )
     }
 
-    fun upsertX(request: ServerRequest) =
-            blockingRepo.run {
-                RulesRunnerStrategy.accumulateErrors<ValidationError>().run {
-                    validateForUpsert(request.body()).fix().unsafeRunSync()
+    fun upsertX(request: ServerRequest): ServerResponse {
+        val user = request.body<User>()
+        return blockingRepo.run {
+            RulesRunnerStrategy.failFast<ValidationError>().run {
+                userRuleRunner(user).fix().unsafeRunSync()
+            }
+        }.fix().fold(
+                { reasons ->
+                    when (reasons.head) {
+                        ValidationError.UserLoginExits(user.login) -> {
+                            userRepository.update(user)
+                            ok().body("Updated!! $user")
+                        }
+                        else -> badRequest().body("Cannot Upsert!!, reasons: $reasons")
+                    }
+                },
+                {
+                    userRepository.insert(user)
+                    ok().body("Inserted!! $user")
                 }
-            }.fold(
-                    { badRequest().body(it) },
-                    { ok().body(it) }
-            )
+        )
+    }
 }

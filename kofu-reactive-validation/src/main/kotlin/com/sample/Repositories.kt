@@ -12,8 +12,8 @@ class UserRepository(private val client: DatabaseClient) {
     fun count() =
             client.execute("SELECT COUNT(*) FROM users").asType<Long>().fetch().one()
 
-    fun doesUserExistWith(login: String) =
-            client.execute("SELECT 1 FROM users WHERE login = :login LIMIT 1").bind("login", login).asType<Int>().fetch().one().map { it == 1 }
+    fun findFirstUserWith(login: String) =
+            client.execute("SELECT 1 FROM users WHERE login = :login LIMIT 1").bind("login", login).asType<Int>().fetch().one().defaultIfEmpty(0)
 
     fun findAll() =
             client.select().from("users").asType<User>().fetch().all()
@@ -27,7 +27,7 @@ class UserRepository(private val client: DatabaseClient) {
     fun update(user: User) =
             client.update().table<User>().using(user).then()
 
-    fun save(user: User) =
+    fun insert(user: User) =
             client.insert().into<User>().table("users").using(user).then()
 }
 
@@ -36,8 +36,8 @@ class CityRepository(private val client: DatabaseClient) {
     fun count() =
             client.execute("SELECT COUNT(*) FROM city").asType<Long>().fetch().one()
 
-    fun doesCityExistWith(name: String) =
-            client.execute("SELECT 1 FROM city WHERE name = :name LIMIT 1").bind("name", name).asType<Int>().fetch().one().map { it == 1 }
+    fun findFirstCityWith(name: String) =
+            client.execute("SELECT 1 FROM city WHERE name = :name LIMIT 1").bind("name", name).asType<Int>().fetch().one().defaultIfEmpty(0)
 
     fun findAll() =
             client.select().from("city").asType<City>().fetch().all()

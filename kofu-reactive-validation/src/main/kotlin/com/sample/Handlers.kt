@@ -11,7 +11,6 @@ import org.springframework.web.reactive.function.server.ServerResponse.ok
 import org.springframework.web.reactive.function.server.body
 import org.springframework.web.reactive.function.server.bodyToMono
 
-@Suppress("UNUSED_PARAMETER")
 class UserHandler(
         private val userRepository: UserRepository,
         private val cityRepository: CityRepository,
@@ -30,16 +29,16 @@ class UserHandler(
                         isEmailValid.fold(
                                 { badRequest().bodyValue("$user email validation error: ${it.head}") },
                                 {
-                                    cityRepository.doesCityExistWith(user.city)
+                                    cityRepository.findFirstCityWith(user.city)
                                             .flatMap { cityExists ->
-                                                if (cityExists) {
-                                                    userRepository.doesUserExistWith(user.login)
+                                                if (cityExists != 0) {
+                                                    userRepository.findFirstUserWith(user.login)
                                                             .flatMap { userExists ->
-                                                                if (userExists) {
+                                                                if (userExists != 0) {
                                                                     userRepository.update(user)
                                                                     ok().bodyValue("Updated!! $user")
                                                                 } else {
-                                                                    userRepository.save(user)
+                                                                    userRepository.insert(user)
                                                                     ok().bodyValue("Inserted!! $user")
                                                                 }
                                                             }
@@ -55,15 +54,26 @@ class UserHandler(
             request.bodyToMono<User>()
                     .flatMap { user ->
                         nonBlockingReactorRepo.run {
-                            RulesRunnerStrategy.failFast<ValidationError>().run {
-                                validateForUpsert(user).fix().mono
+                            RulesRunnerStrategy.accumulateErrors<ValidationError>().run {
+                                userRuleRunner(user).fix().mono
                             }
+                        }.flatMap {
+                            it.fix().fold(
+                                    { reasons ->
+                                        when (reasons.head) {
+                                            ValidationError.UserLoginExits(user.login) -> {
+                                                userRepository.update(user)
+                                                ok().bodyValue("Updated!! $user")
+                                            }
+                                            else -> badRequest().bodyValue("Cannot Upsert!!, reasons: $reasons")
+                                        }
+                                    },
+                                    {
+                                        userRepository.insert(user)
+                                        ok().bodyValue("Inserted!! $user")
+                                    }
+                            )
                         }
-                    }.flatMap { validationResult ->
-                        validationResult.fold(
-                                { badRequest().bodyValue(it) },
-                                { ok().bodyValue(it) }
-                        )
                     }
 
 }

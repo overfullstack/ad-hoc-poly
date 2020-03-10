@@ -11,7 +11,7 @@ class UserRepository(private val client: NamedParameterJdbcTemplate) {
     fun count() =
             client.queryForObject("SELECT COUNT(*) FROM users", emptyMap<String, String>(), Int::class.java)
 
-    fun doesUserExistWith(login: String) =
+    fun findFirstUserWith(login: String) =
             client.queryForObject("SELECT 1 FROM users WHERE login = :login LIMIT 1", mapOf("login" to login), Int::class.java) == 1
 
     fun findAll() = client.queryForList("SELECT * FROM users", emptyMap<String, String>(), User::class.java)
@@ -26,7 +26,7 @@ class UserRepository(private val client: NamedParameterJdbcTemplate) {
             client.update("UPDATE users SET  firstname = :firstname, lastname = :lastname WHERE login = :login",
                     BeanPropertySqlParameterSource(user))
 
-    fun save(user: User) =
+    fun insert(user: User) =
             client.update("INSERT INTO users (login, firstname, lastname) VALUES (:login, :firstname, :lastname)",
                     BeanPropertySqlParameterSource(user))
 }
@@ -36,7 +36,7 @@ class CityRepository(private val client: NamedParameterJdbcTemplate) {
     fun count() =
             client.queryForObject("SELECT COUNT(*) FROM city", emptyMap<String, String>(), Int::class.java)
 
-    fun doesCityExitsWith(name: String) =
+    fun findFirstCityWith(name: String) =
             client.queryForObject("SELECT 1 FROM city WHERE name = :name LIMIT 1", mapOf("name" to name), Int::class.java) == 1
 
     fun findAll() = client.queryForList("SELECT * FROM city", emptyMap<String, String>(), City::class.java)

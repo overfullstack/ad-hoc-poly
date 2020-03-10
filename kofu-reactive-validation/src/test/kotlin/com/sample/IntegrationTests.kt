@@ -1,11 +1,16 @@
 package com.sample
 
+import arrow.core.nel
 import com.validation.User
+import com.validation.ValidationError
+import com.validation.ValidationError.*
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import org.springframework.context.ConfigurableApplicationContext
+import org.springframework.http.HttpHeaders
+import org.springframework.http.MediaType
 import org.springframework.test.web.reactive.server.WebTestClient
 import org.springframework.test.web.reactive.server.expectBody
 
@@ -21,28 +26,27 @@ class IntegrationTests {
     }
 
     @Test
-    fun `Create a user successfully`() {
-        client.post().uri("/api/user")
-                .bodyValue(User("demo", "demo@demo.com", "John", "Doe", "Demo"))
+    fun `Invalid Email - Does not Contain @`() {
+        val invalidEmail = "gakshintala-kt.com"
+        val reasons = InvalidUser(NotAnEmail(DoesNotContain("@").nel()).nel()).nel()
+        client.post().uri("/api/upsert")
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .bodyValue(User("gakshintala", invalidEmail, "Gopal S", "Akshintala", "london"))
                 .exchange()
-                .expectStatus().isOk
-                .expectBody<User>().isEqualTo(User("demo", "demo@demo.com", "John", "Doe", "Demo"))
+                .expectStatus().isBadRequest
+                .expectBody<String>().isEqualTo("Cannot Upsert!!, reasons: $reasons")
     }
 
     @Test
-    fun `Empty fields request should fail`() {
-        client.post().uri("/api/user")
-                .bodyValue(User("demo", "demo@demo.com", "John", "Doe", "Demo"))
+    fun `Invalid City`() {
+        val invalidCity = "hyderabad"
+        val reasons = InvalidUser(ValidationError.UserCityInvalid(invalidCity).nel()).nel()
+        client.post().uri("/api/upsert")
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .bodyValue(User("gakshintala", "gakshintala@kt.com", "Gopal S", "Akshintala", invalidCity))
                 .exchange()
                 .expectStatus().isBadRequest
-                .expectBody<Map<String, List<Map<String, *>>>>()
-                .consumeWith { res ->
-                    val details = res.responseBody!!.getValue("details")
-                    Assertions.assertEquals(3, details.size)
-                    Assertions.assertEquals("The size of \"login\" must be greater than or equal to 4. The given size is 0", details[0]["defaultMessage"])
-                    Assertions.assertEquals("\"firstname\" must not be blank", details[1]["defaultMessage"])
-                    Assertions.assertEquals("\"lastname\" must not be blank", details[2]["defaultMessage"])
-                }
+                .expectBody<String>().isEqualTo("Cannot Upsert!!, reasons: $reasons")
     }
 
     @AfterAll
