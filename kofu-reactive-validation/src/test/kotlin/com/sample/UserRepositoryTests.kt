@@ -32,14 +32,12 @@ class UserRepositoryTests {
 
     @Test
     fun userLoginValid() {
-        assertTrue(repository.findFirstUserWith("smaldini").block() == 1)
+        assertTrue(repository.findFirstUserWith("smaldini").block()!!)
     }
 
     @Test
     fun userLoginInValid() {
-        val flatMap = repository.findFirstUserWith("gakshintala")
-                .defaultIfEmpty(0)
-        assertTrue(flatMap.block() == 0)
+        assertTrue(repository.findFirstUserWith("gakshintala").block()!!)
     }
 
     @AfterAll

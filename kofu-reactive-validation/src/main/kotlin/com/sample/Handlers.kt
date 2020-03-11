@@ -4,6 +4,7 @@ import arrow.core.fix
 import arrow.fx.reactor.ForMonoK
 import arrow.fx.reactor.fix
 import com.validation.*
+import com.validation.RulesRunnerStrategy.Companion.accumulateErrors
 import org.springframework.http.MediaType
 import org.springframework.web.reactive.function.server.ServerRequest
 import org.springframework.web.reactive.function.server.ServerResponse.badRequest
@@ -23,7 +24,7 @@ class UserHandler(
     fun upsert(request: ServerRequest) =
             request.bodyToMono<User>()
                     .flatMap { user ->
-                        val isEmailValid = RulesRunnerStrategy.failFast<ValidationError>().run {
+                        val isEmailValid = accumulateErrors<ValidationError>().run {
                             emailRuleRunner(user.email)
                         }.fix()
                         isEmailValid.fold(
@@ -31,10 +32,10 @@ class UserHandler(
                                 {
                                     cityRepository.findFirstCityWith(user.city)
                                             .flatMap { cityExists ->
-                                                if (cityExists != 0) {
+                                                if (cityExists) {
                                                     userRepository.findFirstUserWith(user.login)
                                                             .flatMap { userExists ->
-                                                                if (userExists != 0) {
+                                                                if (userExists) {
                                                                     userRepository.update(user)
                                                                     ok().bodyValue("Updated!! $user")
                                                                 } else {
@@ -54,7 +55,7 @@ class UserHandler(
             request.bodyToMono<User>()
                     .flatMap { user ->
                         nonBlockingReactorRepo.run {
-                            RulesRunnerStrategy.accumulateErrors<ValidationError>().run {
+                            accumulateErrors<ValidationError>().run {
                                 userRuleRunner(user).fix().mono
                             }
                         }.flatMap {

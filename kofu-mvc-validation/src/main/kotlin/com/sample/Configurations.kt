@@ -1,5 +1,6 @@
 package com.sample
 
+import arrow.Kind
 import arrow.fx.ForIO
 import arrow.fx.IO
 import arrow.fx.extensions.io.async.async
@@ -30,7 +31,6 @@ val dataConfig = configuration {
         bean<CityRepository>()
         bean<RepoTC<ForIO>> {
             object : RepoTC<ForIO>, Async<ForIO> by IO.async() {
-                override fun User.get() = forIO { ref<UserRepository>().findOne(login) }
                 override fun User.doesUserLoginExist() = forIO { ref<UserRepository>().findFirstUserWith(login) }.handleError { false }
                 override fun User.isUserCityValid() = forIO { ref<CityRepository>().findFirstCityWith(city) }.handleError { false }
                 override fun User.update() = forIO { ref<UserRepository>().update(this) }

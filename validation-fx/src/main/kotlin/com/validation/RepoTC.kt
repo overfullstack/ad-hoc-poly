@@ -7,7 +7,6 @@ import com.validation.ValidationError.UserCityInvalid
 import com.validation.ValidationError.UserLoginExits
 
 interface RepoTC<F> : Async<F> {
-    fun User.get(): Kind<F, User?>
     fun User.doesUserLoginExist(): Kind<F, Boolean>
     fun User.isUserCityValid(): Kind<F, Boolean>
     fun User.update(): Kind<F, Any?>
@@ -16,20 +15,19 @@ interface RepoTC<F> : Async<F> {
     /**
      * ------------User Rules------------
      */
-    // TODO 3/9/20 gakshintala: Change the argument to City.
-    fun <F1> RulesRunnerStrategy<F1, ValidationError>.userCityShouldBeValid(user: User) = fx.async {
+    fun <S> RulesRunnerStrategy<S, ValidationError>.userCityShouldBeValid(user: User) = fx.async {
         val cityValid = user.isUserCityValid().bind()
         if (cityValid) this@userCityShouldBeValid.just(cityValid)
         else raiseError(UserCityInvalid(user.city).nel())
     }
 
-    fun <F1> RulesRunnerStrategy<F1, ValidationError>.userLoginShouldNotExit(user: User) = fx.async {
+    fun <S> RulesRunnerStrategy<S, ValidationError>.userLoginShouldNotExit(user: User) = fx.async {
         val userExists = user.doesUserLoginExist().bind()
         if (userExists) raiseError(UserLoginExits(user.login).nel())
         else this@userLoginShouldNotExit.just(userExists)
     }
 
-    fun <F1> RulesRunnerStrategy<F1, ValidationError>.userRuleRunner(user: User) = fx.async {
+    fun <S> RulesRunnerStrategy<S, ValidationError>.userRuleRunner(user: User) = fx.async {
             mapN(
                     emailRuleRunner(user.email),
                     !userCityShouldBeValid(user),
