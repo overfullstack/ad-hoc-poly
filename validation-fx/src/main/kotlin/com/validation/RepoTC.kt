@@ -28,13 +28,13 @@ interface RepoTC<F> : Async<F> {
     }
 
     fun <S> RulesRunnerStrategy<S, ValidationError>.userRuleRunner(user: User) = fx.async {
-            mapN(
-                    emailRuleRunner(user.email),
-                    !userCityShouldBeValid(user),
-                    !userLoginShouldNotExit(user)
-            ) {
-                user
-            }.handleErrorWith { raiseError(it) }
+        mapN(
+                emailRuleRunner(user.email),
+                !userCityShouldBeValid(user),
+                !userLoginShouldNotExit(user)
+        ) {
+            user
+        }.handleErrorWith { raiseError(it) }
     }
 
 }

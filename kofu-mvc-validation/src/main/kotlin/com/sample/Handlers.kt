@@ -1,6 +1,9 @@
 package com.sample
 
+import arrow.core.Either
 import arrow.core.fix
+import arrow.core.left
+import arrow.core.right
 import arrow.fx.ForIO
 import arrow.fx.fix
 import com.validation.*
@@ -14,20 +17,18 @@ import org.springframework.web.servlet.function.body
 
 class Handlers(private val userRepository: UserRepository,
                private val cityRepository: CityRepository,
-               private val blockingRepo: RepoTC<ForIO>) {
-    
+               private val blockingRepo: RepoTC<ForIO>
+) {
     fun listApi(request: ServerRequest): ServerResponse {
         return ok().contentType(MediaType.APPLICATION_JSON).body(userRepository.findAll())
     }
     
-    fun upsert(request: ServerRequest): ServerResponse {
+    fun upsert(request: ServerRequest): ServerResponse { // 👎🏼 This is struck with using FailFast strategy
         val user = request.body<User>()
-        val isEmailValid = RulesRunnerStrategy.failFast<ValidationError>().run {
-            emailRuleRunner(user.email)
-        }.fix()
+        val isEmailValid = validateEmail(user.email)
         return isEmailValid.fold(
-                { badRequest().body("$user email validation error: ${it.head}") },
-                {
+                { badRequest().body("$user email validation error: $it") },
+                {   
                     if (cityRepository.findFirstCityWith(user.city)) {
                         if (userRepository.findFirstUserWith(user.login)) {
                             userRepository.update(user)
@@ -41,6 +42,19 @@ class Handlers(private val userRepository: UserRepository,
                     }
                 }
         )
+    }
+
+    companion object Utils {
+        private fun validateEmail(email: String): Either<ValidationError, String> =
+                if (email.contains("@", false)) {
+                    if (email.length <= 250) {
+                        email.right()
+                    } else {
+                        ValidationError.MaxLength(250).left()
+                    }
+                } else {
+                    ValidationError.DoesNotContain("@").left()
+                }
     }
 
     fun upsertX(request: ServerRequest): ServerResponse {

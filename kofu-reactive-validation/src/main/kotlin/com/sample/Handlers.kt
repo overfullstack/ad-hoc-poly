@@ -1,6 +1,9 @@
 package com.sample
 
+import arrow.core.Either
 import arrow.core.fix
+import arrow.core.left
+import arrow.core.right
 import arrow.fx.reactor.ForMonoK
 import arrow.fx.reactor.fix
 import com.validation.*
@@ -18,19 +21,16 @@ class UserHandler(
         private val nonBlockingReactorRepo: RepoTC<ForMonoK>
 ) {
     fun listApi(request: ServerRequest) =
-            ok().contentType(MediaType.APPLICATION_JSON)
-                    .body(userRepository.findAll())
+            ok().contentType(MediaType.APPLICATION_JSON).body(userRepository.findAll())
 
-    fun upsert(request: ServerRequest) =
+    fun upsert(request: ServerRequest) = // 👎🏼 This is struck with using FailFast strategy 
             request.bodyToMono<User>()
                     .flatMap { user ->
-                        val isEmailValid = accumulateErrors<ValidationError>().run {
-                            emailRuleRunner(user.email)
-                        }.fix()
+                        val isEmailValid = validateEmail(user.email)
                         isEmailValid.fold(
-                                { badRequest().bodyValue("$user email validation error: ${it.head}") },
-                                {
-                                    cityRepository.findFirstCityWith(user.city)
+                                { badRequest().bodyValue("$user email validation errors: $it") },
+                                {  
+                                    cityRepository.findFirstCityWith(user.city) 
                                             .flatMap { cityExists ->
                                                 if (cityExists) {
                                                     userRepository.findFirstUserWith(user.login)
@@ -50,6 +50,20 @@ class UserHandler(
                                 }
                         )
                     }
+
+    companion object Utils { 
+        // 📝 Note: This logic is readily reusable by both services, as it has no effect association.
+        private fun validateEmail(email: String): Either<ValidationError, String> =
+                if (email.contains("@", false)) {
+                    if (email.length <= 250) {
+                        email.right()
+                    } else {
+                        ValidationError.MaxLength(250).left()
+                    }
+                } else {
+                    ValidationError.DoesNotContain("@").left()
+                }
+    }
 
     fun upsertX(request: ServerRequest) =
             request.bodyToMono<User>()
@@ -76,5 +90,4 @@ class UserHandler(
                             )
                         }
                     }
-
 }

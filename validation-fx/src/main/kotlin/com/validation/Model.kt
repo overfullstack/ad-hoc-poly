@@ -6,16 +6,14 @@ import org.springframework.data.annotation.Id
 data class User(
         @Id val login: String,
         val email: String,
-        val firstname: String,
-        val lastname: String,
+        val firstName: String,
+        val lastName: String,
         val city: String
 )
 
 data class City(
         @Id val name: String
 )
-
-data class Email(val value: String)
 
 sealed class ValidationError(val msg: String) {
     data class DoesNotContain(val value: String) : ValidationError("Did not contain $value")
