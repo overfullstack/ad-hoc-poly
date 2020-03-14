@@ -2,7 +2,8 @@ package com.sample
 
 import arrow.core.nel
 import com.validation.User
-import com.validation.ValidationError.*
+import com.validation.ValidationError.DoesNotContain
+import com.validation.ValidationError.UserCityInvalid
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
@@ -24,23 +25,23 @@ class IntegrationTests {
         context = app.run(profiles = "test")
     }
 
-	@Test
-	fun `Invalid Email - Does not Contain @`() {
-		val invalidEmail = "gakshintala-kt.com"
-		val reasons = DoesNotContain("@").nel()
-		client.post().uri("/api/upsert")
-				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-				.bodyValue(User("gakshintala", invalidEmail, "Gopal S", "Akshintala", "london"))
-				.exchange()
-				.expectStatus().isBadRequest
-				.expectBody<String>().isEqualTo("Cannot Upsert!!, reasons: $reasons")
-	}
+    @Test
+    fun `Invalid Email - Does not Contain @`() {
+        val invalidEmail = "gakshintala-kt.com"
+        val reasons = DoesNotContain("@").nel()
+        client.post().uri("/api/upsert")
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .bodyValue(User("gakshintala", invalidEmail, "Gopal S", "Akshintala", "london"))
+                .exchange()
+                .expectStatus().isBadRequest
+                .expectBody<String>().isEqualTo("Cannot Upsert!!, reasons: $reasons")
+    }
 
     @Test
     fun `Invalid City`() {
-		val invalidCity = "hyderabad"
-		val reasons = UserCityInvalid(invalidCity).nel()
-		client.post().uri("/api/upsert")
+        val invalidCity = "hyderabad"
+        val reasons = UserCityInvalid(invalidCity).nel()
+        client.post().uri("/api/upsert")
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .bodyValue(User("gakshintala", "gakshintala@kt.com", "Gopal S", "Akshintala", invalidCity))
                 .exchange()
@@ -48,27 +49,27 @@ class IntegrationTests {
                 .expectBody<String>().isEqualTo("Cannot Upsert!!, reasons: $reasons")
     }
 
-	@Test
-	fun `Valid User Update`() {
-		val validUserExistingLogin = User("smaldini", "smaldini2@kt.com", "Stéphane", "Maldini", "london")
-		client.post().uri("/api/upsert")
-				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-				.bodyValue(validUserExistingLogin)
-				.exchange()
-				.expectStatus().is2xxSuccessful
-				.expectBody<String>().isEqualTo("Updated!! $validUserExistingLogin")
-	}
+    @Test
+    fun `Valid User Update`() {
+        val validUserExistingLogin = User("smaldini", "smaldini2@kt.com", "Stéphane", "Maldini", "london")
+        client.post().uri("/api/upsert")
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .bodyValue(validUserExistingLogin)
+                .exchange()
+                .expectStatus().is2xxSuccessful
+                .expectBody<String>().isEqualTo("Updated!! $validUserExistingLogin")
+    }
 
-	@Test
-	fun `Valid User Insert`() {
-		val validUserNewLogin = User("gakshintala", "gakshintala@kt.com", "Gopal S", "Akshintala", "sydney")
-		client.post().uri("/api/upsert")
-				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-				.bodyValue(validUserNewLogin)
-				.exchange()
-				.expectStatus().is2xxSuccessful
-				.expectBody<String>().isEqualTo("Inserted!! $validUserNewLogin")
-	}
+    @Test
+    fun `Valid User Insert`() {
+        val validUserNewLogin = User("gakshintala", "gakshintala@kt.com", "Gopal S", "Akshintala", "sydney")
+        client.post().uri("/api/upsert")
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .bodyValue(validUserNewLogin)
+                .exchange()
+                .expectStatus().is2xxSuccessful
+                .expectBody<String>().isEqualTo("Inserted!! $validUserNewLogin")
+    }
 
     @AfterAll
     fun afterAll() {

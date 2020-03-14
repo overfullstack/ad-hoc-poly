@@ -9,19 +9,19 @@ import arrow.typeclasses.ApplicativeError
 /**
  * A generic rules class that abstracts over validation strategies
  */
-sealed class RulesRunnerStrategy<F, E>(A: ApplicativeError<F, Nel<E>>) : ApplicativeError<F, Nel<E>> by A {
+sealed class RuleRunnerStrategy<F, E>(A: ApplicativeError<F, Nel<E>>) : ApplicativeError<F, Nel<E>> by A {
 
     /**
      * Accumulates errors thanks to validated and non empty list
      */
     class ErrorAccumulationStrategy<E> :
-            RulesRunnerStrategy<ValidatedPartialOf<Nel<E>>, E>(Validated.applicativeError(NonEmptyList.semigroup()))
+            RuleRunnerStrategy<ValidatedPartialOf<Nel<E>>, E>(Validated.applicativeError(NonEmptyList.semigroup()))
 
     /**
      * Fails fast thanks to Either
      */
     class FailFastStrategy<E> :
-            RulesRunnerStrategy<EitherPartialOf<Nel<E>>, E>(Either.applicativeError())
+            RuleRunnerStrategy<EitherPartialOf<Nel<E>>, E>(Either.applicativeError())
 
     /**
      * DSL

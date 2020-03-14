@@ -15,19 +15,19 @@ interface RepoTC<F> : Async<F> {
     /**
      * ------------User Rules------------
      */
-    fun <S> RulesRunnerStrategy<S, ValidationError>.userCityShouldBeValid(user: User) = fx.async {
+    fun <S> RuleRunnerStrategy<S, ValidationError>.userCityShouldBeValid(user: User) = fx.async {
         val cityValid = user.isUserCityValid().bind()
         if (cityValid) this@userCityShouldBeValid.just(cityValid)
         else raiseError(UserCityInvalid(user.city).nel())
     }
 
-    fun <S> RulesRunnerStrategy<S, ValidationError>.userLoginShouldNotExit(user: User) = fx.async {
+    fun <S> RuleRunnerStrategy<S, ValidationError>.userLoginShouldNotExit(user: User) = fx.async {
         val userExists = user.doesUserLoginExist().bind()
         if (userExists) raiseError(UserLoginExits(user.login).nel())
         else this@userLoginShouldNotExit.just(userExists)
     }
 
-    fun <S> RulesRunnerStrategy<S, ValidationError>.userRuleRunner(user: User) = fx.async {
+    fun <S> RuleRunnerStrategy<S, ValidationError>.userRuleRunner(user: User) = fx.async {
         mapN(
                 emailRuleRunner(user.email),
                 !userCityShouldBeValid(user),

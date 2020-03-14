@@ -1,14 +1,14 @@
 package com.sample
 
 import org.junit.jupiter.api.AfterAll
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.getBean
 import org.springframework.boot.WebApplicationType
 import org.springframework.context.ConfigurableApplicationContext
 import org.springframework.fu.kofu.application
-import reactor.core.publisher.Mono
 
 class UserRepositoryTests {
 

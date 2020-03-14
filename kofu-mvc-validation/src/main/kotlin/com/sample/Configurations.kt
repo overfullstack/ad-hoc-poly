@@ -1,6 +1,5 @@
 package com.sample
 
-import arrow.Kind
 import arrow.fx.ForIO
 import arrow.fx.IO
 import arrow.fx.extensions.io.async.async

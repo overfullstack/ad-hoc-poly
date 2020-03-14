@@ -6,8 +6,10 @@ import arrow.core.left
 import arrow.core.right
 import arrow.fx.reactor.ForMonoK
 import arrow.fx.reactor.fix
-import com.validation.*
-import com.validation.RulesRunnerStrategy.Companion.accumulateErrors
+import com.validation.RepoTC
+import com.validation.RuleRunnerStrategy.Companion.accumulateErrors
+import com.validation.User
+import com.validation.ValidationError
 import org.springframework.http.MediaType
 import org.springframework.web.reactive.function.server.ServerRequest
 import org.springframework.web.reactive.function.server.ServerResponse.badRequest
@@ -29,8 +31,8 @@ class UserHandler(
                         val isEmailValid = validateEmail(user.email)
                         isEmailValid.fold(
                                 { badRequest().bodyValue("$user email validation errors: $it") },
-                                {  
-                                    cityRepository.findFirstCityWith(user.city) 
+                                {
+                                    cityRepository.findFirstCityWith(user.city)
                                             .flatMap { cityExists ->
                                                 if (cityExists) {
                                                     userRepository.findFirstUserWith(user.login)
@@ -51,7 +53,7 @@ class UserHandler(
                         )
                     }
 
-    companion object Utils { 
+    companion object Utils {
         // 📝 Note: This logic is readily reusable by both services, as it has no effect association.
         private fun validateEmail(email: String): Either<ValidationError, String> =
                 if (email.contains("@", false)) {

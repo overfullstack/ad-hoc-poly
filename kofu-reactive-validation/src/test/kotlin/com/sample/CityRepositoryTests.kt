@@ -4,11 +4,11 @@ import arrow.core.fix
 import arrow.fx.reactor.ForMonoK
 import arrow.fx.reactor.fix
 import com.validation.RepoTC
-import com.validation.RulesRunnerStrategy
+import com.validation.RuleRunnerStrategy
 import com.validation.User
 import com.validation.ValidationError
 import org.junit.jupiter.api.AfterAll
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.getBean
@@ -47,7 +47,7 @@ class CityRepositoryTests {
     fun userCityShouldBeValidForValidCity() {
         val validUser = User("smaldini", "smaldini@kt.com", "Stéphane", "Maldini", "london")
         val result = repo.run {
-            RulesRunnerStrategy.accumulateErrors<ValidationError>().run {
+            RuleRunnerStrategy.accumulateErrors<ValidationError>().run {
                 userCityShouldBeValid(validUser)
             }
         }.fix().mono.block()?.fix()
@@ -58,7 +58,7 @@ class CityRepositoryTests {
     fun userCityShouldBeValidForInValidCity() {
         val validUser = User("smaldini", "smaldini@kt.com", "Stéphane", "Maldini", "hyderabad")
         val result = repo.run {
-            RulesRunnerStrategy.accumulateErrors<ValidationError>().run {
+            RuleRunnerStrategy.accumulateErrors<ValidationError>().run {
                 userCityShouldBeValid(validUser)
             }
         }.fix().mono.block()?.fix()
@@ -69,7 +69,7 @@ class CityRepositoryTests {
     fun userRuleRunnerTest() {
         val validUser = User("gakshintala", "smaldini@kt.com", "Stéphane", "Maldini", "london")
         val result = repo.run {
-            RulesRunnerStrategy.accumulateErrors<ValidationError>().run {
+            RuleRunnerStrategy.accumulateErrors<ValidationError>().run {
                 userRuleRunner(validUser)
             }
         }.fix().mono.block()?.fix()

@@ -2,10 +2,9 @@ package com.sample
 
 import arrow.core.nel
 import com.validation.User
-import com.validation.ValidationError
-import com.validation.ValidationError.*
+import com.validation.ValidationError.DoesNotContain
+import com.validation.ValidationError.UserCityInvalid
 import org.junit.jupiter.api.AfterAll
-import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import org.springframework.context.ConfigurableApplicationContext

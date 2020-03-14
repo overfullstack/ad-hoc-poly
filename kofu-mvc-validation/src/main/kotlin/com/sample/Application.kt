@@ -5,16 +5,16 @@ import org.springframework.fu.kofu.application
 
 
 val app = application(WebApplicationType.SERVLET) {
-	beans {
-		bean<Handlers>()
-	}
-	enable(dataConfig)
-	enable(webConfig)
+    beans {
+        bean<Handlers>()
+    }
+    enable(dataConfig)
+    enable(webConfig)
 }
 
 
 fun main() {
-	app.run()
+    app.run()
 }
 
 
