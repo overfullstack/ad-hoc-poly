@@ -1,7 +1,6 @@
 /* gakshintala created on 3/3/20 */
 package com.sample
 
-import arrow.Kind
 import arrow.fx.reactor.ForMonoK
 import arrow.fx.reactor.MonoK
 import arrow.fx.reactor.extensions.monok.async.async
@@ -24,8 +23,8 @@ val dataConfig = configuration {
             object : RepoTC<ForMonoK>, Async<ForMonoK> by MonoK.async() {
                 override fun User.doesUserLoginExist() = forMono { ref<UserRepository>().findFirstUserWith(login) }.map { it!! }
                 override fun User.isUserCityValid() = forMono { ref<CityRepository>().findFirstCityWith(city) }.map { it!! }
-                override fun User.update() = forMono { ref<UserRepository>().update(this) }
-                override fun User.insert() = forMono { ref<UserRepository>().insert(this) }
+                override fun User.update() = forMono { ref<UserRepository>().update(this) }.map {}
+                override fun User.insert() = forMono { ref<UserRepository>().insert(this) }.map {}
             }
         }
     }

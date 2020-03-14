@@ -9,8 +9,8 @@ import com.validation.ValidationError.UserLoginExits
 interface RepoTC<F> : Async<F> {
     fun User.doesUserLoginExist(): Kind<F, Boolean>
     fun User.isUserCityValid(): Kind<F, Boolean>
-    fun User.update(): Kind<F, Any?>
-    fun User.insert(): Kind<F, Any?>
+    fun User.update(): Kind<F, Unit>
+    fun User.insert(): Kind<F, Unit>
 
     /**
      * ------------User Rules------------

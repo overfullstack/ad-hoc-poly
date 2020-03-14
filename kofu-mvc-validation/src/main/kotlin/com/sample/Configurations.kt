@@ -32,8 +32,8 @@ val dataConfig = configuration {
             object : RepoTC<ForIO>, Async<ForIO> by IO.async() {
                 override fun User.doesUserLoginExist() = forIO { ref<UserRepository>().findFirstUserWith(login) }.handleError { false }
                 override fun User.isUserCityValid() = forIO { ref<CityRepository>().findFirstCityWith(city) }.handleError { false }
-                override fun User.update() = forIO { ref<UserRepository>().update(this) }
-                override fun User.insert() = forIO { ref<UserRepository>().insert(this) }
+                override fun User.update() = forIO { ref<UserRepository>().update(this) }.map {}
+                override fun User.insert() = forIO { ref<UserRepository>().insert(this) }.map {}
             }
         }
     }
