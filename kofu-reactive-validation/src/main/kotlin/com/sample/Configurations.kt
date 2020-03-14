@@ -1,12 +1,14 @@
 /* gakshintala created on 3/3/20 */
 package com.sample
 
-import arrow.Kind
 import arrow.fx.reactor.ForMonoK
 import arrow.fx.reactor.MonoK
 import arrow.fx.reactor.extensions.monok.async.async
 import arrow.fx.reactor.extensions.monok.functor.void
 import com.validation.*
+import com.validation.typeclass.ErrorAccumulationStrategy
+import com.validation.typeclass.ForErrorAccumulation
+import com.validation.typeclass.Repo
 import org.springframework.boot.context.event.ApplicationReadyEvent
 import org.springframework.data.r2dbc.core.DatabaseClient
 import org.springframework.fu.kofu.configuration
@@ -17,10 +19,10 @@ val dataConfig = configuration {
     beans {
         bean<UserRepository>()
         bean<CityRepository>()
-        bean<RepoTC<ForMonoK, ForErrorAccumulation<ValidationError>>> {
-            object : RepoTC<ForMonoK, ForErrorAccumulation<ValidationError>> {
+        bean<Repo<ForMonoK, ForErrorAccumulation<ValidationError>>> {
+            object : Repo<ForMonoK, ForErrorAccumulation<ValidationError>> {
                 override val effect = MonoK.async()
-                override val strategy = ErrorAccumulationStrategy<ValidationError>()
+                override val ruleRunStrategy = ErrorAccumulationStrategy<ValidationError>()
                 
                 override fun User.doesUserLoginExist() = effect.forMono { ref<UserRepository>().findFirstUserWith(login) }.map { it!! }
                 override fun User.isUserCityValid() = effect.forMono { ref<CityRepository>().findFirstCityWith(city) }.map { it!! }

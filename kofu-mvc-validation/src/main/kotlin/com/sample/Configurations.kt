@@ -1,13 +1,14 @@
 package com.sample
 
-import arrow.Kind
 import arrow.fx.ForIO
 import arrow.fx.IO
 import arrow.fx.extensions.io.async.async
 import arrow.fx.extensions.io.functor.void
 import arrow.fx.handleError
-import arrow.fx.typeclasses.Async
 import com.validation.*
+import com.validation.typeclass.FailFastStrategy
+import com.validation.typeclass.ForFailFast
+import com.validation.typeclass.Repo
 import org.springframework.boot.context.event.ApplicationReadyEvent
 import org.springframework.boot.jdbc.DataSourceBuilder
 import org.springframework.fu.kofu.configuration
@@ -28,10 +29,10 @@ val dataConfig = configuration {
         bean<NamedParameterJdbcTemplate>()
         bean<UserRepository>()
         bean<CityRepository>()
-        bean<RepoTC<ForIO, ForFailFast<ValidationError>>> {
-            object : RepoTC<ForIO, ForFailFast<ValidationError>> {
+        bean<Repo<ForIO, ForFailFast<ValidationError>>> {
+            object : Repo<ForIO, ForFailFast<ValidationError>> {
                 override val effect = IO.async()
-                override val strategy = FailFastStrategy<ValidationError>()
+                override val ruleRunStrategy = FailFastStrategy<ValidationError>()
 
                 override fun User.doesUserLoginExist() = effect.forIO { ref<UserRepository>().findFirstUserWith(login) }.handleError { false }
                 override fun User.isUserCityValid() = effect.forIO { ref<CityRepository>().findFirstCityWith(city) }.handleError { false }

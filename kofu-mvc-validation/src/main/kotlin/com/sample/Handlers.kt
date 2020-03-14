@@ -1,13 +1,17 @@
 package com.sample
 
-import arrow.core.*
+import arrow.core.Either
+import arrow.core.fix
+import arrow.core.left
+import arrow.core.right
 import arrow.fx.ForIO
 import arrow.fx.fix
-import com.validation.ForFailFast
-import com.validation.RepoTC
 import com.validation.User
 import com.validation.ValidationError
 import com.validation.ValidationError.UserLoginExits
+import com.validation.rules.validateWithRules
+import com.validation.typeclass.ForFailFast
+import com.validation.typeclass.Repo
 import org.springframework.http.MediaType
 import org.springframework.web.servlet.function.ServerRequest
 import org.springframework.web.servlet.function.ServerResponse
@@ -17,7 +21,7 @@ import org.springframework.web.servlet.function.body
 
 class Handlers(private val userRepository: UserRepository,
                private val cityRepository: CityRepository,
-               private val blockingRepo: RepoTC<ForIO, ForFailFast<ValidationError>>
+               private val blockingRepo: Repo<ForIO, ForFailFast<ValidationError>>
 ) {
     fun listApi(request: ServerRequest): ServerResponse {
         return ok().contentType(MediaType.APPLICATION_JSON).body(userRepository.findAll())
@@ -59,22 +63,21 @@ class Handlers(private val userRepository: UserRepository,
 
     fun upsertX(request: ServerRequest): ServerResponse {
         val user = request.body<User>()
-        return blockingRepo.run {
-            user.userRuleRunner().fix().unsafeRunSync()
-        }.fix().fold(
-                { reasons ->
-                    when (reasons.head) {
-                        UserLoginExits(user.login) -> {
-                            userRepository.update(user)
-                            ok().body("Updated!! $user")
+        return blockingRepo.validateWithRules(user).fix().unsafeRunSync()
+                .fix().fold(
+                        { reasons ->
+                            when (reasons.head) {
+                                UserLoginExits(user.login) -> {
+                                    userRepository.update(user)
+                                    ok().body("Updated!! $user")
+                                }
+                                else -> badRequest().body("Cannot Upsert!!, reasons: $reasons")
+                            }
+                        },
+                        {
+                            userRepository.insert(user)
+                            ok().body("Inserted!! $user")
                         }
-                        else -> badRequest().body("Cannot Upsert!!, reasons: $reasons")
-                    }
-                },
-                {
-                    userRepository.insert(user)
-                    ok().body("Inserted!! $user")
-                }
-        )
+                )
     }
 }
