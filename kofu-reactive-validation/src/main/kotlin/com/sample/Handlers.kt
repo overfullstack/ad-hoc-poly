@@ -6,10 +6,7 @@ import arrow.core.left
 import arrow.core.right
 import arrow.fx.reactor.ForMonoK
 import arrow.fx.reactor.fix
-import com.validation.RepoTC
-import com.validation.RuleRunnerStrategy
-import com.validation.User
-import com.validation.ValidationError
+import com.validation.*
 import org.springframework.http.MediaType
 import org.springframework.web.reactive.function.server.ServerRequest
 import org.springframework.web.reactive.function.server.ServerResponse.badRequest
@@ -71,7 +68,7 @@ class UserHandler(
             request.bodyToMono<User>()
                     .flatMap { user ->
                         nonBlockingReactorRepo.run {
-                            RuleRunnerStrategy.ErrorAccumulationStrategy<ValidationError>().run {
+                            ErrorAccumulationStrategy<ValidationError>().run {
                                 userRuleRunner(user).fix().mono
                             }
                         }.flatMap {

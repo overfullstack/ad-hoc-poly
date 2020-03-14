@@ -6,10 +6,7 @@ import arrow.core.left
 import arrow.core.right
 import arrow.fx.ForIO
 import arrow.fx.fix
-import com.validation.RepoTC
-import com.validation.RuleRunnerStrategy
-import com.validation.User
-import com.validation.ValidationError
+import com.validation.*
 import com.validation.ValidationError.UserLoginExits
 import org.springframework.http.MediaType
 import org.springframework.web.servlet.function.ServerRequest
@@ -63,7 +60,7 @@ class Handlers(private val userRepository: UserRepository,
     fun upsertX(request: ServerRequest): ServerResponse {
         val user = request.body<User>()
         return blockingRepo.run {
-            RuleRunnerStrategy.FailFastStrategy<ValidationError>().run {
+            FailFastStrategy<ValidationError>().run {
                 userRuleRunner(user).fix().unsafeRunSync()
             }
         }.fix().fold(

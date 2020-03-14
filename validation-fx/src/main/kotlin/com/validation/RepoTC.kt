@@ -32,9 +32,7 @@ interface RepoTC<F> : Async<F> {
                 emailRuleRunner(user.email),
                 !userCityShouldBeValid(user),
                 !userLoginShouldNotExit(user)
-        ) {
-            user
-        }.handleErrorWith { raiseError(it) }
+        ) {}.handleErrorWith { raiseError(it) }
     }
 
 }
