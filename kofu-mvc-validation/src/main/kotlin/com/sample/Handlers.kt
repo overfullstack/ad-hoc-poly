@@ -63,7 +63,7 @@ class Handlers(private val userRepository: UserRepository,
     fun upsertX(request: ServerRequest): ServerResponse {
         val user = request.body<User>()
         return blockingRepo.run {
-            RuleRunnerStrategy.failFast<ValidationError>().run {
+            RuleRunnerStrategy.FailFastStrategy<ValidationError>().run {
                 userRuleRunner(user).fix().unsafeRunSync()
             }
         }.fix().fold(

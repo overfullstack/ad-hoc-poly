@@ -47,7 +47,7 @@ class CityRepositoryTests {
     fun userCityShouldBeValidForValidCity() {
         val validUser = User("smaldini", "smaldini@kt.com", "Stéphane", "Maldini", "london")
         val result = repo.run {
-            RuleRunnerStrategy.accumulateErrors<ValidationError>().run {
+            RuleRunnerStrategy.ErrorAccumulationStrategy<ValidationError>().run {
                 userCityShouldBeValid(validUser)
             }
         }.fix().mono.block()?.fix()
@@ -58,7 +58,7 @@ class CityRepositoryTests {
     fun userCityShouldBeValidForInValidCity() {
         val validUser = User("smaldini", "smaldini@kt.com", "Stéphane", "Maldini", "hyderabad")
         val result = repo.run {
-            RuleRunnerStrategy.accumulateErrors<ValidationError>().run {
+            RuleRunnerStrategy.ErrorAccumulationStrategy<ValidationError>().run {
                 userCityShouldBeValid(validUser)
             }
         }.fix().mono.block()?.fix()
@@ -69,7 +69,7 @@ class CityRepositoryTests {
     fun userRuleRunnerTest() {
         val validUser = User("gakshintala", "smaldini@kt.com", "Stéphane", "Maldini", "london")
         val result = repo.run {
-            RuleRunnerStrategy.accumulateErrors<ValidationError>().run {
+            RuleRunnerStrategy.ErrorAccumulationStrategy<ValidationError>().run {
                 userRuleRunner(validUser)
             }
         }.fix().mono.block()?.fix()

@@ -22,12 +22,5 @@ sealed class RuleRunnerStrategy<F, E>(A: ApplicativeError<F, Nel<E>>) : Applicat
      */
     class FailFastStrategy<E> :
             RuleRunnerStrategy<EitherPartialOf<Nel<E>>, E>(Either.applicativeError())
-
-    /**
-     * DSL
-     */
-    companion object {
-        fun <E> failFast(): FailFastStrategy<E> = FailFastStrategy()
-        fun <E> accumulateErrors(): ErrorAccumulationStrategy<E> = ErrorAccumulationStrategy()
-    }
+    
 }
