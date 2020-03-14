@@ -7,15 +7,13 @@ plugins {
 }
 
 val arrowSnapshotVersion = "0.10.5-SNAPSHOT"
-val arrowVersion = "0.10.4"
 
 dependencies {
     implementation("org.springframework.fu:spring-fu-kofu:0.3.0.M1")
     implementation("org.springframework.boot:spring-boot-starter-webflux")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    implementation("am.ik.yavi:yavi:0.2.0")
 
-    implementation("org.springframework.data:spring-data-r2dbc:1.0.0.RC1")
+    implementation("org.springframework.data:spring-data-r2dbc:1.0.0.RELEASE")
     implementation("io.r2dbc:r2dbc-h2:0.8.2.RELEASE")
 
     implementation("io.arrow-kt:arrow-core:$arrowSnapshotVersion")

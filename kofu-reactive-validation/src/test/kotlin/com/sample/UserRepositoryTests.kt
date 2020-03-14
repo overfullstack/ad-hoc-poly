@@ -1,8 +1,7 @@
 package com.sample
 
 import org.junit.jupiter.api.AfterAll
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.getBean
@@ -37,7 +36,7 @@ class UserRepositoryTests {
 
     @Test
     fun userLoginInValid() {
-        assertTrue(repository.findFirstUserWith("gakshintala").block()!!)
+        assertFalse(repository.findFirstUserWith("gakshintala").block()!!)
     }
 
     @AfterAll

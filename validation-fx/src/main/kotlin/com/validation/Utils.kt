@@ -1,10 +1,12 @@
 /* gakshintala created on 3/8/20 */
 package com.validation
 
+import arrow.fx.extensions.IOAsync
+import arrow.fx.reactor.extensions.MonoKAsync
+import arrow.fx.reactor.fix
 import arrow.fx.reactor.k
-import arrow.fx.typeclasses.Async
 import reactor.core.publisher.Mono
 
-fun <R, F> Async<F>.forMono(thunk: suspend () -> Mono<R>) = effect { thunk().k().suspended() }
-fun <R, F> Async<F>.forIO(thunk: suspend () -> R) = effect { thunk() }
+fun <R> MonoKAsync.forMono(thunk: suspend () -> Mono<R>) = effect { thunk().k().suspended() }.fix()
+fun <R> IOAsync.forIO(thunk: suspend () -> R) = effect { thunk() }
 

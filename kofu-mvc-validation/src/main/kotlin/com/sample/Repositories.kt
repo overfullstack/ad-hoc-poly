@@ -23,11 +23,11 @@ class UserRepository(private val client: NamedParameterJdbcTemplate) {
             client.execute("DELETE FROM users") {}
 
     fun update(user: User) =
-            client.update("UPDATE users SET  firstname = :firstname, lastname = :lastname WHERE login = :login",
+            client.update("UPDATE users SET  firstName = :firstName, lastName = :lastName WHERE login = :login",
                     BeanPropertySqlParameterSource(user))
 
     fun insert(user: User) =
-            client.update("INSERT INTO users (login, firstname, lastname) VALUES (:login, :firstname, :lastname)",
+            client.update("INSERT INTO users (login, firstName, lastName) VALUES (:login, :firstName, :lastName)",
                     BeanPropertySqlParameterSource(user))
 }
 
@@ -47,7 +47,7 @@ class CityRepository(private val client: NamedParameterJdbcTemplate) {
     fun deleteAll() =
             client.execute("DELETE FROM city") {}
 
-    fun save(city: City) =
+    fun insert(city: City) =
             client.update("INSERT INTO city (name) VALUES (:name)",
                     BeanPropertySqlParameterSource(city))
 }

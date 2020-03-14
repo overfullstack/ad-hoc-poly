@@ -5,8 +5,8 @@ Content-Type: application/json
 {
   "login": "gakshintala",
   "email": "gakshin@kt.com",
-  "firstname": "gopal",
-  "lastname": "sarma",
+  "firstName": "gopal",
+  "lastName": "sarma",
   "city": "hyd"
 }
 

@@ -1,12 +1,12 @@
 package com.sample
 
-import arrow.core.Either
-import arrow.core.fix
-import arrow.core.left
-import arrow.core.right
+import arrow.core.*
 import arrow.fx.ForIO
 import arrow.fx.fix
-import com.validation.*
+import com.validation.ForFailFast
+import com.validation.RepoTC
+import com.validation.User
+import com.validation.ValidationError
 import com.validation.ValidationError.UserLoginExits
 import org.springframework.http.MediaType
 import org.springframework.web.servlet.function.ServerRequest
@@ -17,7 +17,7 @@ import org.springframework.web.servlet.function.body
 
 class Handlers(private val userRepository: UserRepository,
                private val cityRepository: CityRepository,
-               private val blockingRepo: RepoTC<ForIO>
+               private val blockingRepo: RepoTC<ForIO, ForFailFast<ValidationError>>
 ) {
     fun listApi(request: ServerRequest): ServerResponse {
         return ok().contentType(MediaType.APPLICATION_JSON).body(userRepository.findAll())
@@ -60,9 +60,7 @@ class Handlers(private val userRepository: UserRepository,
     fun upsertX(request: ServerRequest): ServerResponse {
         val user = request.body<User>()
         return blockingRepo.run {
-            FailFastStrategy<ValidationError>().run {
-                userRuleRunner(user).fix().unsafeRunSync()
-            }
+            user.userRuleRunner().fix().unsafeRunSync()
         }.fix().fold(
                 { reasons ->
                     when (reasons.head) {

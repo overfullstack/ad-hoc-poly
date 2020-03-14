@@ -1,13 +1,13 @@
 package com.sample
 
+import arrow.Kind
 import arrow.fx.ForIO
 import arrow.fx.IO
 import arrow.fx.extensions.io.async.async
+import arrow.fx.extensions.io.functor.void
+import arrow.fx.handleError
 import arrow.fx.typeclasses.Async
-import com.validation.City
-import com.validation.RepoTC
-import com.validation.User
-import com.validation.forIO
+import com.validation.*
 import org.springframework.boot.context.event.ApplicationReadyEvent
 import org.springframework.boot.jdbc.DataSourceBuilder
 import org.springframework.fu.kofu.configuration
@@ -28,12 +28,15 @@ val dataConfig = configuration {
         bean<NamedParameterJdbcTemplate>()
         bean<UserRepository>()
         bean<CityRepository>()
-        bean<RepoTC<ForIO>> {
-            object : RepoTC<ForIO>, Async<ForIO> by IO.async() {
-                override fun User.doesUserLoginExist() = forIO { ref<UserRepository>().findFirstUserWith(login) }.handleError { false }
-                override fun User.isUserCityValid() = forIO { ref<CityRepository>().findFirstCityWith(city) }.handleError { false }
-                override fun User.update() = forIO { ref<UserRepository>().update(this) }.map {}
-                override fun User.insert() = forIO { ref<UserRepository>().insert(this) }.map {}
+        bean<RepoTC<ForIO, ForFailFast<ValidationError>>> {
+            object : RepoTC<ForIO, ForFailFast<ValidationError>> {
+                override val effect = IO.async()
+                override val strategy = FailFastStrategy<ValidationError>()
+
+                override fun User.doesUserLoginExist() = effect.forIO { ref<UserRepository>().findFirstUserWith(login) }.handleError { false }
+                override fun User.isUserCityValid() = effect.forIO { ref<CityRepository>().findFirstCityWith(city) }.handleError { false }
+                override fun User.update() = effect.forIO { ref<UserRepository>().update(this) }.void()
+                override fun User.insert() = effect.forIO { ref<UserRepository>().insert(this) }.void()
             }
         }
     }
@@ -62,7 +65,7 @@ fun init(
         userRepository: UserRepository,
         cityRepository: CityRepository
 ) {
-    val createUsers = "CREATE TABLE IF NOT EXISTS users (login varchar PRIMARY KEY, email varchar, firstname varchar, lastname varchar, city varchar);"
+    val createUsers = "CREATE TABLE IF NOT EXISTS users (login varchar PRIMARY KEY, email varchar, firstName varchar, lastName varchar, city varchar);"
     val createCity = "CREATE TABLE IF NOT EXISTS city (name varchar PRIMARY KEY);"
     client.execute(createUsers + createCity)
     { ps -> ps.execute() }
@@ -73,7 +76,7 @@ fun init(
     userRepository.insert(User("bclozel", "bclozel@kt.com", "Brian", "Clozel", "istanbul"))
 
     cityRepository.deleteAll()
-    cityRepository.save(City("london"))
-    cityRepository.save(City("sydney"))
-    cityRepository.save(City("istanbul"))
+    cityRepository.insert(City("london"))
+    cityRepository.insert(City("sydney"))
+    cityRepository.insert(City("istanbul"))
 }

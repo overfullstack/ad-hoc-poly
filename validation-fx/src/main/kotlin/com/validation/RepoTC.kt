@@ -6,7 +6,10 @@ import arrow.fx.typeclasses.Async
 import com.validation.ValidationError.UserCityInvalid
 import com.validation.ValidationError.UserLoginExits
 
-interface RepoTC<F> : Async<F> {
+interface RepoTC<F, S> {
+    val effect: Async<F>
+    val strategy: RuleRunnerStrategy<S, ValidationError>
+    
     fun User.doesUserLoginExist(): Kind<F, Boolean>
     fun User.isUserCityValid(): Kind<F, Boolean>
     fun User.update(): Kind<F, Unit>
@@ -15,24 +18,26 @@ interface RepoTC<F> : Async<F> {
     /**
      * ------------User Rules------------
      */
-    fun <S> RuleRunnerStrategy<S, ValidationError>.userCityShouldBeValid(user: User) = fx.async {
-        val cityValid = user.isUserCityValid().bind()
-        if (cityValid) this@userCityShouldBeValid.just(cityValid)
-        else raiseError(UserCityInvalid(user.city).nel())
+    private fun User.userCityShouldBeValid() = effect.fx.async {
+        val cityValid = isUserCityValid().bind()
+        if (cityValid) strategy.just(cityValid)
+        else strategy.raiseError(UserCityInvalid(city).nel())
     }
 
-    fun <S> RuleRunnerStrategy<S, ValidationError>.userLoginShouldNotExit(user: User) = fx.async {
-        val userExists = user.doesUserLoginExist().bind()
-        if (userExists) raiseError(UserLoginExits(user.login).nel())
-        else this@userLoginShouldNotExit.just(userExists)
+    private fun User.userLoginShouldNotExit() = effect.fx.async {
+        val userExists = doesUserLoginExist().bind()
+        if (userExists) strategy.raiseError(UserLoginExits(login).nel())
+        else strategy.just(userExists)
     }
 
-    fun <S> RuleRunnerStrategy<S, ValidationError>.userRuleRunner(user: User) = fx.async {
-        mapN(
-                emailRuleRunner(user.email),
-                !userCityShouldBeValid(user),
-                !userLoginShouldNotExit(user)
-        ) {}.handleErrorWith { raiseError(it) }
+    fun User.userRuleRunner() = effect.fx.async {
+        strategy.run {
+            mapN(
+                    emailRuleRunner(email),
+                    !userCityShouldBeValid(),
+                    !userLoginShouldNotExit()
+            ) {}.handleErrorWith { raiseError(it) }
+        }
     }
 
 }

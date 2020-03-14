@@ -52,7 +52,7 @@ class CityRepository(private val client: DatabaseClient) {
     fun deleteAll() =
             client.execute("DELETE FROM city").fetch().one().then()
 
-    fun save(city: City) =
+    fun insert(city: City) =
             client.insert().into<City>().table("city").using(city).then()
 }
 

@@ -1,9 +1,6 @@
 package com.sample
 
-import arrow.core.Either
-import arrow.core.fix
-import arrow.core.left
-import arrow.core.right
+import arrow.core.*
 import arrow.fx.reactor.ForMonoK
 import arrow.fx.reactor.fix
 import com.validation.*
@@ -17,7 +14,7 @@ import org.springframework.web.reactive.function.server.bodyToMono
 class UserHandler(
         private val userRepository: UserRepository,
         private val cityRepository: CityRepository,
-        private val nonBlockingReactorRepo: RepoTC<ForMonoK>
+        private val nonBlockingReactorRepo: RepoTC<ForMonoK, ForErrorAccumulation<ValidationError>>
 ) {
     fun listApi(request: ServerRequest) =
             ok().contentType(MediaType.APPLICATION_JSON).body(userRepository.findAll())
@@ -68,9 +65,7 @@ class UserHandler(
             request.bodyToMono<User>()
                     .flatMap { user ->
                         nonBlockingReactorRepo.run {
-                            ErrorAccumulationStrategy<ValidationError>().run {
-                                userRuleRunner(user).fix().mono
-                            }
+                            user.userRuleRunner().fix().mono
                         }.flatMap {
                             it.fix().fold(
                                     { reasons ->

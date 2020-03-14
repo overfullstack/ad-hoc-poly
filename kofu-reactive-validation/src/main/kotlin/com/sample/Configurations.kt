@@ -1,14 +1,12 @@
 /* gakshintala created on 3/3/20 */
 package com.sample
 
+import arrow.Kind
 import arrow.fx.reactor.ForMonoK
 import arrow.fx.reactor.MonoK
 import arrow.fx.reactor.extensions.monok.async.async
-import arrow.fx.typeclasses.Async
-import com.validation.City
-import com.validation.RepoTC
-import com.validation.User
-import com.validation.forMono
+import arrow.fx.reactor.extensions.monok.functor.void
+import com.validation.*
 import org.springframework.boot.context.event.ApplicationReadyEvent
 import org.springframework.data.r2dbc.core.DatabaseClient
 import org.springframework.fu.kofu.configuration
@@ -19,12 +17,15 @@ val dataConfig = configuration {
     beans {
         bean<UserRepository>()
         bean<CityRepository>()
-        bean<RepoTC<ForMonoK>> {
-            object : RepoTC<ForMonoK>, Async<ForMonoK> by MonoK.async() {
-                override fun User.doesUserLoginExist() = forMono { ref<UserRepository>().findFirstUserWith(login) }.map { it!! }
-                override fun User.isUserCityValid() = forMono { ref<CityRepository>().findFirstCityWith(city) }.map { it!! }
-                override fun User.update() = forMono { ref<UserRepository>().update(this) }.map {}
-                override fun User.insert() = forMono { ref<UserRepository>().insert(this) }.map {}
+        bean<RepoTC<ForMonoK, ForErrorAccumulation<ValidationError>>> {
+            object : RepoTC<ForMonoK, ForErrorAccumulation<ValidationError>> {
+                override val effect = MonoK.async()
+                override val strategy = ErrorAccumulationStrategy<ValidationError>()
+                
+                override fun User.doesUserLoginExist() = effect.forMono { ref<UserRepository>().findFirstUserWith(login) }.map { it!! }
+                override fun User.isUserCityValid() = effect.forMono { ref<CityRepository>().findFirstCityWith(city) }.map { it!! }
+                override fun User.update() = effect.forMono { ref<UserRepository>().update(this) }.void()
+                override fun User.insert() = effect.forMono { ref<UserRepository>().insert(this) }.void()
             }
         }
     }
@@ -53,7 +54,7 @@ fun init(client: DatabaseClient,
          userRepository: UserRepository,
          cityRepository: CityRepository
 ) {
-    val createUsers = "CREATE TABLE IF NOT EXISTS users (login varchar PRIMARY KEY, email varchar, firstname varchar, lastname varchar, city varchar);"
+    val createUsers = "CREATE TABLE IF NOT EXISTS users (login varchar PRIMARY KEY, email varchar, first_name varchar, last_name varchar, city varchar);"
     val createCity = "CREATE TABLE IF NOT EXISTS city (name varchar PRIMARY KEY);"
     client.execute(createUsers).then()
             .then(userRepository.deleteAll())
@@ -64,8 +65,8 @@ fun init(client: DatabaseClient,
 
     client.execute(createCity).then()
             .then(cityRepository.deleteAll())
-            .then(cityRepository.save(City("london")))
-            .then(cityRepository.save(City("sydney")))
-            .then(cityRepository.save(City("istanbul")))
+            .then(cityRepository.insert(City("london")))
+            .then(cityRepository.insert(City("sydney")))
+            .then(cityRepository.insert(City("istanbul")))
             .block()
 }
