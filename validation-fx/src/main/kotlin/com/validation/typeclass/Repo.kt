@@ -1,11 +1,13 @@
 package com.validation.typeclass
 
 import arrow.Kind
+import arrow.Kind2
 import arrow.core.Either
 import arrow.core.Nel
 import arrow.core.left
 import arrow.core.right
 import arrow.fx.typeclasses.Async
+import arrow.typeclasses.Bifunctor
 import com.validation.User
 import com.validation.ValidationError
 
@@ -28,6 +30,10 @@ interface Repo<F> : Async<F> {
         "Inserted!! $this"
     }
 
+    fun <S> User.upsert(BF: Bifunctor<S>, result: Kind2<S, Nel<ValidationError>, Unit>) =
+            BF.run {
+                result.bimap(toLeft(), toRight())
+            }
 }
 
 

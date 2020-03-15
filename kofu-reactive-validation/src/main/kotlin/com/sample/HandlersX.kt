@@ -19,7 +19,12 @@ class HandlersX(private val nonBlockingReactorValidator: EffectValidator<ForMono
                     .flatMap { user ->
                         nonBlockingReactorValidator.run {
                             validateWithRules(user).fix().mono
-                                    .map { repo.run { it.fix().bimap(user.toLeft(), user.toRight()) } }
+                                    .map {
+                                        repo.run {
+                                            // Migrate it to use `upsert` when `ValidatedFoldable` is introduced
+                                            it.fix().bimap(user.toLeft(), user.toRight())  
+                                        }
+                                    }
                                     .flatMap { result ->
                                         result.fold(
                                                 { it.fold(badRequest()::bodyValue, ok()::bodyValue) },

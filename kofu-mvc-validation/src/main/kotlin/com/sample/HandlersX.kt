@@ -1,5 +1,7 @@
 package com.sample
 
+import arrow.core.Either
+import arrow.core.extensions.either.bifunctor.bifunctor
 import arrow.core.fix
 import arrow.fx.ForIO
 import arrow.fx.fix
@@ -18,12 +20,14 @@ class HandlersX(private val blockingValidator: EffectValidator<ForIO, ForFailFas
     fun upsertX(request: ServerRequest): ServerResponse {
         val user = request.body<User>()
         return blockingValidator.run {
-            val result = validateWithRules(user).fix().unsafeRunSync().fix()
-            repo.run { result.bimap(user.toLeft(), user.toRight()) }
-                    .fold(
-                            { it.fold(badRequest()::body, ok()::body) },
-                            ok()::body
-                    )
+            val result = validateWithRules(user).fix().unsafeRunSync()
+            repo.run {
+                user.upsert(Either.bifunctor(), result).fix()
+            }.fold(
+                    { it.fold(badRequest()::body, ok()::body) },
+                    ok()::body
+            )
+
         }
     }
 }
