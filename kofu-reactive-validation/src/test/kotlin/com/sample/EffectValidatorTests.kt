@@ -26,18 +26,18 @@ class EffectValidatorTests {
     }
 
     private lateinit var context: ConfigurableApplicationContext
-    private lateinit var effectValidator: EffectValidator<ForMonoK, ValidatedPartialOf<Nel<ValidationError>>, ValidationError>
+    private lateinit var effectFailFastValidator: EffectValidator<ForMonoK, ValidatedPartialOf<Nel<ValidationError>>, ValidationError>
 
     @BeforeAll
     fun beforeAll() {
         context = dataApp.run(profiles = "test")
-        effectValidator = context.getBean()
+        effectFailFastValidator = context.getBean()
     }
 
     @Test
     fun `Rule Runner on Valid user`() {
         val validUser = User("gakshintala", "smaldini@kt.com", "Stéphane", "Maldini", "london")
-        val result = effectValidator.validateWithRules(validUser).fix().mono.block()?.fix()
+        val result = effectFailFastValidator.validateWithRules(validUser).fix().mono.block()?.fix()
         assertTrue(result?.isValid ?: false)
     }
 

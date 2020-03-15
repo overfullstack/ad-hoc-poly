@@ -13,15 +13,15 @@ import org.springframework.web.reactive.function.server.ServerResponse.badReques
 import org.springframework.web.reactive.function.server.ServerResponse.ok
 import org.springframework.web.reactive.function.server.bodyToMono
 
-class HandlersX(private val nonBlockingReactorValidator: EffectValidator<ForMonoK, ForErrorAccumulation<ValidationError>, ValidationError>) {
+class HandlersX(private val nonBlockingReactorEAValidator: EffectValidator<ForMonoK, ForErrorAccumulation<ValidationError>, ValidationError>) {
     fun upsertX(request: ServerRequest) =
             request.bodyToMono<User>()
                     .flatMap { user ->
-                        nonBlockingReactorValidator.run {
+                        nonBlockingReactorEAValidator.run {
                             validateWithRules(user).fix().mono
                                     .map {
                                         repo.run {
-                                            // Migrate it to use `upsert` when `ValidatedFoldable` is introduced
+                                            // Migrate it to use `upsert` when `ValidatedBiFunctor` is introduced
                                             it.fix().bimap(user.toLeft(), user.toRight())  
                                         }
                                     }

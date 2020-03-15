@@ -27,7 +27,6 @@ class HandlersX(private val blockingValidator: EffectValidator<ForIO, ForFailFas
                     { it.fold(badRequest()::body, ok()::body) },
                     ok()::body
             )
-
         }
     }
 }

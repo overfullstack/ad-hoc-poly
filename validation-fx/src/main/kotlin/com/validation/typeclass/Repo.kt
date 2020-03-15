@@ -31,9 +31,7 @@ interface Repo<F> : Async<F> {
     }
 
     fun <S> User.upsert(BF: Bifunctor<S>, result: Kind2<S, Nel<ValidationError>, Unit>) =
-            BF.run {
-                result.bimap(toLeft(), toRight())
-            }
+            BF.run { result.bimap(toLeft(), toRight()) }
 }
 
 

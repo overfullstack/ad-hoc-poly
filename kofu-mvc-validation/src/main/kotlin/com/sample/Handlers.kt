@@ -1,10 +1,11 @@
 package com.sample
 
-import arrow.core.Either
-import arrow.core.left
-import arrow.core.right
+import arrow.core.*
 import com.validation.User
 import com.validation.ValidationError
+import com.validation.rules.validateEmailWithRules
+import com.validation.typeclass.errorAccumulation
+import com.validation.typeclass.failFast
 import org.springframework.http.MediaType
 import org.springframework.web.servlet.function.ServerRequest
 import org.springframework.web.servlet.function.ServerResponse
@@ -26,8 +27,8 @@ class Handlers(
         return isEmailValid.fold(
                 { badRequest().body("$user email validation error: $it") },
                 {
-                    if (cityRepository.findFirstCityWith(user.city)) {
-                        if (userRepository.findFirstUserWith(user.login)) {
+                    if (cityRepository.doesCityExistsWith(user.city)) {
+                        if (userRepository.doesUserExitsWith(user.login)) {
                             userRepository.update(user)
                             ok().body("Updated!! $user")
                         } else {
@@ -51,6 +52,27 @@ class Handlers(
                     }
                 } else {
                     ValidationError.DoesNotContain("@").left()
+                }
+
+        private fun validateEmailFailFastX(email: String): Either<NonEmptyList<ValidationError>, Unit> =
+                failFast<ValidationError>().run {
+                    validateEmailWithRules(email).fix()
+                }
+
+        private fun validateEmailErrorAccumulation(email: String): Either<MutableList<ValidationError>, Unit> {
+            val errorList = mutableListOf<ValidationError>()
+            if (!email.contains("@", false)) {
+                errorList.add(ValidationError.DoesNotContain("@"))
+            }
+            if (email.length > 250) {
+                errorList.add(ValidationError.MaxLength(250))
+            }
+            return if (errorList.isNotEmpty()) errorList.left() else Unit.right()
+        }
+
+        private fun validateEmailErrorAccumulationX(email: String): Validated<NonEmptyList<ValidationError>, Unit> =
+                errorAccumulation<ValidationError>().run {
+                    validateEmailWithRules(email).fix()
                 }
     }
 }

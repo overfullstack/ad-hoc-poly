@@ -9,10 +9,7 @@ import com.validation.City
 import com.validation.User
 import com.validation.ValidationError
 import com.validation.forIO
-import com.validation.typeclass.EffectValidator
-import com.validation.typeclass.FailFast
-import com.validation.typeclass.ForFailFast
-import com.validation.typeclass.Repo
+import com.validation.typeclass.*
 import org.springframework.boot.context.event.ApplicationReadyEvent
 import org.springframework.boot.jdbc.DataSourceBuilder
 import org.springframework.fu.kofu.configuration
@@ -35,17 +32,17 @@ val dataConfig = configuration {
         bean<CityRepository>()
         bean<Repo<ForIO>> {
             object : Repo<ForIO>, Async<ForIO> by IO.async() {
-                override fun User.update() = forIO { ref<com.sample.UserRepository>().update(this) }.void()
+                override fun User.update() = forIO { ref<UserRepository>().update(this) }.void()
                 override fun User.insert() = forIO { ref<UserRepository>().insert(this) }.void()
             }
         }
         bean<EffectValidator<ForIO, ForFailFast<ValidationError>, ValidationError>> {
             object : EffectValidator<ForIO, ForFailFast<ValidationError>, ValidationError> {
                 override val repo = ref<Repo<ForIO>>()
-                override val simpleValidator = FailFast<ValidationError>()
+                override val validator = failFast<ValidationError>()
 
-                override fun User.doesUserLoginExist() = repo.forIO { ref<UserRepository>().findFirstUserWith(login) }.handleError { false }
-                override fun User.isUserCityValid() = repo.forIO { ref<CityRepository>().findFirstCityWith(city) }.handleError { false }
+                override fun User.doesUserLoginExist() = repo.forIO { ref<UserRepository>().doesUserExitsWith(login) }.handleError { false }
+                override fun User.isUserCityValid() = repo.forIO { ref<CityRepository>().doesCityExistsWith(city) }.handleError { false }
             }
         }
         bean {

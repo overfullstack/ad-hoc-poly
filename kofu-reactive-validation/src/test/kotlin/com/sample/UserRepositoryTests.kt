@@ -31,12 +31,12 @@ class UserRepositoryTests {
 
     @Test
     fun userLoginValid() {
-        assertTrue(repository.findFirstUserWith("smaldini").block()!!)
+        assertTrue(repository.doesUserExistsWith("smaldini").block()!!)
     }
 
     @Test
     fun userLoginInValid() {
-        assertFalse(repository.findFirstUserWith("gakshintala").block()!!)
+        assertFalse(repository.doesUserExistsWith("gakshintala").block()!!)
     }
 
     @AfterAll

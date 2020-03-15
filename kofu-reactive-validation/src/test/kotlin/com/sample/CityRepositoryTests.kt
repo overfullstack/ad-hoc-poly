@@ -27,12 +27,12 @@ class CityRepositoryTests {
 
     @Test
     fun cityNameValid() {
-        assertTrue(repository.findFirstCityWith("istanbul").block()!!)
+        assertTrue(repository.doesCityExistsWith("istanbul").block()!!)
     }
 
     @Test
     fun cityNameInValid() {
-        assertFalse(repository.findFirstCityWith("hyderabad").block()!!)
+        assertFalse(repository.doesCityExistsWith("hyderabad").block()!!)
     }
 
     @AfterAll

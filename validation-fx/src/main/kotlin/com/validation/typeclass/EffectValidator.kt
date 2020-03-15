@@ -6,7 +6,7 @@ import com.validation.User
 
 interface EffectValidator<F, S, E> {
     val repo: Repo<F>
-    val simpleValidator: SimpleValidator<S, E>
+    val validator: Validator<S, E>
 
     fun User.doesUserLoginExist(): Kind<F, Boolean>
     fun User.isUserCityValid(): Kind<F, Boolean>

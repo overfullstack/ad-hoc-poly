@@ -1,10 +1,11 @@
 package com.sample
 
-import arrow.core.Either
-import arrow.core.left
-import arrow.core.right
+import arrow.core.*
 import com.validation.User
 import com.validation.ValidationError
+import com.validation.rules.validateEmailWithRules
+import com.validation.typeclass.errorAccumulation
+import com.validation.typeclass.failFast
 import org.springframework.http.MediaType
 import org.springframework.web.reactive.function.server.ServerRequest
 import org.springframework.web.reactive.function.server.ServerResponse.badRequest
@@ -22,14 +23,14 @@ class Handlers(
     fun upsert(request: ServerRequest) = // 👎🏼 This is struck with using FailFast strategy 
             request.bodyToMono<User>()
                     .flatMap { user ->
-                        val isEmailValid = validateEmail(user.email)
+                        val isEmailValid = validateEmailFailFast(user.email)
                         isEmailValid.fold(
                                 { badRequest().bodyValue("$user email validation errors: $it") },
                                 {
-                                    cityRepository.findFirstCityWith(user.city)
+                                    cityRepository.doesCityExistsWith(user.city)
                                             .flatMap { cityExists ->
                                                 if (cityExists) {
-                                                    userRepository.findFirstUserWith(user.login)
+                                                    userRepository.doesUserExistsWith(user.login)
                                                             .flatMap { userExists ->
                                                                 if (userExists) {
                                                                     userRepository.update(user)
@@ -48,16 +49,37 @@ class Handlers(
                     }
 
     companion object Utils {
-        // 📝 Note: This logic is readily reusable by both services, as it has no effect association.
-        private fun validateEmail(email: String): Either<ValidationError, String> =
+        private fun validateEmailFailFast(email: String): Either<ValidationError, Unit> =
                 if (email.contains("@", false)) {
                     if (email.length <= 250) {
-                        email.right()
+                        Unit.right()
                     } else {
                         ValidationError.MaxLength(250).left()
                     }
                 } else {
                     ValidationError.DoesNotContain("@").left()
                 }
+
+        private fun validateEmailFailFastX(email: String): Either<NonEmptyList<ValidationError>, Unit> =
+                failFast<ValidationError>().run { 
+                    validateEmailWithRules(email).fix()
+                }
+
+        private fun validateEmailErrorAccumulation(email: String): Either<MutableList<ValidationError>, Unit> {
+            val errorList = mutableListOf<ValidationError>()
+            if (!email.contains("@", false)) {
+                errorList.add(ValidationError.DoesNotContain("@"))
+            }
+            if (email.length > 250) {
+                errorList.add(ValidationError.MaxLength(250))
+            }
+            return if (errorList.isNotEmpty()) errorList.left() else Unit.right()
+        }
+
+        private fun validateEmailErrorAccumulationX(email: String): Validated<NonEmptyList<ValidationError>, Unit> =
+                errorAccumulation<ValidationError>().run {
+                    validateEmailWithRules(email).fix()
+                }
+        
     }
 }
