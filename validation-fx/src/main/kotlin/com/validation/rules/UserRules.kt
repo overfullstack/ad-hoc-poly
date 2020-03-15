@@ -1,28 +1,29 @@
 package com.validation.rules
 
 import arrow.core.nel
-import com.validation.typeclass.Repo
 import com.validation.User
+import com.validation.ValidationError
 import com.validation.ValidationError.UserCityInvalid
 import com.validation.ValidationError.UserLoginExits
+import com.validation.typeclass.EffectValidator
 
 /**
  * ------------User Rules------------
  */
-private fun <F, S> Repo<F, S>.userCityShouldBeValid(user: User) = effect.fx.async {
+private fun <F, S> EffectValidator<F, S, ValidationError>.userCityShouldBeValid(user: User) = repo.fx.async {
     val cityValid = user.isUserCityValid().bind()
-    if (cityValid) ruleRunStrategy.just(cityValid)
-    else ruleRunStrategy.raiseError(UserCityInvalid(user.city).nel())
+    if (cityValid) simpleValidator.just(cityValid)
+    else simpleValidator.raiseError(UserCityInvalid(user.city).nel())
 }
 
-private fun <F, S> Repo<F, S>.userLoginShouldNotExit(user: User) = effect.fx.async {
+private fun <F, S> EffectValidator<F, S, ValidationError>.userLoginShouldNotExit(user: User) = repo.fx.async {
     val userExists = user.doesUserLoginExist().bind()
-    if (userExists) ruleRunStrategy.raiseError(UserLoginExits(user.login).nel())
-    else ruleRunStrategy.just(userExists)
+    if (userExists) simpleValidator.raiseError(UserLoginExits(user.login).nel())
+    else simpleValidator.just(userExists)
 }
 
-fun <F, S> Repo<F, S>.validateWithRules(user: User) = effect.fx.async {
-    ruleRunStrategy.run {
+fun <F, S> EffectValidator<F, S, ValidationError>.validateWithRules(user: User) = repo.fx.async {
+    simpleValidator.run {
         mapN(
                 validateEmailWithRules(user.email),
                 !userCityShouldBeValid(user),

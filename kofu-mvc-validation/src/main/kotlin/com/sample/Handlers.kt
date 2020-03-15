@@ -8,10 +8,9 @@ import arrow.fx.ForIO
 import arrow.fx.fix
 import com.validation.User
 import com.validation.ValidationError
-import com.validation.ValidationError.UserLoginExits
 import com.validation.rules.validateWithRules
+import com.validation.typeclass.EffectValidator
 import com.validation.typeclass.ForFailFast
-import com.validation.typeclass.Repo
 import org.springframework.http.MediaType
 import org.springframework.web.servlet.function.ServerRequest
 import org.springframework.web.servlet.function.ServerResponse
@@ -21,7 +20,7 @@ import org.springframework.web.servlet.function.body
 
 class Handlers(private val userRepository: UserRepository,
                private val cityRepository: CityRepository,
-               private val blockingRepo: Repo<ForIO, ForFailFast<ValidationError>>
+               private val blockingValidator: EffectValidator<ForIO, ForFailFast<ValidationError>, ValidationError>
 ) {
     fun listApi(request: ServerRequest): ServerResponse {
         return ok().contentType(MediaType.APPLICATION_JSON).body(userRepository.findAll())
@@ -63,21 +62,13 @@ class Handlers(private val userRepository: UserRepository,
 
     fun upsertX(request: ServerRequest): ServerResponse {
         val user = request.body<User>()
-        return blockingRepo.validateWithRules(user).fix().unsafeRunSync()
-                .fix().fold(
-                        { reasons ->
-                            when (reasons.head) {
-                                UserLoginExits(user.login) -> {
-                                    userRepository.update(user)
-                                    ok().body("Updated!! $user")
-                                }
-                                else -> badRequest().body("Cannot Upsert!!, reasons: $reasons")
-                            }
-                        },
-                        {
-                            userRepository.insert(user)
-                            ok().body("Inserted!! $user")
-                        }
-                )
+        return blockingValidator.run {
+            val result = validateWithRules(user).fix().unsafeRunSync().fix()
+            repo.run { result.bimap(user.toLeft(), user.toRight()) }
+                    .fold(
+                            { it.fold(badRequest()::body, ok()::body) },
+                            ok()::body
+                    )
+        }
     }
 }

@@ -12,16 +12,16 @@ typealias ForErrorAccumulation<E> = ValidatedPartialOf<Nel<E>>
 /**
  * A generic rules class that abstracts over validation strategies
  */
-interface RuleRunStrategy<F, E> : ApplicativeError<F, Nel<E>>
+interface SimpleValidator<F, E> : ApplicativeError<F, Nel<E>>
 
 /**
  * Fails fast with `Either`.
  */
-class FailFastStrategy<E> : RuleRunStrategy<ForFailFast<E>, E>,
+class FailFast<E> : SimpleValidator<ForFailFast<E>, E>,
         ApplicativeError<ForFailFast<E>, Nel<E>> by Either.applicativeError()
 
 /**
  * Accumulates errors with `Validated` and `NonEmptyList`.
  */
-class ErrorAccumulationStrategy<E> : RuleRunStrategy<ForErrorAccumulation<E>, E>,
+class ErrorAccumulation<E> : SimpleValidator<ForErrorAccumulation<E>, E>,
         ApplicativeError<ForErrorAccumulation<E>, Nel<E>> by Validated.applicativeError(NonEmptyList.semigroup())

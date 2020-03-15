@@ -3,10 +3,14 @@ package com.sample
 import arrow.fx.ForIO
 import arrow.fx.IO
 import arrow.fx.extensions.io.async.async
-import arrow.fx.extensions.io.functor.void
 import arrow.fx.handleError
-import com.validation.*
-import com.validation.typeclass.FailFastStrategy
+import arrow.fx.typeclasses.Async
+import com.validation.City
+import com.validation.User
+import com.validation.ValidationError
+import com.validation.forIO
+import com.validation.typeclass.EffectValidator
+import com.validation.typeclass.FailFast
 import com.validation.typeclass.ForFailFast
 import com.validation.typeclass.Repo
 import org.springframework.boot.context.event.ApplicationReadyEvent
@@ -29,15 +33,19 @@ val dataConfig = configuration {
         bean<NamedParameterJdbcTemplate>()
         bean<UserRepository>()
         bean<CityRepository>()
-        bean<Repo<ForIO, ForFailFast<ValidationError>>> {
-            object : Repo<ForIO, ForFailFast<ValidationError>> {
-                override val effect = IO.async()
-                override val ruleRunStrategy = FailFastStrategy<ValidationError>()
+        bean<Repo<ForIO>> {
+            object : Repo<ForIO>, Async<ForIO> by IO.async() {
+                override fun User.update() = forIO { ref<com.sample.UserRepository>().update(this) }.void()
+                override fun User.insert() = forIO { ref<UserRepository>().insert(this) }.void()
+            }
+        }
+        bean<EffectValidator<ForIO, ForFailFast<ValidationError>, ValidationError>> {
+            object : EffectValidator<ForIO, ForFailFast<ValidationError>, ValidationError> {
+                override val repo = ref<Repo<ForIO>>()
+                override val simpleValidator = FailFast<ValidationError>()
 
-                override fun User.doesUserLoginExist() = effect.forIO { ref<UserRepository>().findFirstUserWith(login) }.handleError { false }
-                override fun User.isUserCityValid() = effect.forIO { ref<CityRepository>().findFirstCityWith(city) }.handleError { false }
-                override fun User.update() = effect.forIO { ref<UserRepository>().update(this) }.void()
-                override fun User.insert() = effect.forIO { ref<UserRepository>().insert(this) }.void()
+                override fun User.doesUserLoginExist() = repo.forIO { ref<UserRepository>().findFirstUserWith(login) }.handleError { false }
+                override fun User.isUserCityValid() = repo.forIO { ref<CityRepository>().findFirstCityWith(city) }.handleError { false }
             }
         }
     }

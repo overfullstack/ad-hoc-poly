@@ -4,9 +4,13 @@ package com.sample
 import arrow.fx.reactor.ForMonoK
 import arrow.fx.reactor.MonoK
 import arrow.fx.reactor.extensions.monok.async.async
-import arrow.fx.reactor.extensions.monok.functor.void
-import com.validation.*
-import com.validation.typeclass.ErrorAccumulationStrategy
+import arrow.fx.typeclasses.Async
+import com.validation.City
+import com.validation.User
+import com.validation.ValidationError
+import com.validation.forMono
+import com.validation.typeclass.EffectValidator
+import com.validation.typeclass.ErrorAccumulation
 import com.validation.typeclass.ForErrorAccumulation
 import com.validation.typeclass.Repo
 import org.springframework.boot.context.event.ApplicationReadyEvent
@@ -19,15 +23,19 @@ val dataConfig = configuration {
     beans {
         bean<UserRepository>()
         bean<CityRepository>()
-        bean<Repo<ForMonoK, ForErrorAccumulation<ValidationError>>> {
-            object : Repo<ForMonoK, ForErrorAccumulation<ValidationError>> {
-                override val effect = MonoK.async()
-                override val ruleRunStrategy = ErrorAccumulationStrategy<ValidationError>()
-                
-                override fun User.doesUserLoginExist() = effect.forMono { ref<UserRepository>().findFirstUserWith(login) }.map { it!! }
-                override fun User.isUserCityValid() = effect.forMono { ref<CityRepository>().findFirstCityWith(city) }.map { it!! }
-                override fun User.update() = effect.forMono { ref<UserRepository>().update(this) }.void()
-                override fun User.insert() = effect.forMono { ref<UserRepository>().insert(this) }.void()
+        bean<Repo<ForMonoK>> {
+            object : Repo<ForMonoK>, Async<ForMonoK> by MonoK.async() {
+                override fun User.update() = forMono { ref<com.sample.UserRepository>().update(this) }.void()
+                override fun User.insert() = forMono { ref<UserRepository>().insert(this) }.void()
+            }
+        }
+        bean<EffectValidator<ForMonoK, ForErrorAccumulation<ValidationError>, ValidationError>> {
+            object : EffectValidator<ForMonoK, ForErrorAccumulation<ValidationError>, ValidationError> {
+                override val repo = ref<Repo<ForMonoK>>()
+                override val simpleValidator = ErrorAccumulation<ValidationError>()
+
+                override fun User.doesUserLoginExist() = repo.forMono { ref<UserRepository>().findFirstUserWith(login) }.map { it!! }
+                override fun User.isUserCityValid() = repo.forMono { ref<CityRepository>().findFirstCityWith(city) }.map { it!! }
             }
         }
     }

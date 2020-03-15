@@ -9,8 +9,8 @@ import arrow.fx.reactor.fix
 import com.validation.User
 import com.validation.ValidationError
 import com.validation.rules.validateWithRules
+import com.validation.typeclass.EffectValidator
 import com.validation.typeclass.ForErrorAccumulation
-import com.validation.typeclass.Repo
 import org.springframework.http.MediaType
 import org.springframework.web.reactive.function.server.ServerRequest
 import org.springframework.web.reactive.function.server.ServerResponse.badRequest
@@ -21,7 +21,7 @@ import org.springframework.web.reactive.function.server.bodyToMono
 class UserHandler(
         private val userRepository: UserRepository,
         private val cityRepository: CityRepository,
-        private val nonBlockingReactorRepo: Repo<ForMonoK, ForErrorAccumulation<ValidationError>>
+        private val nonBlockingReactorValidator: EffectValidator<ForMonoK, ForErrorAccumulation<ValidationError>, ValidationError>
 ) {
     fun listApi(request: ServerRequest) =
             ok().contentType(MediaType.APPLICATION_JSON).body(userRepository.findAll())
@@ -71,23 +71,15 @@ class UserHandler(
     fun upsertX(request: ServerRequest) =
             request.bodyToMono<User>()
                     .flatMap { user ->
-                        nonBlockingReactorRepo.validateWithRules(user).fix().mono
-                                .flatMap {
-                                    it.fix().fold(
-                                            { reasons ->
-                                                when (reasons.head) {
-                                                    ValidationError.UserLoginExits(user.login) -> {
-                                                        userRepository.update(user)
-                                                        ok().bodyValue("Updated!! $user")
-                                                    }
-                                                    else -> badRequest().bodyValue("Cannot Upsert!!, reasons: $reasons")
-                                                }
-                                            },
-                                            {
-                                                userRepository.insert(user)
-                                                ok().bodyValue("Inserted!! $user")
-                                            }
-                                    )
-                                }
+                        nonBlockingReactorValidator.run {
+                            validateWithRules(user).fix().mono
+                                    .map { repo.run { it.fix().bimap(user.toLeft(), user.toRight()) } }
+                                    .flatMap { result -> 
+                                        result.fold(
+                                                { it.fold(badRequest()::bodyValue, ok()::bodyValue) }, 
+                                                ok()::bodyValue
+                                        )
+                                    }
+                        }
                     }
 }

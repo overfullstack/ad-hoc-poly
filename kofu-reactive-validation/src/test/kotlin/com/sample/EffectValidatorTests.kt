@@ -9,7 +9,7 @@ import arrow.fx.reactor.fix
 import com.validation.User
 import com.validation.ValidationError
 import com.validation.rules.validateWithRules
-import com.validation.typeclass.Repo
+import com.validation.typeclass.EffectValidator
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeAll
@@ -19,25 +19,25 @@ import org.springframework.boot.WebApplicationType
 import org.springframework.context.ConfigurableApplicationContext
 import org.springframework.fu.kofu.application
 
-class RepoTests {
+class EffectValidatorTests {
 
     private val dataApp = application(WebApplicationType.NONE) {
         enable(dataConfig)
     }
 
     private lateinit var context: ConfigurableApplicationContext
-    private lateinit var repo: Repo<ForMonoK, ValidatedPartialOf<Nel<ValidationError>>>
+    private lateinit var effectValidator: EffectValidator<ForMonoK, ValidatedPartialOf<Nel<ValidationError>>, ValidationError>
 
     @BeforeAll
     fun beforeAll() {
         context = dataApp.run(profiles = "test")
-        repo = context.getBean()
+        effectValidator = context.getBean()
     }
 
     @Test
     fun `Rule Runner on Valid user`() {
         val validUser = User("gakshintala", "smaldini@kt.com", "Stéphane", "Maldini", "london")
-        val result = repo.validateWithRules(validUser).fix().mono.block()?.fix()
+        val result = effectValidator.validateWithRules(validUser).fix().mono.block()?.fix()
         assertTrue(result?.isValid ?: false)
     }
 
