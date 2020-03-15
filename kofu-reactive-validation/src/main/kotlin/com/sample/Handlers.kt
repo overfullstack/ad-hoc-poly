@@ -1,16 +1,10 @@
 package com.sample
 
 import arrow.core.Either
-import arrow.core.fix
 import arrow.core.left
 import arrow.core.right
-import arrow.fx.reactor.ForMonoK
-import arrow.fx.reactor.fix
 import com.validation.User
 import com.validation.ValidationError
-import com.validation.rules.validateWithRules
-import com.validation.typeclass.EffectValidator
-import com.validation.typeclass.ForErrorAccumulation
 import org.springframework.http.MediaType
 import org.springframework.web.reactive.function.server.ServerRequest
 import org.springframework.web.reactive.function.server.ServerResponse.badRequest
@@ -18,10 +12,9 @@ import org.springframework.web.reactive.function.server.ServerResponse.ok
 import org.springframework.web.reactive.function.server.body
 import org.springframework.web.reactive.function.server.bodyToMono
 
-class UserHandler(
+class Handlers(
         private val userRepository: UserRepository,
-        private val cityRepository: CityRepository,
-        private val nonBlockingReactorValidator: EffectValidator<ForMonoK, ForErrorAccumulation<ValidationError>, ValidationError>
+        private val cityRepository: CityRepository
 ) {
     fun listApi(request: ServerRequest) =
             ok().contentType(MediaType.APPLICATION_JSON).body(userRepository.findAll())
@@ -67,19 +60,4 @@ class UserHandler(
                     ValidationError.DoesNotContain("@").left()
                 }
     }
-
-    fun upsertX(request: ServerRequest) =
-            request.bodyToMono<User>()
-                    .flatMap { user ->
-                        nonBlockingReactorValidator.run {
-                            validateWithRules(user).fix().mono
-                                    .map { repo.run { it.fix().bimap(user.toLeft(), user.toRight()) } }
-                                    .flatMap { result -> 
-                                        result.fold(
-                                                { it.fold(badRequest()::bodyValue, ok()::bodyValue) }, 
-                                                ok()::bodyValue
-                                        )
-                                    }
-                        }
-                    }
 }

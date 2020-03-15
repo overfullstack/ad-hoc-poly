@@ -48,6 +48,9 @@ val dataConfig = configuration {
                 override fun User.isUserCityValid() = repo.forIO { ref<CityRepository>().findFirstCityWith(city) }.handleError { false }
             }
         }
+        bean {
+            HandlersX(ref())
+        }
     }
     listener<ApplicationReadyEvent> {
         init(ref(), ref(), ref())
@@ -58,9 +61,10 @@ val webConfig = configuration {
     webMvc {
         port = if (profiles.contains("test")) 8181 else 8080
         router {
-            val handler = ref<Handlers>()
-            POST("/api/upsert", handler::upsertX)
-            GET("/api/user/all", handler::listApi)
+            val handlers = ref<Handlers>()
+            val handlersX = ref<HandlersX>()
+            POST("/api/upsert", handlersX::upsertX)
+            GET("/api/user/all", handlers::listApi)
         }
         converters {
             string()

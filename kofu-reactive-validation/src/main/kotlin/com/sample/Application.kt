@@ -5,7 +5,7 @@ import org.springframework.fu.kofu.application
 
 val app = application(WebApplicationType.REACTIVE) {
     beans {
-        bean<UserHandler>()
+        bean<Handlers>()
     }
     enable(dataConfig)
     enable(webFlux)

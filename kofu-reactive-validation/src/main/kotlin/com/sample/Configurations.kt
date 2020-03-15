@@ -38,6 +38,9 @@ val dataConfig = configuration {
                 override fun User.isUserCityValid() = repo.forMono { ref<CityRepository>().findFirstCityWith(city) }.map { it!! }
             }
         }
+        bean {
+            HandlersX(ref())
+        }
     }
     listener<ApplicationReadyEvent> {
         init(ref(), ref(), ref())
@@ -49,9 +52,10 @@ val webFlux = configuration {
     webFlux {
         port = if (profiles.contains("test")) 8181 else 8080
         router {
-            val handler = ref<UserHandler>()
-            POST("/api/upsert", handler::upsertX)
-            GET("/api/user/all", handler::listApi)
+            val handlers = ref<Handlers>()
+            val handlersX = ref<HandlersX>()
+            POST("/api/upsert", handlersX::upsertX)
+            GET("/api/user/all", handlers::listApi)
         }
         codecs {
             string()
