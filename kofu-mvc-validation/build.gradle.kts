@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.jetbrains.kotlin.jvm") version "1.3.50"
+    id("org.jetbrains.kotlin.jvm") version "1.3.70"
     id("io.spring.dependency-management") version "1.0.9.RELEASE"
     id("org.springframework.boot") version "2.3.0.M1"
 }
@@ -10,6 +10,7 @@ val arrowSnapshotVersion = "0.10.5-SNAPSHOT"
 val arrowVersion = "0.10.4"
 
 dependencies {
+    implementation(kotlin("stdlib-jdk8"))
     implementation("org.springframework.fu:spring-fu-kofu:0.3.0.M1")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-data-jdbc")

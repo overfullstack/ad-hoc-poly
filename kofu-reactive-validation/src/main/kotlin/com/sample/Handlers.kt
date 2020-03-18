@@ -1,6 +1,9 @@
 package com.sample
 
-import arrow.core.*
+import arrow.core.Either
+import arrow.core.fix
+import arrow.core.left
+import arrow.core.right
 import com.validation.User
 import com.validation.ValidationError
 import com.validation.rules.validateEmailWithRules
@@ -60,8 +63,8 @@ class Handlers(
                     ValidationError.DoesNotContain("@").left()
                 }
 
-        private fun validateEmailFailFastX(email: String): Either<NonEmptyList<ValidationError>, Unit> =
-                failFast<ValidationError>().run { 
+        private fun validateEmailFailFastX(email: String) =
+                failFast<ValidationError>().run {
                     validateEmailWithRules(email).fix()
                 }
 
@@ -76,10 +79,10 @@ class Handlers(
             return if (errorList.isNotEmpty()) errorList.left() else Unit.right()
         }
 
-        private fun validateEmailErrorAccumulationX(email: String): Validated<NonEmptyList<ValidationError>, Unit> =
+        private fun validateEmailErrorAccumulationX(email: String) =
                 errorAccumulation<ValidationError>().run {
                     validateEmailWithRules(email).fix()
                 }
-        
+
     }
 }

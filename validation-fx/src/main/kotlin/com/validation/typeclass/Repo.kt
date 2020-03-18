@@ -15,6 +15,9 @@ interface Repo<F> : Async<F> {
     fun User.update(): Kind<F, Unit>
     fun User.insert(): Kind<F, Unit>
 
+    fun User.doesUserLoginExist(): Kind<F, Boolean>
+    fun User.isUserCityValid(): Kind<F, Boolean>
+
     fun User.toLeft(): (Nel<ValidationError>) -> Either<String, String> = { reasons ->
         when (reasons.head) {
             ValidationError.UserLoginExits(login) -> {
@@ -25,12 +28,12 @@ interface Repo<F> : Async<F> {
         }
     }
 
-    fun User.toRight(): (Unit) -> String = {
+    fun User.toRight(): (Any) -> String = {
         this.insert()
         "Inserted!! $this"
     }
 
-    fun <S> User.upsert(BF: Bifunctor<S>, result: Kind2<S, Nel<ValidationError>, Unit>) =
+    fun <S> User.upsert(BF: Bifunctor<S>, result: Kind2<S, Nel<ValidationError>, Any>) =
             BF.run { result.bimap(toLeft(), toRight()) }
 }
 

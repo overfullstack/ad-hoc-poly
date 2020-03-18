@@ -3,13 +3,14 @@ package com.sample
 import arrow.fx.ForIO
 import arrow.fx.IO
 import arrow.fx.extensions.io.async.async
-import arrow.fx.handleError
 import arrow.fx.typeclasses.Async
 import com.validation.City
 import com.validation.User
 import com.validation.ValidationError
-import com.validation.forIO
-import com.validation.typeclass.*
+import com.validation.typeclass.EffectValidator
+import com.validation.typeclass.ForFailFast
+import com.validation.typeclass.Repo
+import com.validation.typeclass.failFast
 import org.springframework.boot.context.event.ApplicationReadyEvent
 import org.springframework.boot.jdbc.DataSourceBuilder
 import org.springframework.fu.kofu.configuration
@@ -32,17 +33,17 @@ val dataConfig = configuration {
         bean<CityRepository>()
         bean<Repo<ForIO>> {
             object : Repo<ForIO>, Async<ForIO> by IO.async() {
-                override fun User.update() = forIO { ref<UserRepository>().update(this) }.void()
-                override fun User.insert() = forIO { ref<UserRepository>().insert(this) }.void()
+                override fun User.update() = effect { ref<UserRepository>().update(this) }.void()
+                override fun User.insert() = effect { ref<UserRepository>().insert(this) }.void()
+
+                override fun User.doesUserLoginExist() = effect { ref<UserRepository>().doesUserExitsWith(login) }.handleError { false }
+                override fun User.isUserCityValid() = effect { ref<CityRepository>().doesCityExistsWith(city) }.handleError { false }
             }
         }
         bean<EffectValidator<ForIO, ForFailFast<ValidationError>, ValidationError>> {
             object : EffectValidator<ForIO, ForFailFast<ValidationError>, ValidationError> {
                 override val repo = ref<Repo<ForIO>>()
-                override val validator = failFast<ValidationError>()
-
-                override fun User.doesUserLoginExist() = repo.forIO { ref<UserRepository>().doesUserExitsWith(login) }.handleError { false }
-                override fun User.isUserCityValid() = repo.forIO { ref<CityRepository>().doesCityExistsWith(city) }.handleError { false }
+                override val validatorAE = failFast<ValidationError>()
             }
         }
         bean {

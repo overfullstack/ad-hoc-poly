@@ -10,29 +10,33 @@ import com.validation.typeclass.EffectValidator
 /**
  * ------------User Rules------------
  */
-private fun <F, S> EffectValidator<F, S, ValidationError>.userCityShouldBeValid(user: User) = repo.run {
+private fun <F, S> EffectValidator<F, S, ValidationError>.cityShouldBeValid(user: User) = repo.run {
     fx.async {
-        val cityValid = user.isUserCityValid().bind()
-        if (cityValid) validator.just(cityValid)
-        else validator.raiseError(UserCityInvalid(user.city).nel())
+        validatorAE.run {
+            val cityValid = user.isUserCityValid().bind()
+            if (cityValid) just(cityValid)
+            else raiseError(UserCityInvalid(user.city).nel())
+        }
     }
 }
 
-private fun <F, S> EffectValidator<F, S, ValidationError>.userLoginShouldNotExit(user: User) = repo.run {
+private fun <F, S> EffectValidator<F, S, ValidationError>.loginShouldNotExit(user: User) = repo.run {
     fx.async {
-        val userExists = user.doesUserLoginExist().bind()
-        if (userExists) validator.raiseError(UserLoginExits(user.login).nel())
-        else validator.just(userExists)
+        validatorAE.run {
+            val loginExists = user.doesUserLoginExist().bind()
+            if (loginExists) raiseError(UserLoginExits(user.login).nel())
+            else just(loginExists)
+        }
     }
 }
 
-fun <F, S> EffectValidator<F, S, ValidationError>.validateWithRules(user: User) = repo.run {
+fun <F, S> EffectValidator<F, S, ValidationError>.validateUserWithRules(user: User) = repo.run {
     fx.async {
-        validator.run {
-            mapN(
+        validatorAE.run {
+            mapN( // 🚩 This has a bug, order of validation is not from left to right. Waiting for bug fix.
                     validateEmailWithRules(user.email),
-                    !userCityShouldBeValid(user),
-                    !userLoginShouldNotExit(user)
+                    cityShouldBeValid(user).bind(),
+                    loginShouldNotExit(user).bind()
             ) {}.handleErrorWith { raiseError(it) }
         }
     }

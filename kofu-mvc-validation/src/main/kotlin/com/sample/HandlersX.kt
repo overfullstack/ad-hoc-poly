@@ -7,7 +7,7 @@ import arrow.fx.ForIO
 import arrow.fx.fix
 import com.validation.User
 import com.validation.ValidationError
-import com.validation.rules.validateWithRules
+import com.validation.rules.validateUserWithRules
 import com.validation.typeclass.EffectValidator
 import com.validation.typeclass.ForFailFast
 import org.springframework.web.servlet.function.ServerRequest
@@ -20,7 +20,7 @@ class HandlersX(private val blockingValidator: EffectValidator<ForIO, ForFailFas
     fun upsertX(request: ServerRequest): ServerResponse {
         val user = request.body<User>()
         return blockingValidator.run {
-            val result = validateWithRules(user).fix().unsafeRunSync()
+            val result = validateUserWithRules(user).fix().unsafeRunSync()
             repo.run {
                 user.upsert(Either.bifunctor(), result).fix()
             }.fold(

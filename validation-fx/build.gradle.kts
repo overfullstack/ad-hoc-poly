@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.jetbrains.kotlin.jvm") version "1.3.50"
+    id("org.jetbrains.kotlin.jvm") version "1.3.70"
     id("io.spring.dependency-management") version "1.0.9.RELEASE"
 }
 
@@ -9,6 +9,7 @@ val arrowSnapshotVersion = "0.10.5-SNAPSHOT"
 val arrowVersion = "0.10.4"
 
 dependencies {
+    implementation(kotlin("stdlib-jdk8"))
     implementation("io.r2dbc:r2dbc-h2")
     implementation("org.springframework.data:spring-data-r2dbc:1.0.0.RC1")
 

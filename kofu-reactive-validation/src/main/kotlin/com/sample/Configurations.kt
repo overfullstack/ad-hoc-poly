@@ -4,12 +4,15 @@ package com.sample
 import arrow.fx.reactor.ForMonoK
 import arrow.fx.reactor.MonoK
 import arrow.fx.reactor.extensions.monok.async.async
+import arrow.fx.reactor.k
 import arrow.fx.typeclasses.Async
 import com.validation.City
 import com.validation.User
 import com.validation.ValidationError
-import com.validation.forMono
-import com.validation.typeclass.*
+import com.validation.typeclass.EffectValidator
+import com.validation.typeclass.ForErrorAccumulation
+import com.validation.typeclass.Repo
+import com.validation.typeclass.errorAccumulation
 import org.springframework.boot.context.event.ApplicationReadyEvent
 import org.springframework.data.r2dbc.core.DatabaseClient
 import org.springframework.fu.kofu.configuration
@@ -22,17 +25,17 @@ val dataConfig = configuration {
         bean<CityRepository>()
         bean<Repo<ForMonoK>> {
             object : Repo<ForMonoK>, Async<ForMonoK> by MonoK.async() {
-                override fun User.update() = forMono { ref<UserRepository>().update(this) }.void()
-                override fun User.insert() = forMono { ref<UserRepository>().insert(this) }.void()
+                override fun User.update() = ref<UserRepository>().update(this).k().void()
+                override fun User.insert() = ref<UserRepository>().insert(this).k().void()
+
+                override fun User.doesUserLoginExist() = ref<UserRepository>().doesUserExistsWith(login).k().map { it!! }
+                override fun User.isUserCityValid() = ref<CityRepository>().doesCityExistsWith(city).k().map { it!! }
             }
         }
         bean<EffectValidator<ForMonoK, ForErrorAccumulation<ValidationError>, ValidationError>> {
             object : EffectValidator<ForMonoK, ForErrorAccumulation<ValidationError>, ValidationError> {
                 override val repo = ref<Repo<ForMonoK>>()
-                override val validator = errorAccumulation<ValidationError>()
-
-                override fun User.doesUserLoginExist() = repo.forMono { ref<UserRepository>().doesUserExistsWith(login) }.map { it!! }
-                override fun User.isUserCityValid() = repo.forMono { ref<CityRepository>().doesCityExistsWith(city) }.map { it!! }
+                override val validatorAE = errorAccumulation<ValidationError>()
             }
         }
         bean {

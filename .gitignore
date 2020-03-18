@@ -19,8 +19,6 @@
 .springBeans
 /code
 MANIFEST.MF
-_site/
-activemq-data
 bin
 build
 !/**/src/**/bin

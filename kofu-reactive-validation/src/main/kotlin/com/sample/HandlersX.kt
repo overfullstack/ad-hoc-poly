@@ -5,7 +5,7 @@ import arrow.fx.reactor.ForMonoK
 import arrow.fx.reactor.fix
 import com.validation.User
 import com.validation.ValidationError
-import com.validation.rules.validateWithRules
+import com.validation.rules.validateUserWithRules
 import com.validation.typeclass.EffectValidator
 import com.validation.typeclass.ForErrorAccumulation
 import org.springframework.web.reactive.function.server.ServerRequest
@@ -18,11 +18,11 @@ class HandlersX(private val nonBlockingReactorEAValidator: EffectValidator<ForMo
             request.bodyToMono<User>()
                     .flatMap { user ->
                         nonBlockingReactorEAValidator.run {
-                            validateWithRules(user).fix().mono
+                            validateUserWithRules(user).fix().mono
                                     .map {
                                         repo.run {
                                             // Migrate it to use `upsert` when `ValidatedBiFunctor` is introduced
-                                            it.fix().bimap(user.toLeft(), user.toRight())  
+                                            it.fix().bimap(user.toLeft(), user.toRight())
                                         }
                                     }
                                     .flatMap { result ->
