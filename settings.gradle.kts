@@ -3,7 +3,7 @@ rootProject.name = "ad-hoc-poly"
 include(
         "kofu-reactive-validation",
         "kofu-mvc-validation",
-        "validation-fx"
+        "validation-templates"
 )
 
 pluginManagement {

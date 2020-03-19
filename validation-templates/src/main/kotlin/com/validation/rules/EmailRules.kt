@@ -1,6 +1,7 @@
 package com.validation.rules
 
 import arrow.core.nel
+import arrow.fx.typeclasses.MonadDefer
 import com.validation.ValidationError
 import com.validation.typeclass.ValidatorAE
 
@@ -20,7 +21,7 @@ private fun <S> ValidatorAE<S, ValidationError>.maxLength(email: String, maxLeng
  * Some rules that use the applicative syntax to validate and gather errors.
  */
 fun <S> ValidatorAE<S, ValidationError>.validateEmailWithRules(email: String) =
-        mapN(
-                contains(email, "@"),
-                maxLength(email, 250)
-        ) {}.handleErrorWith { raiseError(it) }
+    mapN(
+            contains(email, "@"),
+            maxLength(email, 250)
+    ) {}.handleErrorWith { raiseError(it) }

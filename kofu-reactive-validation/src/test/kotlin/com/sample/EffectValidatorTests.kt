@@ -87,6 +87,19 @@ class EffectValidatorTests {
         }
     }
 
+    @Test
+    fun `FF on Invalid login + Invalid City`() {
+        val invalidUser = User("smaldini", "smaldini@kt.com", "Stéphane", "Maldini", "hyd")
+        val result = nonBlockingFFValidator.validateUserWithRules(invalidUser).fix().mono.block()?.fix()
+        result?.run {
+            assertTrue(isLeft())
+            fold({
+                assertEquals(1, it.size)
+                assertEquals(ValidationError.UserLoginExits("@"), it.head)
+            }, {})
+        }
+    }
+
     @AfterAll
     fun afterAll() {
         context.close()

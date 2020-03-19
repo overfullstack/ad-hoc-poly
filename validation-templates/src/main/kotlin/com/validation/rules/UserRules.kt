@@ -10,7 +10,7 @@ import com.validation.typeclass.EffectValidator
 /**
  * ------------User Rules------------
  */
-private fun <F, S> EffectValidator<F, S, ValidationError>.cityShouldBeValid(user: User) = fx.async { 
+private fun <F, S> EffectValidator<F, S, ValidationError>.cityShouldBeValid(user: User) = fx.async {
     repo.run {
         validatorAE.run {
             val cityValid = user.isUserCityValid().bind()

@@ -16,6 +16,10 @@ dependencies {
     implementation("io.arrow-kt:arrow-core:$arrowSnapshotVersion")
     implementation("io.arrow-kt:arrow-fx:$arrowSnapshotVersion")
     implementation("io.arrow-kt:arrow-fx-reactor:$arrowSnapshotVersion")
+
+    testImplementation("org.junit.jupiter:junit-jupiter:+") {
+        exclude(group="junit", module="junit")
+    }
 }
 
 dependencyManagement {

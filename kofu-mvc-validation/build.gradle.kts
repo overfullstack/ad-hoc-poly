@@ -19,11 +19,15 @@ dependencies {
     implementation("io.arrow-kt:arrow-core:$arrowSnapshotVersion")
     implementation("io.arrow-kt:arrow-fx:$arrowSnapshotVersion")
 
-    implementation(project(":validation-fx"))
+    implementation(project(":validation-templates"))
 
     runtimeOnly("com.h2database:h2")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.springframework.boot:spring-boot-starter-webflux")
+    testImplementation("org.springframework.boot:spring-boot-starter-test") {
+        exclude(group = "junit", module = "junit")
+    }
+    testImplementation("org.springframework.boot:spring-boot-starter-webflux") {
+        exclude(group = "junit", module = "junit")
+    }
 }
 
 repositories {

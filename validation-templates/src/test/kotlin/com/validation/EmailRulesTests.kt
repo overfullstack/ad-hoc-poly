@@ -1,15 +1,13 @@
 /* gakshintala created on 3/16/20 */
-package com.sample
+package com.validation
 
 import arrow.core.fix
-import com.validation.User
-import com.validation.ValidationError
 import com.validation.rules.validateEmailWithRules
 import com.validation.typeclass.failFast
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 
-class EmailValidatorTests {
+class EmailRulesTests {
 
     @Test
     fun `FF Email Rule Runner on Invalid user`() {
