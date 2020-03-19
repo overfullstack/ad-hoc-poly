@@ -10,8 +10,8 @@ import com.validation.typeclass.EffectValidator
 /**
  * ------------User Rules------------
  */
-private fun <F, S> EffectValidator<F, S, ValidationError>.cityShouldBeValid(user: User) = repo.run {
-    fx.async {
+private fun <F, S> EffectValidator<F, S, ValidationError>.cityShouldBeValid(user: User) = fx.async { 
+    repo.run {
         validatorAE.run {
             val cityValid = user.isUserCityValid().bind()
             if (cityValid) just(cityValid)
@@ -20,8 +20,8 @@ private fun <F, S> EffectValidator<F, S, ValidationError>.cityShouldBeValid(user
     }
 }
 
-private fun <F, S> EffectValidator<F, S, ValidationError>.loginShouldNotExit(user: User) = repo.run {
-    fx.async {
+private fun <F, S> EffectValidator<F, S, ValidationError>.loginShouldNotExit(user: User) = fx.async {
+    repo.run {
         validatorAE.run {
             val loginExists = user.doesUserLoginExist().bind()
             if (loginExists) raiseError(UserLoginExits(user.login).nel())
@@ -30,8 +30,8 @@ private fun <F, S> EffectValidator<F, S, ValidationError>.loginShouldNotExit(use
     }
 }
 
-fun <F, S> EffectValidator<F, S, ValidationError>.validateUserWithRules(user: User) = repo.run {
-    fx.async {
+fun <F, S> EffectValidator<F, S, ValidationError>.validateUserWithRules(user: User) = fx.async {
+    repo.run {
         validatorAE.run {
             mapN( // 🚩 This has a bug, order of validation is not from left to right. Waiting for bug fix.
                     validateEmailWithRules(user.email),

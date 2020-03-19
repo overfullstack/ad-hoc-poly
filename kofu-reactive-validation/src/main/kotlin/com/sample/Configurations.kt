@@ -4,6 +4,7 @@ package com.sample
 import arrow.fx.reactor.ForMonoK
 import arrow.fx.reactor.MonoK
 import arrow.fx.reactor.extensions.monok.async.async
+import arrow.fx.reactor.extensions.monok.functor.void
 import arrow.fx.reactor.k
 import arrow.fx.typeclasses.Async
 import com.validation.City
@@ -24,16 +25,15 @@ val dataConfig = configuration {
         bean<UserRepository>()
         bean<CityRepository>()
         bean<Repo<ForMonoK>> {
-            object : Repo<ForMonoK>, Async<ForMonoK> by MonoK.async() {
+            object : Repo<ForMonoK> {
                 override fun User.update() = ref<UserRepository>().update(this).k().void()
                 override fun User.insert() = ref<UserRepository>().insert(this).k().void()
-
                 override fun User.doesUserLoginExist() = ref<UserRepository>().doesUserExistsWith(login).k().map { it!! }
                 override fun User.isUserCityValid() = ref<CityRepository>().doesCityExistsWith(city).k().map { it!! }
             }
         }
         bean<EffectValidator<ForMonoK, ForErrorAccumulation<ValidationError>, ValidationError>> {
-            object : EffectValidator<ForMonoK, ForErrorAccumulation<ValidationError>, ValidationError> {
+            object : EffectValidator<ForMonoK, ForErrorAccumulation<ValidationError>, ValidationError>, Async<ForMonoK> by MonoK.async() {
                 override val repo = ref<Repo<ForMonoK>>()
                 override val validatorAE = errorAccumulation<ValidationError>()
             }

@@ -3,7 +3,10 @@ package com.sample
 
 import arrow.core.fix
 import arrow.fx.reactor.ForMonoK
+import arrow.fx.reactor.MonoK
+import arrow.fx.reactor.extensions.monok.async.async
 import arrow.fx.reactor.fix
+import arrow.fx.typeclasses.Async
 import com.validation.User
 import com.validation.ValidationError
 import com.validation.rules.validateUserWithRules
@@ -32,7 +35,7 @@ class EffectValidatorTests {
     fun beforeAll() {
         context = dataApp.run(profiles = "test")
         nonBlockingEAValidator = context.getBean()
-        nonBlockingFFValidator = object : EffectValidator<ForMonoK, ForFailFast<ValidationError>, ValidationError> {
+        nonBlockingFFValidator = object : EffectValidator<ForMonoK, ForFailFast<ValidationError>, ValidationError>, Async<ForMonoK> by MonoK.async() {
             override val repo = context.getBean<Repo<ForMonoK>>()
             override val validatorAE = failFast<ValidationError>()
         }

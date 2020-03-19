@@ -11,13 +11,12 @@ import arrow.typeclasses.Bifunctor
 import com.validation.User
 import com.validation.ValidationError
 
-interface Repo<F> : Async<F> {
+interface Repo<F> {
     fun User.update(): Kind<F, Unit>
     fun User.insert(): Kind<F, Unit>
-
     fun User.doesUserLoginExist(): Kind<F, Boolean>
     fun User.isUserCityValid(): Kind<F, Boolean>
-
+    
     fun User.toLeft(): (Nel<ValidationError>) -> Either<String, String> = { reasons ->
         when (reasons.head) {
             ValidationError.UserLoginExits(login) -> {

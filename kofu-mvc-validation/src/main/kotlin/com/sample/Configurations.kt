@@ -3,6 +3,8 @@ package com.sample
 import arrow.fx.ForIO
 import arrow.fx.IO
 import arrow.fx.extensions.io.async.async
+import arrow.fx.extensions.io.functor.void
+import arrow.fx.handleError
 import arrow.fx.typeclasses.Async
 import com.validation.City
 import com.validation.User
@@ -32,16 +34,15 @@ val dataConfig = configuration {
         bean<UserRepository>()
         bean<CityRepository>()
         bean<Repo<ForIO>> {
-            object : Repo<ForIO>, Async<ForIO> by IO.async() {
-                override fun User.update() = effect { ref<UserRepository>().update(this) }.void()
-                override fun User.insert() = effect { ref<UserRepository>().insert(this) }.void()
-
-                override fun User.doesUserLoginExist() = effect { ref<UserRepository>().doesUserExitsWith(login) }.handleError { false }
-                override fun User.isUserCityValid() = effect { ref<CityRepository>().doesCityExistsWith(city) }.handleError { false }
+            object : Repo<ForIO> {
+                override fun User.update() = IO { ref<UserRepository>().update(this) }.void()
+                override fun User.insert() = IO { ref<UserRepository>().insert(this) }.void()
+                override fun User.doesUserLoginExist() = IO { ref<UserRepository>().doesUserExitsWith(login) }.handleError { false }
+                override fun User.isUserCityValid() = IO { ref<CityRepository>().doesCityExistsWith(city) }.handleError { false }
             }
         }
         bean<EffectValidator<ForIO, ForFailFast<ValidationError>, ValidationError>> {
-            object : EffectValidator<ForIO, ForFailFast<ValidationError>, ValidationError> {
+            object : EffectValidator<ForIO, ForFailFast<ValidationError>, ValidationError>, Async<ForIO> by IO.async() {
                 override val repo = ref<Repo<ForIO>>()
                 override val validatorAE = failFast<ValidationError>()
             }
