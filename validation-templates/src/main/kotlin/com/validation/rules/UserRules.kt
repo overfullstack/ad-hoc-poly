@@ -31,14 +31,12 @@ private fun <F, S> EffectValidator<F, S, ValidationError>.loginShouldNotExit(use
 }
 
 fun <F, S> EffectValidator<F, S, ValidationError>.validateUserWithRules(user: User) = fx.async {
-    repo.run {
-        validatorAE.run {
-            mapN( // 🚩 This has a bug, order of validation is not from left to right. Waiting for bug fix.
-                    validateEmailWithRules(user.email),
-                    cityShouldBeValid(user).bind(),
-                    loginShouldNotExit(user).bind()
-            ) {}.handleErrorWith { raiseError(it) }
-        }
+    validatorAE.run {
+        mapN( // 🚩 All these methods are called, even in Fail-Fast mode. No better way to do it as of now.
+                validateEmailWithRules(user.email),
+                cityShouldBeValid(user).bind(),
+                loginShouldNotExit(user).bind()
+        ) {}.handleErrorWith { raiseError(it) }
     }
 }
 

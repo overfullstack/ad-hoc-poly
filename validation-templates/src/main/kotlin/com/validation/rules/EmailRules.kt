@@ -1,7 +1,6 @@
 package com.validation.rules
 
 import arrow.core.nel
-import arrow.fx.typeclasses.MonadDefer
 import com.validation.ValidationError
 import com.validation.typeclass.ValidatorAE
 
@@ -15,7 +14,7 @@ private fun <S> ValidatorAE<S, ValidationError>.contains(email: String, needle: 
 
 private fun <S> ValidatorAE<S, ValidationError>.maxLength(email: String, maxLength: Int) =
         if (email.length <= maxLength) just(email)
-        else raiseError(ValidationError.MaxLength(maxLength).nel())
+        else raiseError(ValidationError.EmailMaxLength(maxLength).nel())
 
 /**
  * Some rules that use the applicative syntax to validate and gather errors.

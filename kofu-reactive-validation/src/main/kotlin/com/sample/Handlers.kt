@@ -57,7 +57,7 @@ class Handlers(
                     if (email.length <= 250) {
                         Unit.right()
                     } else {
-                        ValidationError.MaxLength(250).left()
+                        ValidationError.EmailMaxLength(250).left()
                     }
                 } else {
                     ValidationError.DoesNotContain("@").left()
@@ -74,7 +74,7 @@ class Handlers(
                 errorList.add(ValidationError.DoesNotContain("@"))
             }
             if (email.length > 250) {
-                errorList.add(ValidationError.MaxLength(250))
+                errorList.add(ValidationError.EmailMaxLength(250))
             }
             return if (errorList.isNotEmpty()) errorList.left() else Unit.right()
         }

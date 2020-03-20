@@ -62,7 +62,7 @@ class EffectValidatorTests {
     }
 
     @Test
-    fun `FF on Invalid Email + Invalid City`() {
+    fun `FF on Invalid Email No needle + Invalid City`() {
         val invalidUser = User("gakshintala", "smaldini-kt.com${(0..251).map { "g" }}", "Stéphane", "Maldini", "vja")
         val result = nonBlockingFFValidator.validateUserWithRules(invalidUser).fix().mono.block()?.fix()
         result?.run {
@@ -75,27 +75,40 @@ class EffectValidatorTests {
     }
 
     @Test
-    fun `FF on Invalid Email + Invalid Login`() {
-        val invalidUser = User("smaldini", "smaldini-kt.com${(0..251).map { "g" }}", "Stéphane", "Maldini", "london")
+    fun `FF on Invalid Email Length + Invalid Login`() {
+        val invalidUser = User("smaldini", "smaldini@kt.com${(0..251).map { "g" }}", "Stéphane", "Maldini", "london")
         val result = nonBlockingFFValidator.validateUserWithRules(invalidUser).fix().mono.block()?.fix()
         result?.run {
             assertTrue(isLeft())
             fold({
                 assertEquals(1, it.size)
-                assertEquals(ValidationError.DoesNotContain("@"), it.head)
+                assertEquals(ValidationError.EmailMaxLength(250), it.head)
             }, {})
         }
     }
 
     @Test
-    fun `FF on Invalid login + Invalid City`() {
+    fun `FF on Invalid City + Invalid login`() {
         val invalidUser = User("smaldini", "smaldini@kt.com", "Stéphane", "Maldini", "hyd")
         val result = nonBlockingFFValidator.validateUserWithRules(invalidUser).fix().mono.block()?.fix()
         result?.run {
             assertTrue(isLeft())
             fold({
                 assertEquals(1, it.size)
-                assertEquals(ValidationError.UserLoginExits("@"), it.head)
+                assertEquals(ValidationError.UserCityInvalid("hyd"), it.head)
+            }, {})
+        }
+    }
+
+    @Test
+    fun `FF on only Invalid login`() {
+        val invalidUser = User("smaldini", "smaldini@kt.com", "Stéphane", "Maldini", "london")
+        val result = nonBlockingFFValidator.validateUserWithRules(invalidUser).fix().mono.block()?.fix()
+        result?.run {
+            assertTrue(isLeft())
+            fold({
+                assertEquals(1, it.size)
+                assertEquals(ValidationError.UserLoginExits("smaldini"), it.head)
             }, {})
         }
     }

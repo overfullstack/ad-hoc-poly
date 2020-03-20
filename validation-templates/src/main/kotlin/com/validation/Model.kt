@@ -16,7 +16,7 @@ data class City(
 
 sealed class ValidationError(val msg: String) {
     data class DoesNotContain(val value: String) : ValidationError("Did not contain $value")
-    data class MaxLength(val value: Int) : ValidationError("Exceeded length of $value")
+    data class EmailMaxLength(val value: Int) : ValidationError("Exceeded length of $value")
 
     data class UserLoginExits(val login: String) : ValidationError("User exists with Login - $login")
     data class UserCityInvalid(val city: String) : ValidationError("Invalid User city - $city")
