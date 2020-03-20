@@ -1,0 +1,338 @@
+Index: kofu-mvc-validation/src/main/kotlin/com/sample/Repositories.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.sample\n\n\nimport com.validation.City\nimport com.validation.User\nimport org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource\nimport org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate\n\nclass UserRepository(private val client: NamedParameterJdbcTemplate) {\n\n    fun count() =\n            client.queryForObject(\"SELECT COUNT(*) FROM users\", emptyMap<String, String>(), Int::class.java)\n\n    fun findFirstUserWith(login: String) =\n            client.queryForObject(\"SELECT 1 FROM users WHERE login = :login LIMIT 1\", mapOf(\"login\" to login), Int::class.java) == 1\n\n    fun findAll() = client.queryForList(\"SELECT * FROM users\", emptyMap<String, String>(), User::class.java)\n\n    fun findOne(login: String) =\n            client.queryForObject(\"SELECT * FROM users WHERE login = :login\", mapOf(\"login\" to login), User::class.java)\n\n    fun deleteAll() =\n            client.execute(\"DELETE FROM users\") {}\n\n    fun update(user: User) =\n            client.update(\"UPDATE users SET  firstname = :firstname, lastname = :lastname WHERE login = :login\",\n                    BeanPropertySqlParameterSource(user))\n\n    fun insert(user: User) =\n            client.update(\"INSERT INTO users (login, firstname, lastname) VALUES (:login, :firstname, :lastname)\",\n                    BeanPropertySqlParameterSource(user))\n}\n\nclass CityRepository(private val client: NamedParameterJdbcTemplate) {\n\n    fun count() =\n            client.queryForObject(\"SELECT COUNT(*) FROM city\", emptyMap<String, String>(), Int::class.java)\n\n    fun findFirstCityWith(name: String) =\n            client.queryForObject(\"SELECT 1 FROM city WHERE name = :name LIMIT 1\", mapOf(\"name\" to name), Int::class.java) == 1\n\n    fun findAll() = client.queryForList(\"SELECT * FROM city\", emptyMap<String, String>(), City::class.java)\n\n    fun findOne(name: String) =\n            client.queryForObject(\"SELECT * FROM city WHERE name = :name\", mapOf(\"name\" to name), City::class.java)\n\n    fun deleteAll() =\n            client.execute(\"DELETE FROM city\") {}\n\n    fun save(city: City) =\n            client.update(\"INSERT INTO city (name) VALUES (:name)\",\n                    BeanPropertySqlParameterSource(city))\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- kofu-mvc-validation/src/main/kotlin/com/sample/Repositories.kt	(revision 0dd0822326d53daf4b2aeeff5bd4b49581452cd8)
++++ kofu-mvc-validation/src/main/kotlin/com/sample/Repositories.kt	(date 1583839233737)
+@@ -36,8 +36,8 @@
+     fun count() =
+             client.queryForObject("SELECT COUNT(*) FROM city", emptyMap<String, String>(), Int::class.java)
+ 
+-    fun findFirstCityWith(name: String) =
+-            client.queryForObject("SELECT 1 FROM city WHERE name = :name LIMIT 1", mapOf("name" to name), Int::class.java) == 1
++    fun findFirstCityWith(city: City) =
++            client.queryForObject("SELECT 1 FROM city WHERE name = :name LIMIT 1", mapOf("name" to city.name), Int::class.java) == 1
+ 
+     fun findAll() = client.queryForList("SELECT * FROM city", emptyMap<String, String>(), City::class.java)
+ 
+Index: kofu-reactive-validation/src/main/kotlin/com/sample/Repositories.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.sample\n\nimport com.validation.City\nimport com.validation.User\nimport org.springframework.data.r2dbc.core.DatabaseClient\nimport org.springframework.data.r2dbc.core.asType\nimport org.springframework.data.r2dbc.core.into\nimport org.springframework.data.r2dbc.core.table\n\nclass UserRepository(private val client: DatabaseClient) {\n\n    fun count() =\n            client.execute(\"SELECT COUNT(*) FROM users\").asType<Long>().fetch().one()\n\n    fun findFirstUserWith(login: String) =\n            client.execute(\"SELECT 1 FROM users WHERE login = :login LIMIT 1\").bind(\"login\", login).asType<Int>().fetch().one().defaultIfEmpty(0)\n\n    fun findAll() =\n            client.select().from(\"users\").asType<User>().fetch().all()\n\n    fun findOne(login: String) =\n            client.execute(\"SELECT * FROM users WHERE login = :login\").bind(\"login\", login).asType<User>().fetch().one()\n\n    fun deleteAll() =\n            client.execute(\"DELETE FROM users\").fetch().one().then()\n\n    fun update(user: User) =\n            client.update().table<User>().using(user).then()\n\n    fun insert(user: User) =\n            client.insert().into<User>().table(\"users\").using(user).then()\n}\n\nclass CityRepository(private val client: DatabaseClient) {\n\n    fun count() =\n            client.execute(\"SELECT COUNT(*) FROM city\").asType<Long>().fetch().one()\n\n    fun findFirstCityWith(name: String) =\n            client.execute(\"SELECT 1 FROM city WHERE name = :name LIMIT 1\").bind(\"name\", name).asType<Int>().fetch().one().defaultIfEmpty(0)\n\n    fun findAll() =\n            client.select().from(\"city\").asType<City>().fetch().all()\n\n    fun findOne(name: String) =\n            client.execute(\"SELECT * FROM city WHERE name = :name\").bind(\"name\", name).asType<City>().fetch().one()\n\n    fun deleteAll() =\n            client.execute(\"DELETE FROM city\").fetch().one().then()\n\n    fun save(city: City) =\n            client.insert().into<City>().table(\"city\").using(city).then()\n}\n\n\n\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- kofu-reactive-validation/src/main/kotlin/com/sample/Repositories.kt	(revision 0dd0822326d53daf4b2aeeff5bd4b49581452cd8)
++++ kofu-reactive-validation/src/main/kotlin/com/sample/Repositories.kt	(date 1583839233742)
+@@ -36,8 +36,8 @@
+     fun count() =
+             client.execute("SELECT COUNT(*) FROM city").asType<Long>().fetch().one()
+ 
+-    fun findFirstCityWith(name: String) =
+-            client.execute("SELECT 1 FROM city WHERE name = :name LIMIT 1").bind("name", name).asType<Int>().fetch().one().defaultIfEmpty(0)
++    fun findFirstCityWith(city: City) =
++            client.execute("SELECT 1 FROM city WHERE name = :name LIMIT 1").bind("name", city.name).asType<Int>().fetch().one().defaultIfEmpty(0)
+ 
+     fun findAll() =
+             client.select().from("city").asType<City>().fetch().all()
+Index: validation-fx/src/main/kotlin/com/validation/RepoTC.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.validation\n\nimport arrow.Kind\nimport arrow.core.nel\nimport arrow.fx.typeclasses.Async\nimport com.validation.ValidationError.UserCityInvalid\nimport com.validation.ValidationError.UserLoginExits\n\ninterface RepoTC<F> : Async<F> {\n    fun User.get(): Kind<F, User?>\n    fun User.doesUserLoginExist(): Kind<F, Boolean>\n    fun User.isUserCityValid(): Kind<F, Boolean>\n    fun User.update(): Kind<F, Any?>\n    fun User.insert(): Kind<F, Any?>\n\n    /**\n     * ------------User Rules------------\n     */\n    // TODO 3/9/20 gakshintala: Change the argument to City.\n    fun <F1> RulesRunnerStrategy<F1, ValidationError>.userCityShouldBeValid(user: User) = fx.async {\n        val cityValid = user.isUserCityValid().bind()\n        if (cityValid) this@userCityShouldBeValid.just(cityValid)\n        else raiseError(UserCityInvalid(user.city).nel())\n    }\n\n    fun <F1> RulesRunnerStrategy<F1, ValidationError>.userLoginShouldNotExit(user: User) = fx.async {\n        val userExists = user.doesUserLoginExist().bind()\n        if (userExists) raiseError(UserLoginExits(user.login).nel())\n        else this@userLoginShouldNotExit.just(userExists)\n    }\n\n    fun <F1> RulesRunnerStrategy<F1, ValidationError>.userRuleRunner(user: User) = fx.async {\n            mapN(\n                    emailRuleRunner(user.email),\n                    !userCityShouldBeValid(user),\n                    !userLoginShouldNotExit(user)\n            ) {\n                user\n            }.handleErrorWith { raiseError(it) }\n    }\n\n}\n\n\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- validation-fx/src/main/kotlin/com/validation/RepoTC.kt	(revision 0dd0822326d53daf4b2aeeff5bd4b49581452cd8)
++++ validation-fx/src/main/kotlin/com/validation/RepoTC.kt	(date 1583839405619)
+@@ -9,7 +9,7 @@
+ interface RepoTC<F> : Async<F> {
+     fun User.get(): Kind<F, User?>
+     fun User.doesUserLoginExist(): Kind<F, Boolean>
+-    fun User.isUserCityValid(): Kind<F, Boolean>
++    fun City.isUserCityValid(): Kind<F, Boolean>
+     fun User.update(): Kind<F, Any?>
+     fun User.insert(): Kind<F, Any?>
+ 
+@@ -17,10 +17,10 @@
+      * ------------User Rules------------
+      */
+     // TODO 3/9/20 gakshintala: Change the argument to City.
+-    fun <F1> RulesRunnerStrategy<F1, ValidationError>.userCityShouldBeValid(user: User) = fx.async {
+-        val cityValid = user.isUserCityValid().bind()
++    fun <F1> RulesRunnerStrategy<F1, ValidationError>.userCityShouldBeValid(city: City) = fx.async {
++        val cityValid = city.isUserCityValid().bind()
+         if (cityValid) this@userCityShouldBeValid.just(cityValid)
+-        else raiseError(UserCityInvalid(user.city).nel())
++        else raiseError(UserCityInvalid(city.name).nel())
+     }
+ 
+     fun <F1> RulesRunnerStrategy<F1, ValidationError>.userLoginShouldNotExit(user: User) = fx.async {
+@@ -32,7 +32,7 @@
+     fun <F1> RulesRunnerStrategy<F1, ValidationError>.userRuleRunner(user: User) = fx.async {
+             mapN(
+                     emailRuleRunner(user.email),
+-                    !userCityShouldBeValid(user),
++                    !userCityShouldBeValid(user.city),
+                     !userLoginShouldNotExit(user)
+             ) {
+                 user
+Index: kofu-mvc-validation/src/main/kotlin/com/sample/Configurations.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.sample\n\nimport arrow.fx.ForIO\nimport arrow.fx.IO\nimport arrow.fx.extensions.io.async.async\nimport arrow.fx.typeclasses.Async\nimport com.validation.City\nimport com.validation.RepoTC\nimport com.validation.User\nimport com.validation.forIO\nimport org.springframework.boot.context.event.ApplicationReadyEvent\nimport org.springframework.boot.jdbc.DataSourceBuilder\nimport org.springframework.fu.kofu.configuration\nimport org.springframework.fu.kofu.webmvc.webMvc\nimport org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate\n\n\nval dataConfig = configuration {\n    beans {\n        bean {\n            val dataSourceBuilder = DataSourceBuilder.create()\n            dataSourceBuilder.driverClassName(\"org.h2.Driver\")\n            dataSourceBuilder.url(\"jdbc:h2:mem:test\")\n            dataSourceBuilder.username(\"SA\")\n            dataSourceBuilder.password(\"\")\n            dataSourceBuilder.build()\n        }\n        bean<NamedParameterJdbcTemplate>()\n        bean<UserRepository>()\n        bean<CityRepository>()\n        bean<RepoTC<ForIO>> {\n            object : RepoTC<ForIO>, Async<ForIO> by IO.async() {\n                override fun User.get() = forIO { ref<UserRepository>().findOne(login) }\n                override fun User.doesUserLoginExist() = forIO { ref<UserRepository>().findFirstUserWith(login) }.handleError { false }\n                override fun User.isUserCityValid() = forIO { ref<CityRepository>().findFirstCityWith(city) }.handleError { false }\n                override fun User.update() = forIO { ref<UserRepository>().update(this) }\n                override fun User.insert() = forIO { ref<UserRepository>().insert(this) }\n            }\n        }\n    }\n    listener<ApplicationReadyEvent> {\n        init(ref(), ref(), ref())\n    }\n}\n\nval webConfig = configuration {\n    webMvc {\n        port = if (profiles.contains(\"test\")) 8181 else 8080\n        router {\n            val handler = ref<Handlers>()\n            POST(\"/api/upsert\", handler::upsertX)\n            GET(\"/api/user/all\", handler::listApi)\n        }\n        converters {\n            string()\n            jackson()\n        }\n    }\n}\n\nfun init(\n        client: NamedParameterJdbcTemplate,\n        userRepository: UserRepository,\n        cityRepository: CityRepository\n) {\n    val createUsers = \"CREATE TABLE IF NOT EXISTS users (login varchar PRIMARY KEY, email varchar, firstname varchar, lastname varchar, city varchar);\"\n    val createCity = \"CREATE TABLE IF NOT EXISTS city (name varchar PRIMARY KEY);\"\n    client.execute(createUsers + createCity)\n    { ps -> ps.execute() }\n\n    userRepository.deleteAll()\n    userRepository.insert(User(\"smaldini\", \"smaldini@kt.com\", \"Stéphane\", \"Maldini\", \"london\"))\n    userRepository.insert(User(\"sdeleuze\", \"sdeleuze@kt.com\", \"Sébastien\", \"Deleuze\", \"sydney\"))\n    userRepository.insert(User(\"bclozel\", \"bclozel@kt.com\", \"Brian\", \"Clozel\", \"istanbul\"))\n\n    cityRepository.deleteAll()\n    cityRepository.save(City(\"london\"))\n    cityRepository.save(City(\"sydney\"))\n    cityRepository.save(City(\"istanbul\"))\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- kofu-mvc-validation/src/main/kotlin/com/sample/Configurations.kt	(revision 0dd0822326d53daf4b2aeeff5bd4b49581452cd8)
++++ kofu-mvc-validation/src/main/kotlin/com/sample/Configurations.kt	(date 1583839591135)
+@@ -32,7 +32,7 @@
+             object : RepoTC<ForIO>, Async<ForIO> by IO.async() {
+                 override fun User.get() = forIO { ref<UserRepository>().findOne(login) }
+                 override fun User.doesUserLoginExist() = forIO { ref<UserRepository>().findFirstUserWith(login) }.handleError { false }
+-                override fun User.isUserCityValid() = forIO { ref<CityRepository>().findFirstCityWith(city) }.handleError { false }
++                override fun City.isUserCityValid() = forIO { ref<CityRepository>().findFirstCityWith(this) }.handleError { false }
+                 override fun User.update() = forIO { ref<UserRepository>().update(this) }
+                 override fun User.insert() = forIO { ref<UserRepository>().insert(this) }
+             }
+@@ -69,9 +69,9 @@
+     { ps -> ps.execute() }
+ 
+     userRepository.deleteAll()
+-    userRepository.insert(User("smaldini", "smaldini@kt.com", "Stéphane", "Maldini", "london"))
+-    userRepository.insert(User("sdeleuze", "sdeleuze@kt.com", "Sébastien", "Deleuze", "sydney"))
+-    userRepository.insert(User("bclozel", "bclozel@kt.com", "Brian", "Clozel", "istanbul"))
++    userRepository.insert(User("smaldini", "smaldini@kt.com", "Stéphane", "Maldini", City("london")))
++    userRepository.insert(User("sdeleuze", "sdeleuze@kt.com", "Sébastien", "Deleuze", City("sydney")))
++    userRepository.insert(User("bclozel", "bclozel@kt.com", "Brian", "Clozel", City("istanbul")))
+ 
+     cityRepository.deleteAll()
+     cityRepository.save(City("london"))
+Index: kofu-mvc-validation/src/test/kotlin/com/sample/IntegrationTests.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.sample\n\nimport arrow.core.nel\nimport com.validation.User\nimport com.validation.ValidationError.*\nimport org.junit.jupiter.api.AfterAll\nimport org.junit.jupiter.api.BeforeAll\nimport org.junit.jupiter.api.Test\nimport org.springframework.context.ConfigurableApplicationContext\nimport org.springframework.http.HttpHeaders\nimport org.springframework.http.MediaType\nimport org.springframework.test.web.reactive.server.WebTestClient\nimport org.springframework.test.web.reactive.server.expectBody\n\nclass IntegrationTests {\n\n    private val client = WebTestClient.bindToServer().baseUrl(\"http://localhost:8181\").build()\n\n\n    private lateinit var context: ConfigurableApplicationContext\n\n    @BeforeAll\n    fun beforeAll() {\n        context = app.run(profiles = \"test\")\n    }\n\n\t@Test\n\tfun `Invalid Email - Does not Contain @`() {\n\t\tval invalidEmail = \"gakshintala-kt.com\"\n\t\tval reasons = DoesNotContain(\"@\").nel()\n\t\tclient.post().uri(\"/api/upsert\")\n\t\t\t\t.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)\n\t\t\t\t.bodyValue(User(\"gakshintala\", invalidEmail, \"Gopal S\", \"Akshintala\", \"london\"))\n\t\t\t\t.exchange()\n\t\t\t\t.expectStatus().isBadRequest\n\t\t\t\t.expectBody<String>().isEqualTo(\"Cannot Upsert!!, reasons: $reasons\")\n\t}\n\n    @Test\n    fun `Invalid City`() {\n\t\tval invalidCity = \"hyderabad\"\n\t\tval reasons = UserCityInvalid(invalidCity).nel()\n\t\tclient.post().uri(\"/api/upsert\")\n                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)\n                .bodyValue(User(\"gakshintala\", \"gakshintala@kt.com\", \"Gopal S\", \"Akshintala\", invalidCity))\n                .exchange()\n                .expectStatus().isBadRequest\n                .expectBody<String>().isEqualTo(\"Cannot Upsert!!, reasons: $reasons\")\n    }\n\n\t@Test\n\tfun `Valid User Update`() {\n\t\tval validUserExistingLogin = User(\"smaldini\", \"smaldini2@kt.com\", \"Stéphane\", \"Maldini\", \"london\")\n\t\tclient.post().uri(\"/api/upsert\")\n\t\t\t\t.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)\n\t\t\t\t.bodyValue(validUserExistingLogin)\n\t\t\t\t.exchange()\n\t\t\t\t.expectStatus().is2xxSuccessful\n\t\t\t\t.expectBody<String>().isEqualTo(\"Updated!! $validUserExistingLogin\")\n\t}\n\n\t@Test\n\tfun `Valid User Insert`() {\n\t\tval validUserNewLogin = User(\"gakshintala\", \"gakshintala@kt.com\", \"Gopal S\", \"Akshintala\", \"sydney\")\n\t\tclient.post().uri(\"/api/upsert\")\n\t\t\t\t.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)\n\t\t\t\t.bodyValue(validUserNewLogin)\n\t\t\t\t.exchange()\n\t\t\t\t.expectStatus().is2xxSuccessful\n\t\t\t\t.expectBody<String>().isEqualTo(\"Inserted!! $validUserNewLogin\")\n\t}\n\n    @AfterAll\n    fun afterAll() {\n        context.close()\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- kofu-mvc-validation/src/test/kotlin/com/sample/IntegrationTests.kt	(revision 0dd0822326d53daf4b2aeeff5bd4b49581452cd8)
++++ kofu-mvc-validation/src/test/kotlin/com/sample/IntegrationTests.kt	(date 1583839875504)
+@@ -1,6 +1,7 @@
+ package com.sample
+ 
+ import arrow.core.nel
++import com.validation.City
+ import com.validation.User
+ import com.validation.ValidationError.*
+ import org.junit.jupiter.api.AfterAll
+@@ -30,7 +31,7 @@
+ 		val reasons = DoesNotContain("@").nel()
+ 		client.post().uri("/api/upsert")
+ 				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+-				.bodyValue(User("gakshintala", invalidEmail, "Gopal S", "Akshintala", "london"))
++				.bodyValue(User("gakshintala", invalidEmail, "Gopal S", "Aikshintala", City("london")))
+ 				.exchange()
+ 				.expectStatus().isBadRequest
+ 				.expectBody<String>().isEqualTo("Cannot Upsert!!, reasons: $reasons")
+@@ -38,8 +39,8 @@
+ 
+     @Test
+     fun `Invalid City`() {
+-		val invalidCity = "hyderabad"
+-		val reasons = UserCityInvalid(invalidCity).nel()
++		val invalidCity = City("hyderabad")
++		val reasons = UserCityInvalid(invalidCity.name).nel()
+ 		client.post().uri("/api/upsert")
+                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                 .bodyValue(User("gakshintala", "gakshintala@kt.com", "Gopal S", "Akshintala", invalidCity))
+@@ -50,7 +51,7 @@
+ 
+ 	@Test
+ 	fun `Valid User Update`() {
+-		val validUserExistingLogin = User("smaldini", "smaldini2@kt.com", "Stéphane", "Maldini", "london")
++		val validUserExistingLogin = User("smaldini", "smaldini2@kt.com", "Stéphane", "Maldini", City("london"))
+ 		client.post().uri("/api/upsert")
+ 				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+ 				.bodyValue(validUserExistingLogin)
+@@ -61,7 +62,7 @@
+ 
+ 	@Test
+ 	fun `Valid User Insert`() {
+-		val validUserNewLogin = User("gakshintala", "gakshintala@kt.com", "Gopal S", "Akshintala", "sydney")
++		val validUserNewLogin = User("gakshintala", "gakshintala@kt.com", "Gopal S", "Akshintala", City("sydney"))
+ 		client.post().uri("/api/upsert")
+ 				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+ 				.bodyValue(validUserNewLogin)
+Index: kofu-reactive-validation/src/test/kotlin/com/sample/IntegrationTests.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.sample\n\nimport arrow.core.nel\nimport com.validation.User\nimport com.validation.ValidationError\nimport com.validation.ValidationError.*\nimport org.junit.jupiter.api.AfterAll\nimport org.junit.jupiter.api.Assertions\nimport org.junit.jupiter.api.BeforeAll\nimport org.junit.jupiter.api.Test\nimport org.springframework.context.ConfigurableApplicationContext\nimport org.springframework.http.HttpHeaders\nimport org.springframework.http.MediaType\nimport org.springframework.test.web.reactive.server.WebTestClient\nimport org.springframework.test.web.reactive.server.expectBody\n\nclass IntegrationTests {\n\n    private val client = WebTestClient.bindToServer().baseUrl(\"http://localhost:8181\").build()\n\n    private lateinit var context: ConfigurableApplicationContext\n\n    @BeforeAll\n    fun beforeAll() {\n        context = app.run(profiles = \"test\")\n    }\n\n    @Test\n    fun `Invalid Email - Does not Contain @`() {\n        val invalidEmail = \"gakshintala-kt.com\"\n        val reasons = DoesNotContain(\"@\").nel()\n        client.post().uri(\"/api/upsert\")\n                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)\n                .bodyValue(User(\"gakshintala\", invalidEmail, \"Gopal S\", \"Akshintala\", \"london\"))\n                .exchange()\n                .expectStatus().isBadRequest\n                .expectBody<String>().isEqualTo(\"Cannot Upsert!!, reasons: $reasons\")\n    }\n\n    @Test\n    fun `Invalid City`() {\n        val invalidCity = \"hyderabad\"\n        val reasons = UserCityInvalid(invalidCity).nel()\n        client.post().uri(\"/api/upsert\")\n                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)\n                .bodyValue(User(\"gakshintala\", \"gakshintala@kt.com\", \"Gopal S\", \"Akshintala\", invalidCity))\n                .exchange()\n                .expectStatus().isBadRequest\n                .expectBody<String>().isEqualTo(\"Cannot Upsert!!, reasons: $reasons\")\n    }\n\n    @Test\n    fun `Valid User Update`() {\n        val validUserExistingLogin = User(\"smaldini\", \"smaldini2@kt.com\", \"Stéphane\", \"Maldini\", \"london\")\n        client.post().uri(\"/api/upsert\")\n                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)\n                .bodyValue(validUserExistingLogin)\n                .exchange()\n                .expectStatus().is2xxSuccessful\n                .expectBody<String>().isEqualTo(\"Updated!! $validUserExistingLogin\")\n    }\n\n    @Test\n    fun `Valid User Insert`() {\n        val validUserNewLogin = User(\"gakshintala\", \"gakshintala@kt.com\", \"Gopal S\", \"Akshintala\", \"sydney\")\n        client.post().uri(\"/api/upsert\")\n                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)\n                .bodyValue(validUserNewLogin)\n                .exchange()\n                .expectStatus().is2xxSuccessful\n                .expectBody<String>().isEqualTo(\"Inserted!! $validUserNewLogin\")\n    }\n\n    @AfterAll\n    fun afterAll() {\n        context.close()\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- kofu-reactive-validation/src/test/kotlin/com/sample/IntegrationTests.kt	(revision 0dd0822326d53daf4b2aeeff5bd4b49581452cd8)
++++ kofu-reactive-validation/src/test/kotlin/com/sample/IntegrationTests.kt	(date 1583840010555)
+@@ -1,6 +1,7 @@
+ package com.sample
+ 
+ import arrow.core.nel
++import com.validation.City
+ import com.validation.User
+ import com.validation.ValidationError
+ import com.validation.ValidationError.*
+@@ -31,7 +32,7 @@
+         val reasons = DoesNotContain("@").nel()
+         client.post().uri("/api/upsert")
+                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+-                .bodyValue(User("gakshintala", invalidEmail, "Gopal S", "Akshintala", "london"))
++                .bodyValue(User("gakshintala", invalidEmail, "Gopal S", "Akshintala", City("london")))
+                 .exchange()
+                 .expectStatus().isBadRequest
+                 .expectBody<String>().isEqualTo("Cannot Upsert!!, reasons: $reasons")
+@@ -43,7 +44,7 @@
+         val reasons = UserCityInvalid(invalidCity).nel()
+         client.post().uri("/api/upsert")
+                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+-                .bodyValue(User("gakshintala", "gakshintala@kt.com", "Gopal S", "Akshintala", invalidCity))
++                .bodyValue(User("gakshintala", "gakshintala@kt.com", "Gopal S", "Akshintala", City(invalidCity)))
+                 .exchange()
+                 .expectStatus().isBadRequest
+                 .expectBody<String>().isEqualTo("Cannot Upsert!!, reasons: $reasons")
+@@ -51,7 +52,8 @@
+ 
+     @Test
+     fun `Valid User Update`() {
+-        val validUserExistingLogin = User("smaldini", "smaldini2@kt.com", "Stéphane", "Maldini", "london")
++        
++        val validUserExistingLogin = User("smaldini", "smaldini2@kt.com", "Stéphane", "Maldini", City("london"))
+         client.post().uri("/api/upsert")
+                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                 .bodyValue(validUserExistingLogin)
+@@ -62,7 +64,7 @@
+ 
+     @Test
+     fun `Valid User Insert`() {
+-        val validUserNewLogin = User("gakshintala", "gakshintala@kt.com", "Gopal S", "Akshintala", "sydney")
++        val validUserNewLogin = User("gakshintala", "gakshintala@kt.com", "Gopal S", "Akshintala", City("sydney"))
+         client.post().uri("/api/upsert")
+                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                 .bodyValue(validUserNewLogin)
+Index: kofu-reactive-validation/src/test/kotlin/com/sample/CityRepositoryTests.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.sample\n\nimport arrow.core.fix\nimport arrow.fx.reactor.ForMonoK\nimport arrow.fx.reactor.fix\nimport com.validation.RepoTC\nimport com.validation.RulesRunnerStrategy\nimport com.validation.User\nimport com.validation.ValidationError\nimport org.junit.jupiter.api.AfterAll\nimport org.junit.jupiter.api.Assertions.*\nimport org.junit.jupiter.api.BeforeAll\nimport org.junit.jupiter.api.Test\nimport org.springframework.beans.factory.getBean\nimport org.springframework.boot.WebApplicationType\nimport org.springframework.context.ConfigurableApplicationContext\nimport org.springframework.fu.kofu.application\n\nclass CityRepositoryTests {\n\n    private val dataApp = application(WebApplicationType.NONE) {\n        enable(dataConfig)\n    }\n\n    private lateinit var context: ConfigurableApplicationContext\n    private lateinit var repository: CityRepository\n    private lateinit var repo: RepoTC<ForMonoK>\n\n    @BeforeAll\n    fun beforeAll() {\n        context = dataApp.run(profiles = \"test\")\n        repository = context.getBean()\n        repo = context.getBean()\n    }\n\n    @Test\n    fun cityNameValid() {\n        assertTrue(repository.findFirstCityWith(\"istanbul\").block() == 1)\n    }\n\n    @Test\n    fun cityNameInValid() {\n        assertTrue(repository.findFirstCityWith(\"hyderabad\").block() == 0)\n    }\n\n    @Test\n    fun userCityShouldBeValidForValidCity() {\n        val validUser = User(\"smaldini\", \"smaldini@kt.com\", \"Stéphane\", \"Maldini\", \"london\")\n        val result = repo.run {\n            RulesRunnerStrategy.accumulateErrors<ValidationError>().run {\n                userCityShouldBeValid(validUser)\n            }\n        }.fix().mono.block()?.fix()\n        assertTrue(result?.isValid ?: false)\n    }\n\n    @Test\n    fun userCityShouldBeValidForInValidCity() {\n        val validUser = User(\"smaldini\", \"smaldini@kt.com\", \"Stéphane\", \"Maldini\", \"hyderabad\")\n        val result = repo.run {\n            RulesRunnerStrategy.accumulateErrors<ValidationError>().run {\n                userCityShouldBeValid(validUser)\n            }\n        }.fix().mono.block()?.fix()\n        assertTrue(result?.isInvalid ?: true)\n    }\n\n    @Test\n    fun userRuleRunnerTest() {\n        val validUser = User(\"gakshintala\", \"smaldini@kt.com\", \"Stéphane\", \"Maldini\", \"london\")\n        val result = repo.run {\n            RulesRunnerStrategy.accumulateErrors<ValidationError>().run {\n                userRuleRunner(validUser)\n            }\n        }.fix().mono.block()?.fix()\n        assertTrue(result?.isValid ?: false)\n    }\n\n    @AfterAll\n    fun afterAll() {\n        context.close()\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- kofu-reactive-validation/src/test/kotlin/com/sample/CityRepositoryTests.kt	(revision 0dd0822326d53daf4b2aeeff5bd4b49581452cd8)
++++ kofu-reactive-validation/src/test/kotlin/com/sample/CityRepositoryTests.kt	(date 1583840010559)
+@@ -3,10 +3,7 @@
+ import arrow.core.fix
+ import arrow.fx.reactor.ForMonoK
+ import arrow.fx.reactor.fix
+-import com.validation.RepoTC
+-import com.validation.RulesRunnerStrategy
+-import com.validation.User
+-import com.validation.ValidationError
++import com.validation.*
+ import org.junit.jupiter.api.AfterAll
+ import org.junit.jupiter.api.Assertions.*
+ import org.junit.jupiter.api.BeforeAll
+@@ -35,20 +32,20 @@
+ 
+     @Test
+     fun cityNameValid() {
+-        assertTrue(repository.findFirstCityWith("istanbul").block() == 1)
++        assertTrue(repository.findFirstCityWith(City("istanbul")).block() == 1)
+     }
+ 
+     @Test
+     fun cityNameInValid() {
+-        assertTrue(repository.findFirstCityWith("hyderabad").block() == 0)
++        assertTrue(repository.findFirstCityWith(City("hyderabad")).block() == 0)
+     }
+ 
+     @Test
+     fun userCityShouldBeValidForValidCity() {
+-        val validUser = User("smaldini", "smaldini@kt.com", "Stéphane", "Maldini", "london")
++        val validUser = User("smaldini", "smaldini@kt.com", "Stéphane", "Maldini", City("london"))
+         val result = repo.run {
+             RulesRunnerStrategy.accumulateErrors<ValidationError>().run {
+-                userCityShouldBeValid(validUser)
++                userCityShouldBeValid(validUser.city)
+             }
+         }.fix().mono.block()?.fix()
+         assertTrue(result?.isValid ?: false)
+@@ -56,10 +53,10 @@
+ 
+     @Test
+     fun userCityShouldBeValidForInValidCity() {
+-        val validUser = User("smaldini", "smaldini@kt.com", "Stéphane", "Maldini", "hyderabad")
++        val validUser = User("smaldini", "smaldini@kt.com", "Stéphane", "Maldini", City("hyderabad"))
+         val result = repo.run {
+             RulesRunnerStrategy.accumulateErrors<ValidationError>().run {
+-                userCityShouldBeValid(validUser)
++                userCityShouldBeValid(validUser.city)
+             }
+         }.fix().mono.block()?.fix()
+         assertTrue(result?.isInvalid ?: true)
+@@ -67,7 +64,7 @@
+ 
+     @Test
+     fun userRuleRunnerTest() {
+-        val validUser = User("gakshintala", "smaldini@kt.com", "Stéphane", "Maldini", "london")
++        val validUser = User("gakshintala", "smaldini@kt.com", "Stéphane", "Maldini", City("london"))
+         val result = repo.run {
+             RulesRunnerStrategy.accumulateErrors<ValidationError>().run {
+                 userRuleRunner(validUser)
+Index: kofu-reactive-validation/src/main/kotlin/com/sample/Configurations.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>/* gakshintala created on 3/3/20 */\npackage com.sample\n\nimport arrow.fx.reactor.ForMonoK\nimport arrow.fx.reactor.MonoK\nimport arrow.fx.reactor.extensions.monok.async.async\nimport arrow.fx.typeclasses.Async\nimport com.validation.City\nimport com.validation.RepoTC\nimport com.validation.User\nimport com.validation.forMono\nimport org.springframework.boot.context.event.ApplicationReadyEvent\nimport org.springframework.data.r2dbc.core.DatabaseClient\nimport org.springframework.fu.kofu.configuration\nimport org.springframework.fu.kofu.r2dbc.r2dbcH2\nimport org.springframework.fu.kofu.webflux.webFlux\n\nval dataConfig = configuration {\n    beans {\n        bean<UserRepository>()\n        bean<CityRepository>()\n        bean<RepoTC<ForMonoK>> {\n            object : RepoTC<ForMonoK>, Async<ForMonoK> by MonoK.async() {\n                override fun User.get() = forMono { ref<UserRepository>().findOne(login) }\n                override fun User.doesUserLoginExist() = forMono { ref<UserRepository>().findFirstUserWith(login) }.map { it == 1 }\n                override fun User.isUserCityValid() = forMono { ref<CityRepository>().findFirstCityWith(city) }.map { it == 1 }\n                override fun User.update() = forMono { ref<UserRepository>().update(this) }\n                override fun User.insert() = forMono { ref<UserRepository>().insert(this) }\n            }\n        }\n    }\n    listener<ApplicationReadyEvent> {\n        init(ref(), ref(), ref())\n    }\n    r2dbcH2()\n}\n\nval webFlux = configuration {\n    webFlux {\n        port = if (profiles.contains(\"test\")) 8181 else 8080\n        router {\n            val handler = ref<UserHandler>()\n            POST(\"/api/upsert\", handler::upsertX)\n            GET(\"/api/user/all\", handler::listApi)\n        }\n        codecs {\n            string()\n            jackson()\n        }\n    }\n}\n\nfun init(client: DatabaseClient,\n         userRepository: UserRepository,\n         cityRepository: CityRepository\n) {\n    val createUsers = \"CREATE TABLE IF NOT EXISTS users (login varchar PRIMARY KEY, email varchar, firstname varchar, lastname varchar, city varchar);\"\n    val createCity = \"CREATE TABLE IF NOT EXISTS city (name varchar PRIMARY KEY);\"\n    client.execute(createUsers).then()\n            .then(userRepository.deleteAll())\n            .then(userRepository.insert(User(\"smaldini\", \"smaldini@kt.com\", \"Stéphane\", \"Maldini\", \"london\")))\n            .then(userRepository.insert(User(\"sdeleuze\", \"sdeleuze@kt.com\", \"Sébastien\", \"Deleuze\", \"sydney\")))\n            .then(userRepository.insert(User(\"bclozel\", \"bclozel@kt.com\", \"Brian\", \"Clozel\", \"istanbul\")))\n            .block()\n\n    client.execute(createCity).then()\n            .then(cityRepository.deleteAll())\n            .then(cityRepository.save(City(\"london\")))\n            .then(cityRepository.save(City(\"sydney\")))\n            .then(cityRepository.save(City(\"istanbul\")))\n            .block()\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- kofu-reactive-validation/src/main/kotlin/com/sample/Configurations.kt	(revision 0dd0822326d53daf4b2aeeff5bd4b49581452cd8)
++++ kofu-reactive-validation/src/main/kotlin/com/sample/Configurations.kt	(date 1583839898103)
+@@ -23,7 +23,7 @@
+             object : RepoTC<ForMonoK>, Async<ForMonoK> by MonoK.async() {
+                 override fun User.get() = forMono { ref<UserRepository>().findOne(login) }
+                 override fun User.doesUserLoginExist() = forMono { ref<UserRepository>().findFirstUserWith(login) }.map { it == 1 }
+-                override fun User.isUserCityValid() = forMono { ref<CityRepository>().findFirstCityWith(city) }.map { it == 1 }
++                override fun City.isUserCityValid() = forMono { ref<CityRepository>().findFirstCityWith(this) }.map { it == 1 }
+                 override fun User.update() = forMono { ref<UserRepository>().update(this) }
+                 override fun User.insert() = forMono { ref<UserRepository>().insert(this) }
+             }
+@@ -58,9 +58,9 @@
+     val createCity = "CREATE TABLE IF NOT EXISTS city (name varchar PRIMARY KEY);"
+     client.execute(createUsers).then()
+             .then(userRepository.deleteAll())
+-            .then(userRepository.insert(User("smaldini", "smaldini@kt.com", "Stéphane", "Maldini", "london")))
+-            .then(userRepository.insert(User("sdeleuze", "sdeleuze@kt.com", "Sébastien", "Deleuze", "sydney")))
+-            .then(userRepository.insert(User("bclozel", "bclozel@kt.com", "Brian", "Clozel", "istanbul")))
++            .then(userRepository.insert(User("smaldini", "smaldini@kt.com", "Stéphane", "Maldini", City("london"))))
++            .then(userRepository.insert(User("sdeleuze", "sdeleuze@kt.com", "Sébastien", "Deleuze", City("sydney"))))
++            .then(userRepository.insert(User("bclozel", "bclozel@kt.com", "Brian", "Clozel", City("istanbul"))))
+             .block()
+ 
+     client.execute(createCity).then()
+Index: validation-fx/src/main/kotlin/com/validation/Model.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.validation\n\nimport org.springframework.data.annotation.Id\n\n\ndata class User(\n        @Id val login: String,\n        val email: String,\n        val firstname: String,\n        val lastname: String,\n        val city: String\n)\n\ndata class City(\n        @Id val name: String\n)\n\ndata class Email(val value: String)\n\nsealed class ValidationError(val msg: String) {\n    data class DoesNotContain(val value: String) : ValidationError(\"Did not contain $value\")\n    data class MaxLength(val value: Int) : ValidationError(\"Exceeded length of $value\")\n\n    data class UserLoginExits(val login: String): ValidationError(\"User exists with Login - $login\")\n    data class UserCityInvalid(val city: String): ValidationError(\"Invalid User city - $city\")\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- validation-fx/src/main/kotlin/com/validation/Model.kt	(revision 0dd0822326d53daf4b2aeeff5bd4b49581452cd8)
++++ validation-fx/src/main/kotlin/com/validation/Model.kt	(date 1583839233733)
+@@ -8,7 +8,7 @@
+         val email: String,
+         val firstname: String,
+         val lastname: String,
+-        val city: String
++        val city: City
+ )
+ 
+ data class City(

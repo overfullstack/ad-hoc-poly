@@ -1,0 +1,1102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:master" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </select>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="135632bb-dfea-41ea-8c2e-d24ddd5a7cdb" name="Default Changelist" comment="`mapN` library bug is fixed">
+      <change afterPath="$PROJECT_DIR$/.idea/$CACHE_FILE$" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/gakshintala.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/2020-03-09T111941.400.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/2020-03-09T112101.400.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/2020-03-09T112234.400.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/2020-03-09T112859.400.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/2020-03-15T082931.500.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/2020-03-15T083052.500.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/2020-03-15T084135.400.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/http-client.cookies" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/http-requests-log.http" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/kotlinScripting.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/kotlinc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sbt.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/City_as_strong_type.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/City_as_strong_type/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Default_Changelist.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Default_Changelist/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Renamed_module_from__validation-fx__to__validation-templates_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Renamed_module_from_`validation-fx`_to_`validation-templates`/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view />
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTTP Request" />
+        <option value="Kotlin File" />
+        <option value="Kotlin Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="PREVIEW_PUSH_PROTECTED_ONLY" value="true" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="my-dev" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
+  </component>
+  <component name="KonanWorkspace">
+    <executables />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="/usr/local/opt/maven/libexec" />
+        <option name="userSettingsFile" value="$USER_HOME$/.m2/my-settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="1" />
+  </component>
+  <component name="ProjectId" id="1YBmpZMEmk6l2NtkopqIFF0tzyk" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <OptionsSetting value="false" id="Update" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
+    <option name="autoscrollToSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="false" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="h2.unified" />
+    <property name="SONARLINT_PRECOMMIT_ANALYSIS" value="false" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="HTTP Request" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/validation-templates/src/main/kotlin/com/validation/rules" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="SDKs" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.appearance" />
+    <property name="show.unlinked.gradle.project.popup" value="true" />
+  </component>
+  <component name="Push.Settings">
+    <force-push-targets>
+      <force-push-target remote-path="origin" branch="master" />
+    </force-push-targets>
+  </component>
+  <component name="ReactorSettings">
+    <option name="debugInitializationType" value="AGENT" />
+    <option name="notificationShown" value="true" />
+  </component>
+  <component name="RebelAgentSelection">
+    <selection>jr</selection>
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/validation-fx/src/main/kotlin/com/validation/typeclass" />
+      <recent name="$PROJECT_DIR$/validation-fx/src/main/kotlin/com/validation/rules" />
+      <recent name="$PROJECT_DIR$/http" />
+      <recent name="$PROJECT_DIR$/validation-fx/src/main/kotlin/com/validation" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
+      <recent name="com.validation" />
+      <recent name="com.validation.typeclass" />
+      <recent name="com.sample" />
+    </key>
+    <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="com.validation" />
+      <recent name="com.validation.typeclass" />
+      <recent name="com.sample.lib" />
+      <recent name="com.sample" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/validation-templates/src/main/kotlin/com/validation/rules" />
+      <recent name="$PROJECT_DIR$/kofu-reactive-validation/src/main/kotlin/com/sample" />
+      <recent name="$PROJECT_DIR$/validation-fx/src/main/kotlin" />
+      <recent name="$PROJECT_DIR$/kofu-servlet-validation/src/main/kotlin/com/sample" />
+      <recent name="$PROJECT_DIR$/kofu-servlet-minimal/src/main/kotlin/com/sample" />
+    </key>
+  </component>
+  <component name="RestClientSettings">
+    <option name="REQUEST_HISTORY">
+      <list>
+        <RestClientRequest>
+          <option name="httpMethod" value="POST" />
+          <option name="urlBase" value="http://localhost:8080/api/upsert" />
+          <option name="urlPath" value="" />
+          <option name="headers">
+            <list>
+              <KeyValuePair>
+                <option name="key" value="Content-Type" />
+                <option name="value" value="application/json" />
+              </KeyValuePair>
+            </list>
+          </option>
+          <option name="haveTextToSend" value="true" />
+          <option name="textToSend" value="{&#10;  &quot;login&quot;: &quot;gakshintala&quot;,&#10;  &quot;email&quot;: &quot;gakshin@kt.com&quot;,&#10;  &quot;firstName&quot;: &quot;gopal&quot;,&#10;  &quot;lastName&quot;: &quot;sarma&quot;,&#10;  &quot;city&quot;: &quot;hyd&quot;&#10;}" />
+          <option name="filesToSend" value="" />
+        </RestClientRequest>
+        <RestClientRequest>
+          <option name="httpMethod" value="POST" />
+          <option name="urlBase" value="http://localhost:8080/api/upsert" />
+          <option name="urlPath" value="" />
+          <option name="headers">
+            <list>
+              <KeyValuePair>
+                <option name="key" value="Content-Type" />
+                <option name="value" value="application/json" />
+              </KeyValuePair>
+            </list>
+          </option>
+          <option name="haveTextToSend" value="true" />
+          <option name="textToSend" value="{&#10;  &quot;login&quot;: &quot;gakshintala&quot;,&#10;  &quot;email&quot;: &quot;gakshin@kt.com&quot;,&#10;  &quot;firstname&quot;: &quot;gopal&quot;,&#10;  &quot;lastname&quot;: &quot;sarma&quot;,&#10;  &quot;city&quot;: &quot;hyd&quot;&#10;}" />
+          <option name="filesToSend" value="" />
+        </RestClientRequest>
+        <RestClientRequest>
+          <option name="httpMethod" value="POST" />
+          <option name="urlBase" value="http://localhost:8080/api/upsert" />
+          <option name="urlPath" value="" />
+          <option name="headers">
+            <list>
+              <KeyValuePair>
+                <option name="key" value="Content-Type" />
+                <option name="value" value="application/json" />
+              </KeyValuePair>
+              <KeyValuePair>
+                <option name="key" value="{" />
+                <option name="value" value="" />
+              </KeyValuePair>
+              <KeyValuePair>
+                <option name="key" value="  &quot;login&quot;" />
+                <option name="value" value="&quot;gakshintala&quot;," />
+              </KeyValuePair>
+              <KeyValuePair>
+                <option name="key" value="  &quot;email&quot;" />
+                <option name="value" value="&quot;gakshin@kt.com&quot;," />
+              </KeyValuePair>
+              <KeyValuePair>
+                <option name="key" value="  &quot;firstname&quot;" />
+                <option name="value" value="&quot;gopal&quot;," />
+              </KeyValuePair>
+              <KeyValuePair>
+                <option name="key" value="  &quot;lastname&quot;" />
+                <option name="value" value="&quot;sarma&quot;," />
+              </KeyValuePair>
+              <KeyValuePair>
+                <option name="key" value="  &quot;city&quot;" />
+                <option name="value" value="&quot;hyd&quot;" />
+              </KeyValuePair>
+              <KeyValuePair>
+                <option name="key" value="}" />
+                <option name="value" value="" />
+              </KeyValuePair>
+            </list>
+          </option>
+          <option name="textToSend" value="" />
+          <option name="filesToSend" value="" />
+        </RestClientRequest>
+        <RestClientRequest>
+          <option name="httpMethod" value="POST" />
+          <option name="urlBase" value="http://localhost:8080/api/upsert" />
+          <option name="urlPath" value="" />
+          <option name="headers">
+            <list>
+              <KeyValuePair>
+                <option name="key" value="Content-Type" />
+                <option name="value" value="application/json" />
+              </KeyValuePair>
+              <KeyValuePair>
+                <option name="key" value="{" />
+                <option name="value" value="" />
+              </KeyValuePair>
+              <KeyValuePair>
+                <option name="key" value="&quot;login&quot;" />
+                <option name="value" value="&quot;gakshintala&quot;," />
+              </KeyValuePair>
+              <KeyValuePair>
+                <option name="key" value="&quot;email&quot;" />
+                <option name="value" value="&quot;gakshin@kt.com&quot;," />
+              </KeyValuePair>
+              <KeyValuePair>
+                <option name="key" value="&quot;firstname&quot;" />
+                <option name="value" value="&quot;gopal&quot;," />
+              </KeyValuePair>
+              <KeyValuePair>
+                <option name="key" value="&quot;lastname&quot;" />
+                <option name="value" value="&quot;sarma&quot;," />
+              </KeyValuePair>
+              <KeyValuePair>
+                <option name="key" value="&quot;city&quot;" />
+                <option name="value" value="&quot;hyd&quot;" />
+              </KeyValuePair>
+              <KeyValuePair>
+                <option name="key" value="}" />
+                <option name="value" value="" />
+              </KeyValuePair>
+            </list>
+          </option>
+          <option name="textToSend" value="" />
+          <option name="filesToSend" value="" />
+        </RestClientRequest>
+      </list>
+    </option>
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="ApplicationKt" />
+    </option>
+  </component>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="JUnit" />
+      </set>
+    </option>
+  </component>
+  <component name="RunManager" selected="JUnit.EffectValidatorTests.FF on Invalid login">
+    <configuration default="true" type="CompoundRunConfigurationType">
+      <toRun name="All in ad-hoc-poly.kofu-mvc-validation.test" type="JUnit" />
+      <toRun name="All in ad-hoc-poly.validation-templates.test" type="JUnit" />
+      <toRun name="All in ad-hoc-poly.kofu-reactive-validation.test" type="JUnit" />
+      <method v="2" />
+    </configuration>
+    <configuration name="All in ad-hoc-poly.kofu-mvc-validation.test" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+      <module name="ad-hoc-poly.kofu-mvc-validation.test" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="All in ad-hoc-poly.kofu-reactive-validation.test" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+      <module name="ad-hoc-poly.kofu-reactive-validation.test" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="All in ad-hoc-poly.validation-templates.test" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+      <module name="ad-hoc-poly.validation-templates.test" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EffectValidatorTests.FF on Invalid Email + Invalid Login" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ad-hoc-poly.kofu-reactive-validation.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.sample.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.sample" />
+      <option name="MAIN_CLASS_NAME" value="com.sample.EffectValidatorTests" />
+      <option name="METHOD_NAME" value="FF on Invalid Email + Invalid Login" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EffectValidatorTests.FF on Invalid login + Invalid City" type="JUnit" factoryName="JUnit" singleton="false" temporary="true" nameIsGenerated="true">
+      <module name="ad-hoc-poly.kofu-reactive-validation.test" />
+      <useClassPathOnly />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.sample.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.sample" />
+      <option name="MAIN_CLASS_NAME" value="com.sample.EffectValidatorTests" />
+      <option name="METHOD_NAME" value="FF on Invalid login + Invalid City" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="PARAMETERS" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EffectValidatorTests.FF on Invalid login" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ad-hoc-poly.kofu-reactive-validation.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.sample.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.sample" />
+      <option name="MAIN_CLASS_NAME" value="com.sample.EffectValidatorTests" />
+      <option name="METHOD_NAME" value="FF on Invalid login" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="JUnit.All in ad-hoc-poly.kofu-mvc-validation.test" />
+      <item itemvalue="JUnit.All in ad-hoc-poly.kofu-reactive-validation.test" />
+      <item itemvalue="JUnit.All in ad-hoc-poly.validation-templates.test" />
+      <item itemvalue="JUnit.EffectValidatorTests.FF on Invalid Email + Invalid Login" />
+      <item itemvalue="JUnit.EffectValidatorTests.FF on Invalid login + Invalid City" />
+      <item itemvalue="JUnit.EffectValidatorTests.FF on Invalid login" />
+      <item itemvalue="Compound.All Tests" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.EffectValidatorTests.FF on Invalid login" />
+        <item itemvalue="JUnit.EffectValidatorTests.FF on Invalid login + Invalid City" />
+        <item itemvalue="JUnit.EffectValidatorTests.FF on Invalid Email + Invalid Login" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="135632bb-dfea-41ea-8c2e-d24ddd5a7cdb" name="Default Changelist" comment="" />
+      <created>1582424544574</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1582424544574</updated>
+      <workItem from="1582424546046" duration="49000" />
+      <workItem from="1582424675626" duration="14019000" />
+      <workItem from="1582683683134" duration="2537000" />
+      <workItem from="1582696060608" duration="3287000" />
+      <workItem from="1582707128732" duration="4906000" />
+      <workItem from="1582733994528" duration="789000" />
+      <workItem from="1582765148379" duration="13914000" />
+      <workItem from="1582795104102" duration="5604000" />
+      <workItem from="1582810098720" duration="2440000" />
+      <workItem from="1582816800855" duration="828000" />
+      <workItem from="1582879563959" duration="3235000" />
+      <workItem from="1582883711243" duration="9395000" />
+      <workItem from="1583065448865" duration="4114000" />
+      <workItem from="1583123805147" duration="22571000" />
+      <workItem from="1583196207785" duration="529000" />
+      <workItem from="1583197620961" duration="5585000" />
+      <workItem from="1583243732271" duration="1224000" />
+      <workItem from="1583313357298" duration="5050000" />
+      <workItem from="1583337961851" duration="1173000" />
+      <workItem from="1583363293137" duration="995000" />
+      <workItem from="1583401498719" duration="187000" />
+      <workItem from="1583482188248" duration="3022000" />
+      <workItem from="1583549826607" duration="24242000" />
+      <workItem from="1583683339169" duration="330000" />
+      <workItem from="1583720577560" duration="281000" />
+      <workItem from="1583729239852" duration="11443000" />
+      <workItem from="1583753264752" duration="966000" />
+      <workItem from="1583754243649" duration="4497000" />
+      <workItem from="1583812130355" duration="1657000" />
+      <workItem from="1583813798490" duration="4705000" />
+      <workItem from="1583819233034" duration="2388000" />
+      <workItem from="1583821862717" duration="427000" />
+      <workItem from="1583823017985" duration="608000" />
+      <workItem from="1583824040808" duration="10863000" />
+      <workItem from="1583901478502" duration="2203000" />
+      <workItem from="1583905723403" duration="1187000" />
+      <workItem from="1583906918172" duration="3629000" />
+      <workItem from="1583914665257" duration="18938000" />
+      <workItem from="1584075834193" duration="633000" />
+      <workItem from="1584082165342" duration="775000" />
+      <workItem from="1584103843479" duration="593000" />
+      <workItem from="1584163622860" duration="65448000" />
+      <workItem from="1584329982249" duration="5839000" />
+      <workItem from="1584434735003" duration="714000" />
+      <workItem from="1584498369137" duration="3732000" />
+      <workItem from="1584524829056" duration="10392000" />
+      <workItem from="1584580609818" duration="35746000" />
+      <workItem from="1584705957696" duration="36000" />
+    </task>
+    <task id="LOCAL-00001" summary="temp">
+      <created>1582778965605</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1582778965605</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Initial commit">
+      <created>1583202225596</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1583202225596</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Initial commit">
+      <created>1583203635235</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1583203635235</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Initial commit">
+      <created>1583204402372</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1583204402372</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Initial commit">
+      <created>1583339003229</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1583339003229</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Took RepoTC util methods out of the interface">
+      <created>1583549953323</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1583549953323</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Redesigned Rules">
+      <created>1583579165048</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1583579165048</updated>
+    </task>
+    <task id="LOCAL-00008" summary="- Refactored Upsert usecase to use Strategies.&#10;- Lot of POC bug fixes">
+      <created>1583683390595</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1583683390595</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Added some automation">
+      <created>1583743036558</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1583743036558</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Removed old useCases">
+      <created>1583744361891</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1583744361891</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Bug fixing and added automation">
+      <created>1583822056773</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1583822056773</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Bug fixing and added automation">
+      <created>1583823619768</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1583823619768</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Enhancements and automation">
+      <created>1583839064427</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1583839064427</updated>
+    </task>
+    <task id="LOCAL-00014" summary="City as strong type">
+      <created>1583840296650</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1583840296650</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Cleanup">
+      <created>1583910817181</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1583910817181</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Cleanup">
+      <created>1583911313534</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1583911313534</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Migrated upserts to use normal validateEmail + variable renaming">
+      <created>1583989942325</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1583989942325</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Migrated upserts to use normal validateEmail + variable renaming">
+      <created>1583990003534</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1583990003534</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Formatting and Cleanup">
+      <created>1584167223042</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1584167223042</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Formatting and Cleanup">
+      <created>1584167654360</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1584167654360</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Removed DSLs for Strategies">
+      <created>1584167904627</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1584167904627</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Change return type of `update` and `insert` to `Unit`">
+      <created>1584168998152</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1584168998152</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Made `RuleRunnerStrategy` an interface TC">
+      <created>1584175566036</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1584175566036</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Major: Changed RepoTC to have both dependencies as props.">
+      <created>1584187343852</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1584187343852</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Gradle deps upgrade">
+      <created>1584189438413</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1584189438413</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Extracted rules out of RepoTC">
+      <created>1584191592862</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1584191592862</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Major: Separated out SimpleValidator and EffectValidator">
+      <created>1584239667315</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1584239667315</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Major: Separated out SimpleValidator and EffectValidator">
+      <created>1584240442954</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1584240442954</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Separated out Handlers.kt and HandlersX.kt">
+      <created>1584242213939</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1584242213939</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Added `upsert` with Bifunctor for Either">
+      <created>1584248416555</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1584248416555</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Refactoring and Renaming">
+      <created>1584276516272</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1584276516272</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Enhancements">
+      <created>1584537672470</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1584537672470</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Enhancements">
+      <created>1584582822869</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1584582822869</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Enhancements">
+      <created>1584585544844</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1584585544844</updated>
+    </task>
+    <task id="LOCAL-00035" summary="Removed `Async` from Repo.kt and added `Async` to EffectValidator.kt">
+      <created>1584590231272</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1584590231272</updated>
+    </task>
+    <task id="LOCAL-00036" summary="Renamed module from `validation-fx` to `validation-templates`">
+      <created>1584592772446</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1584592772446</updated>
+    </task>
+    <task id="LOCAL-00037" summary="Renamed module from `validation-fx` to `validation-templates`">
+      <created>1584670345968</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1584670345968</updated>
+    </task>
+    <task id="LOCAL-00038" summary="Renamed module from `validation-fx` to `validation-templates`">
+      <created>1584698672174</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1584698672174</updated>
+    </task>
+    <task id="LOCAL-00039" summary="Renamed module from `validation-fx` to `validation-templates`">
+      <created>1584698684856</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1584698684856</updated>
+    </task>
+    <task id="LOCAL-00040" summary="Renamed module from `validation-fx` to `validation-templates`">
+      <created>1584700201851</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1584700201852</updated>
+    </task>
+    <task id="LOCAL-00041" summary="`mapN` library bug is fixed">
+      <created>1584701595711</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1584701595711</updated>
+    </task>
+    <task id="LOCAL-00042" summary="`mapN` library bug is fixed">
+      <created>1584701698695</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1584701698695</updated>
+    </task>
+    <task id="LOCAL-00043" summary="`mapN` library bug is fixed">
+      <created>1584702810162</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1584702810162</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="1">
+          <value>
+            <State>
+              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="structure">
+                    <value>
+                      <list>
+                        <option value="dir:/Users/gakshintala/code-clones/My-GitHub/ad-hoc-poly/kofu-reactive-validation/src/test/resources" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="false" />
+                </map>
+              </option>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="OPEN_GENERIC_TABS">
+      <map>
+        <entry key="1" value="TOOL_WINDOW" />
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/.." />
+      <path value="$PROJECT_DIR$/kofu-mvc-validation" />
+    </ignored-roots>
+    <MESSAGE value="Took RepoTC util methods out of the interface" />
+    <MESSAGE value="Redesigned Rules" />
+    <MESSAGE value="- Refactored Upsert usecase to use Strategies.&#10;- Lot of POC bug fixes" />
+    <MESSAGE value="Added some automation" />
+    <MESSAGE value="Removed old useCases" />
+    <MESSAGE value="Bug fixing and added automation" />
+    <MESSAGE value="Enhancements and automation" />
+    <MESSAGE value="City as strong type" />
+    <MESSAGE value="Cleanup" />
+    <MESSAGE value="Migrated upserts to use normal validateEmail + variable renaming" />
+    <MESSAGE value="Formatting and Cleanup" />
+    <MESSAGE value="Removed DSLs for Strategies" />
+    <MESSAGE value="Change return type of `update` and `insert` to `Unit`" />
+    <MESSAGE value="Made `RuleRunnerStrategy` an interface TC" />
+    <MESSAGE value="Major: Changed RepoTC to have both dependencies as props." />
+    <MESSAGE value="Gradle deps upgrade" />
+    <MESSAGE value="Extracted rules out of RepoTC" />
+    <MESSAGE value="Major: Separated out SimpleValidator and EffectValidator" />
+    <MESSAGE value="Separated out Handlers.kt and HandlersX.kt" />
+    <MESSAGE value="Added `upsert` with Bifunctor for Either" />
+    <MESSAGE value="Refactoring and Renaming" />
+    <MESSAGE value="Enhancements" />
+    <MESSAGE value="Removed `Async` from Repo.kt and added `Async` to EffectValidator.kt" />
+    <MESSAGE value="Renamed module from `validation-fx` to `validation-templates`" />
+    <MESSAGE value="`mapN` library bug is fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="`mapN` library bug is fixed" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="730" y="274" width="722" height="230" key="#Custom_Plugin_Repositories" timestamp="1584237088368">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state x="730" y="274" width="722" height="230" key="#Custom_Plugin_Repositories/0.23.1680.1027@0.23.1680.1027" timestamp="1584237088368" />
+    <state x="440" y="184" key="#Plugins" timestamp="1582776006670">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state x="440" y="184" key="#Plugins/0.23.1680.1027@0.23.1680.1027" timestamp="1582776006670" />
+    <state x="218" y="218" key="#SQL_Dialects" timestamp="1582424874940">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state x="218" y="218" key="#SQL_Dialects/0.23.1680.1027@0.23.1680.1027" timestamp="1582424874940" />
+    <state x="277" y="202" width="1234" height="676" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1584699595475">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state x="277" y="202" width="1234" height="676" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1584699595475" />
+    <state x="100" y="123" width="1480" height="827" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1584586086784">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state x="100" y="123" width="1480" height="827" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1584586086784" />
+    <state x="606" y="259" key="#com.intellij.ide.util.MemberChooser" timestamp="1584197180425">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state x="606" y="259" key="#com.intellij.ide.util.MemberChooser/0.23.1680.1027@0.23.1680.1027" timestamp="1584197180425" />
+    <state x="329" y="23" width="774" height="432" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1584581402049">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state x="329" y="23" width="774" height="432" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1584581402049" />
+    <state x="578" y="290" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1584180545007">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state x="578" y="290" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1584180545007" />
+    <state x="445" y="190" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog" timestamp="1584672329401">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state x="445" y="190" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog/-2560.-412.2560.1417/0.23.1680.1027@0.23.1680.1027" timestamp="1582888735762" />
+    <state x="445" y="190" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1584672329401" />
+    <state x="876" y="120" width="711" height="579" key="#xdebugger.evaluate" timestamp="1584334542857">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state x="-1517" y="7" key="#xdebugger.evaluate/-2560.-412.2560.1417/0.23.1680.1027@-2560.-412.2560.1417" timestamp="1583820041402" />
+    <state x="876" y="120" width="711" height="579" key="#xdebugger.evaluate/0.23.1680.1027@0.23.1680.1027" timestamp="1584334542857" />
+    <state x="586" y="378" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1584530068212">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state x="586" y="378" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.23.1680.1027@0.23.1680.1027" timestamp="1584530068212" />
+    <state x="225" y="126" key="CommitChangelistDialog2" timestamp="1584698684908">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state x="-2217" y="-270" key="CommitChangelistDialog2/-2560.-412.2560.1417/0.23.1680.1027@-2560.-412.2560.1417" timestamp="1583840296708" />
+    <state x="225" y="126" key="CommitChangelistDialog2/0.23.1680.1027@0.23.1680.1027" timestamp="1584698684908" />
+    <state x="100" y="123" width="1480" height="827" key="DiffContextDialog" timestamp="1584167930574">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state x="100" y="123" width="1480" height="827" key="DiffContextDialog/-2560.-412.2560.1417/0.23.1680.1027@0.23.1680.1027" timestamp="1583125616472" />
+    <state x="100" y="123" width="1480" height="827" key="DiffContextDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1584167930574" />
+    <state x="701" y="440" width="446" height="192" key="Github.ShareDialog" timestamp="1583201643941">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state x="701" y="440" width="446" height="192" key="Github.ShareDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1583201643941" />
+    <state x="396" y="248" key="Github.UntrackedFilesDialog" timestamp="1583201726348">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state x="396" y="248" key="Github.UntrackedFilesDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1583201726348" />
+    <state width="1470" height="287" key="GridCell.Tab.0.bottom" timestamp="1584705305355">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state width="2560" height="423" key="GridCell.Tab.0.bottom/-2560.-412.2560.1417/0.23.1680.1027@-2560.-412.2560.1417" timestamp="1583913047075" />
+    <state width="1680" height="295" key="GridCell.Tab.0.bottom/-2560.-412.2560.1417/0.23.1680.1027@0.23.1680.1027" timestamp="1583907268826" />
+    <state width="1470" height="287" key="GridCell.Tab.0.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1584705305355" />
+    <state width="1680" height="358" key="GridCell.Tab.0.bottom/170.1103.1680.1027/0.23.1920.1057@0.23.1920.1057" timestamp="1584285089735" />
+    <state width="1470" height="287" key="GridCell.Tab.0.center" timestamp="1584705305355">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state width="2560" height="423" key="GridCell.Tab.0.center/-2560.-412.2560.1417/0.23.1680.1027@-2560.-412.2560.1417" timestamp="1583913047074" />
+    <state width="1680" height="295" key="GridCell.Tab.0.center/-2560.-412.2560.1417/0.23.1680.1027@0.23.1680.1027" timestamp="1583907268824" />
+    <state width="1470" height="287" key="GridCell.Tab.0.center/0.23.1680.1027@0.23.1680.1027" timestamp="1584705305355" />
+    <state width="1680" height="358" key="GridCell.Tab.0.center/170.1103.1680.1027/0.23.1920.1057@0.23.1920.1057" timestamp="1584285089735" />
+    <state width="1470" height="287" key="GridCell.Tab.0.left" timestamp="1584705305354">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state width="2560" height="423" key="GridCell.Tab.0.left/-2560.-412.2560.1417/0.23.1680.1027@-2560.-412.2560.1417" timestamp="1583913047073" />
+    <state width="1680" height="295" key="GridCell.Tab.0.left/-2560.-412.2560.1417/0.23.1680.1027@0.23.1680.1027" timestamp="1583907268824" />
+    <state width="1470" height="287" key="GridCell.Tab.0.left/0.23.1680.1027@0.23.1680.1027" timestamp="1584705305354" />
+    <state width="1680" height="358" key="GridCell.Tab.0.left/170.1103.1680.1027/0.23.1920.1057@0.23.1920.1057" timestamp="1584285089734" />
+    <state width="1470" height="287" key="GridCell.Tab.0.right" timestamp="1584705305355">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state width="2560" height="423" key="GridCell.Tab.0.right/-2560.-412.2560.1417/0.23.1680.1027@-2560.-412.2560.1417" timestamp="1583913047075" />
+    <state width="1680" height="295" key="GridCell.Tab.0.right/-2560.-412.2560.1417/0.23.1680.1027@0.23.1680.1027" timestamp="1583907268825" />
+    <state width="1470" height="287" key="GridCell.Tab.0.right/0.23.1680.1027@0.23.1680.1027" timestamp="1584705305355" />
+    <state width="1680" height="358" key="GridCell.Tab.0.right/170.1103.1680.1027/0.23.1920.1057@0.23.1920.1057" timestamp="1584285089735" />
+    <state width="1680" height="358" key="GridCell.Tab.1.bottom" timestamp="1584349823661">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state width="2560" height="541" key="GridCell.Tab.1.bottom/-2560.-412.2560.1417/0.23.1680.1027@-2560.-412.2560.1417" timestamp="1583821834112" />
+    <state width="1680" height="358" key="GridCell.Tab.1.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1584349823661" />
+    <state width="1680" height="358" key="GridCell.Tab.1.bottom/170.1103.1680.1027/0.23.1920.1057@0.23.1920.1057" timestamp="1584285089727" />
+    <state width="1680" height="358" key="GridCell.Tab.1.center" timestamp="1584349823660">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state width="2560" height="541" key="GridCell.Tab.1.center/-2560.-412.2560.1417/0.23.1680.1027@-2560.-412.2560.1417" timestamp="1583821834111" />
+    <state width="1680" height="358" key="GridCell.Tab.1.center/0.23.1680.1027@0.23.1680.1027" timestamp="1584349823660" />
+    <state width="1680" height="358" key="GridCell.Tab.1.center/170.1103.1680.1027/0.23.1920.1057@0.23.1920.1057" timestamp="1584285089727" />
+    <state width="1680" height="358" key="GridCell.Tab.1.left" timestamp="1584349823660">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state width="2560" height="541" key="GridCell.Tab.1.left/-2560.-412.2560.1417/0.23.1680.1027@-2560.-412.2560.1417" timestamp="1583821834111" />
+    <state width="1680" height="358" key="GridCell.Tab.1.left/0.23.1680.1027@0.23.1680.1027" timestamp="1584349823660" />
+    <state width="1680" height="358" key="GridCell.Tab.1.left/170.1103.1680.1027/0.23.1920.1057@0.23.1920.1057" timestamp="1584285089726" />
+    <state width="1680" height="358" key="GridCell.Tab.1.right" timestamp="1584349823660">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state width="2560" height="541" key="GridCell.Tab.1.right/-2560.-412.2560.1417/0.23.1680.1027@-2560.-412.2560.1417" timestamp="1583821834112" />
+    <state width="1680" height="358" key="GridCell.Tab.1.right/0.23.1680.1027@0.23.1680.1027" timestamp="1584349823660" />
+    <state width="1680" height="358" key="GridCell.Tab.1.right/170.1103.1680.1027/0.23.1920.1057@0.23.1920.1057" timestamp="1584285089727" />
+    <state x="428" y="286" key="IDE.errors.dialog" timestamp="1584699291808">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state x="-1908" y="-49" key="IDE.errors.dialog/-2560.-412.2560.1417/0.23.1680.1027@-2560.-412.2560.1417" timestamp="1583818873886" />
+    <state x="428" y="286" key="IDE.errors.dialog/-2560.-412.2560.1417/0.23.1680.1027@0.23.1680.1027" timestamp="1583920170053" />
+    <state x="428" y="286" key="IDE.errors.dialog/0.23.1680.1027@0.23.1680.1027" timestamp="1584699291808" />
+    <state x="360" y="193" key="Registry" timestamp="1584009686311">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state x="360" y="193" key="Registry/0.23.1680.1027@0.23.1680.1027" timestamp="1584009686311" />
+    <state x="370" y="246" key="RollbackChangesDialog" timestamp="1584698571430">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state x="-1996" y="-104" key="RollbackChangesDialog/-2560.-412.2560.1417/0.23.1680.1027@-2560.-412.2560.1417" timestamp="1583840282212" />
+    <state x="370" y="246" key="RollbackChangesDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1584698571430" />
+    <state x="341" y="175" key="SettingsEditor" timestamp="1584592740953">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state x="-2040" y="-202" key="SettingsEditor/-2560.-412.2560.1417/0.23.1680.1027@-2560.-412.2560.1417" timestamp="1583910796129" />
+    <state x="341" y="175" key="SettingsEditor/0.23.1680.1027@0.23.1680.1027" timestamp="1584592740953" />
+    <state width="555" height="616" key="SwitcherDM" timestamp="1584701609042">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state width="846" height="795" key="SwitcherDM/-2560.-412.2560.1417/0.23.1680.1027@-2560.-412.2560.1417" timestamp="1583920599243" />
+    <state width="555" height="616" key="SwitcherDM/-2560.-412.2560.1417/0.23.1680.1027@0.23.1680.1027" timestamp="1583919984429" />
+    <state width="555" height="616" key="SwitcherDM/0.23.1680.1027@0.23.1680.1027" timestamp="1584701609042" />
+    <state width="635" height="594" key="SwitcherDM/0.23.1920.1057@0.23.1920.1057" timestamp="1583842724458" />
+    <state x="691" y="458" key="VCS.ChangelistChooser" timestamp="1584181388468">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state x="691" y="458" key="VCS.ChangelistChooser/0.23.1680.1027@0.23.1680.1027" timestamp="1584181388468" />
+    <state x="440" y="276" key="Vcs.Push.Dialog.v2" timestamp="1584702820988">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state x="-1890" y="-63" key="Vcs.Push.Dialog.v2/-2560.-412.2560.1417/0.23.1680.1027@-2560.-412.2560.1417" timestamp="1583911321563" />
+    <state x="440" y="276" key="Vcs.Push.Dialog.v2/0.23.1680.1027@0.23.1680.1027" timestamp="1584702820988" />
+    <state width="840" height="513" key="XDebugger.FullValuePopup" timestamp="1584334095029">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state width="840" height="513" key="XDebugger.FullValuePopup/0.23.1680.1027@0.23.1680.1027" timestamp="1584334095029" />
+    <state x="100" y="123" width="1480" height="827" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1584167930574">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state x="100" y="123" width="1480" height="827" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1584167930574" />
+    <state x="456" y="165" width="972" height="600" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1584242027415">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state x="-1865" y="-216" width="1480" height="827" key="com.intellij.history.integration.ui.views.FileHistoryDialog/-2560.-412.2560.1417/0.23.1680.1027@0.23.1680.1027" timestamp="1582884188433" />
+    <state x="456" y="165" width="972" height="600" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1584242027415" />
+    <state x="627" y="457" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1582778981257">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state x="627" y="457" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1680.1027@0.23.1680.1027" timestamp="1582778981257" />
+    <state x="544" y="484" width="695" height="566" key="find.popup" timestamp="1584672394710">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state x="-1798" y="-42" width="1060" height="781" key="find.popup/-2560.-412.2560.1417/0.23.1680.1027@-2560.-412.2560.1417" timestamp="1583819077296" />
+    <state x="500" y="291" width="695" height="566" key="find.popup/-2560.-412.2560.1417/0.23.1680.1027@0.23.1680.1027" timestamp="1583733229913" />
+    <state x="544" y="484" width="695" height="566" key="find.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1584672394710" />
+    <state x="217" y="149" key="new project wizard" timestamp="1583196456027">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state x="217" y="149" key="new project wizard/0.23.1680.1027@0.23.1680.1027" timestamp="1583196456027" />
+    <state x="624" y="174" key="refactoring.ChangeSignatureDialog" timestamp="1584245619346">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state x="624" y="174" key="refactoring.ChangeSignatureDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1584245619346" />
+    <state x="505" y="248" width="670" height="675" key="run.anything.popup" timestamp="1584241868867">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state x="505" y="248" width="670" height="675" key="run.anything.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1584241868867" />
+    <state x="505" y="250" width="670" height="676" key="search.everywhere.popup" timestamp="1584699558676">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state x="-1790" y="-99" width="1021" height="933" key="search.everywhere.popup/-2560.-412.2560.1417/0.23.1680.1027@-2560.-412.2560.1417" timestamp="1583829777231" />
+    <state x="505" y="250" width="670" height="676" key="search.everywhere.popup/-2560.-412.2560.1417/0.23.1680.1027@0.23.1680.1027" timestamp="1583731160588" />
+    <state x="505" y="250" width="670" height="676" key="search.everywhere.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1584699558676" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.arrow-kt/arrow-core-data/0.10.5-SNAPSHOT/73d93057e4581fa3088abe7275e0cb8778ce84b2/arrow-core-data-0.10.5-SNAPSHOT-sources.jar!/arrow/typeclasses/Apply.kt</url>
+          <line>89</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

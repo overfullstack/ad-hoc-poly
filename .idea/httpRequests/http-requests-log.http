@@ -1,0 +1,168 @@
+POST http://localhost:8080/api/upsert
+Content-Type: application/json
+
+{
+  "login": "gakshintala",
+  "email": "gakshin@kt.com",
+  "firstName": "gopal",
+  "lastName": "sarma",
+  "city": "hyd"
+}
+
+<> 2020-03-15T084135.400.txt
+
+###
+
+POST http://localhost:8080/api/upsert
+Content-Type: application/json
+
+{
+  "login": "gakshintala",
+  "email": "gakshin@kt.com",
+  "firstName": "gopal",
+  "lastName": "sarma",
+  "city": "hyd"
+}
+
+<> 2020-03-15T083052.500.html
+
+###
+
+POST http://localhost:8080/api/upsert
+Content-Type: application/json
+
+{
+  "login": "gakshintala",
+  "email": "gakshin@kt.com",
+  "firstName": "gopal",
+  "lastName": "sarma",
+  "city": "hyd"
+}
+
+<> 2020-03-15T082931.500.html
+
+###
+
+POST http://localhost:8080/api/upsert
+Content-Type: application/json
+
+{
+  "login": "gakshintala",
+  "email": "gakshin@kt.com",
+  "firstname": "gopal",
+  "lastname": "sarma",
+  "city": "hyd"
+}
+
+###
+
+POST http://localhost:8080/api/upsert
+Content-Type: application/json
+
+{
+  "login": "gakshintala",
+  "email": "gakshin@kt.com",
+  "firstname": "gopal",
+  "lastname": "sarma",
+  "city": "hyd"
+}
+
+###
+
+POST http://localhost:8080/api/upsert
+Content-Type: application/json
+
+{
+  "login": "gakshintala",
+  "email": "gakshin@kt.com",
+  "firstname": "gopal",
+  "lastname": "sarma",
+  "city": "hyd"
+}
+
+###
+
+POST http://localhost:8080/api/upsert
+Content-Type: application/json
+
+{
+  "login": "gakshintala",
+  "email": "gakshin@kt.com",
+  "firstname": "gopal",
+  "lastname": "sarma",
+  "city": "hyd"
+}
+
+###
+
+POST http://localhost:8080/api/upsert
+Content-Type: application/json
+
+{
+  "login": "gakshintala",
+  "email": "gakshin@kt.com",
+  "firstname": "gopal",
+  "lastname": "sarma",
+  "city": "hyd"
+}
+
+###
+
+POST http://localhost:8080/api/upsert
+Content-Type: application/json
+
+{
+  "login": "gakshintala",
+  "email": "gakshin@kt.com",
+  "firstname": "gopal",
+  "lastname": "sarma",
+  "city": "hyd"
+}
+
+<> 2020-03-09T112859.400.txt
+
+###
+
+POST http://localhost:8080/api/upsert
+Content-Type: application/json
+
+{
+  "login": "gakshintala",
+  "email": "gakshin@kt.com",
+  "firstname": "gopal",
+  "lastname": "sarma",
+  "city": "hyd"
+}
+
+<> 2020-03-09T112234.400.txt
+
+###
+
+POST http://localhost:8080/api/upsert
+Content-Type: application/json
+{: 
+  "login": "gakshintala",
+  "email": "gakshin@kt.com",
+  "firstname": "gopal",
+  "lastname": "sarma",
+  "city": "hyd"
+}: 
+
+<> 2020-03-09T112101.400.html
+
+###
+
+POST http://localhost:8080/api/upsert
+Content-Type: application/json
+{: 
+"login": "gakshintala",
+"email": "gakshin@kt.com",
+"firstname": "gopal",
+"lastname": "sarma",
+"city": "hyd"
+}: 
+
+<> 2020-03-09T111941.400.html
+
+###
+
