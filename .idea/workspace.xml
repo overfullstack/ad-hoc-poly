@@ -25,40 +25,8 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="135632bb-dfea-41ea-8c2e-d24ddd5a7cdb" name="Default Changelist" comment="`mapN` library bug is fixed">
-      <change afterPath="$PROJECT_DIR$/.idea/$CACHE_FILE$" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/gakshintala.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/2020-03-09T111941.400.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/2020-03-09T112101.400.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/2020-03-09T112234.400.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/2020-03-09T112859.400.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/2020-03-15T082931.500.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/2020-03-15T083052.500.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/2020-03-15T084135.400.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/http-client.cookies" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/http-requests-log.http" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/kotlinScripting.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/kotlinc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sbt.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/City_as_strong_type.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/City_as_strong_type/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Default_Changelist.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Default_Changelist/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Renamed_module_from__validation-fx__to__validation-templates_.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Renamed_module_from_`validation-fx`_to_`validation-templates`/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="135632bb-dfea-41ea-8c2e-d24ddd5a7cdb" name="Default Changelist" comment="Checking in `.idea`">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -481,7 +449,8 @@
       <workItem from="1584498369137" duration="3732000" />
       <workItem from="1584524829056" duration="10392000" />
       <workItem from="1584580609818" duration="35746000" />
-      <workItem from="1584705957696" duration="36000" />
+      <workItem from="1584705957696" duration="88000" />
+      <workItem from="1584712799089" duration="32000" />
     </task>
     <task id="LOCAL-00001" summary="temp">
       <created>1582778965605</created>
@@ -784,7 +753,14 @@
       <option name="project" value="LOCAL" />
       <updated>1584702810162</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="Checking in `.idea`">
+      <created>1584706030178</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1584706030178</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -866,7 +842,6 @@
       <path value="$PROJECT_DIR$/.." />
       <path value="$PROJECT_DIR$/kofu-mvc-validation" />
     </ignored-roots>
-    <MESSAGE value="Took RepoTC util methods out of the interface" />
     <MESSAGE value="Redesigned Rules" />
     <MESSAGE value="- Refactored Upsert usecase to use Strategies.&#10;- Lot of POC bug fixes" />
     <MESSAGE value="Added some automation" />
@@ -891,7 +866,8 @@
     <MESSAGE value="Removed `Async` from Repo.kt and added `Async` to EffectValidator.kt" />
     <MESSAGE value="Renamed module from `validation-fx` to `validation-templates`" />
     <MESSAGE value="`mapN` library bug is fixed" />
-    <option name="LAST_COMMIT_MESSAGE" value="`mapN` library bug is fixed" />
+    <MESSAGE value="Checking in `.idea`" />
+    <option name="LAST_COMMIT_MESSAGE" value="Checking in `.idea`" />
   </component>
   <component name="WindowStateProjectService">
     <state x="730" y="274" width="722" height="230" key="#Custom_Plugin_Repositories" timestamp="1584237088368">
