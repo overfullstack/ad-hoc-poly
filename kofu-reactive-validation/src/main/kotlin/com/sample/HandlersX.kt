@@ -1,5 +1,7 @@
 package com.sample
 
+import arrow.core.Validated
+import arrow.core.extensions.validated.bifunctor.bifunctor
 import arrow.core.fix
 import arrow.fx.reactor.ForMonoK
 import arrow.fx.reactor.fix
@@ -19,14 +21,10 @@ class HandlersX(private val nonBlockingReactorEAValidator: EffectValidator<ForMo
                     .flatMap { user ->
                         nonBlockingReactorEAValidator.run {
                             validateUserWithRules(user).fix().mono
-                                    .map {
+                                    .flatMap {
                                         repo.run {
-                                            // Migrate it to use `upsert` when `ValidatedBiFunctor` is introduced
-                                            it.fix().bimap(user.toLeft(), user.toRight())
-                                        }
-                                    }
-                                    .flatMap { result ->
-                                        result.fold(
+                                            user.upsert(Validated.bifunctor(), it).fix()
+                                        }.fold(
                                                 { it.fold(badRequest()::bodyValue, ok()::bodyValue) },
                                                 ok()::bodyValue
                                         )

@@ -12,27 +12,26 @@ import com.validation.typeclass.EffectValidator
  */
 private fun <F, S> EffectValidator<F, S, ValidationError>.cityShouldBeValid(user: User) = fx.async {
     repo.run {
-        validatorAE.run {
-            val cityValid = user.isUserCityValid().bind()
-            if (cityValid) just(cityValid)
-            else raiseError(UserCityInvalid(user.city).nel())
-        }
+        val cityValid = user.isUserCityValid().bind()
+        if (cityValid) validatorAE.just(cityValid)
+        else validatorAE.raiseError(UserCityInvalid(user.city).nel())
     }
 }
 
 private fun <F, S> EffectValidator<F, S, ValidationError>.loginShouldNotExit(user: User) = fx.async {
     repo.run {
-        validatorAE.run {
-            val loginExists = user.doesUserLoginExist().bind()
-            if (loginExists) raiseError(UserLoginExits(user.login).nel())
-            else just(loginExists)
-        }
+        val loginExists = user.doesUserLoginExist().bind()
+        if (loginExists) validatorAE.raiseError(UserLoginExits(user.login).nel())
+        else validatorAE.just(loginExists)
     }
 }
 
 fun <F, S> EffectValidator<F, S, ValidationError>.validateUserWithRules(user: User) = fx.async {
     validatorAE.run {
-        mapN( // 🚩 All these methods are called, even in Fail-Fast mode. No better way to do it as of now.
+        // 🚩 These are eager calls. So even in fail-fast mode, where `Either` is used
+        // all these methods are called even after first `raiseError` 
+        // as `Either` doesn't have that short-circuit functionality.
+        mapN(  
                 validateEmailWithRules(user.email),
                 cityShouldBeValid(user).bind(),
                 loginShouldNotExit(user).bind()
