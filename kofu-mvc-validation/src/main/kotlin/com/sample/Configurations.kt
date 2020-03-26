@@ -83,9 +83,9 @@ fun init(
     { ps -> ps.execute() }
 
     userRepository.deleteAll()
-    userRepository.insert(User("smaldini", "smaldini@kt.com", "Stéphane", "Maldini", "london"))
-    userRepository.insert(User("sdeleuze", "sdeleuze@kt.com", "Sébastien", "Deleuze", "sydney"))
-    userRepository.insert(User("bclozel", "bclozel@kt.com", "Brian", "Clozel", "istanbul"))
+    userRepository.insert(User("tarkansh", "tarkansh@kt.com", "akshintala", "tark", "london"))
+    userRepository.insert(User("mguduri", "mguduri@kt.com", "guduri", "mango", "sydney"))
+    userRepository.insert(User("gopals", "gopals@kt.com", "gosh", "shgo", "istanbul"))
 
     cityRepository.deleteAll()
     cityRepository.insert(City("london"))

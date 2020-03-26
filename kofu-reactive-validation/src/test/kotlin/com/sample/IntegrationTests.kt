@@ -50,7 +50,7 @@ class IntegrationTests {
 
     @Test
     fun `Valid User Update`() {
-        val validUserExistingLogin = User("smaldini", "smaldini2@kt.com", "Stéphane", "Maldini", "london")
+        val validUserExistingLogin = User("tarkansh", "tarkansh2@kt.com", "akshintala", "tark", "london")
         client.post().uri("/api/upsert")
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .bodyValue(validUserExistingLogin)

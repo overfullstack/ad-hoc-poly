@@ -31,7 +31,7 @@ class UserRepositoryTests {
 
     @Test
     fun userLoginValid() {
-        assertTrue(repository.doesUserExistsWith("smaldini").block()!!)
+        assertTrue(repository.doesUserExistsWith("tarkansh").block()!!)
     }
 
     @Test

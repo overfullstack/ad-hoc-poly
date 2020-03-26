@@ -43,14 +43,14 @@ class EffectValidatorTests {
 
     @Test
     fun `EA on Valid user`() {
-        val validUser = User("gakshintala", "smaldini@kt.com", "Stéphane", "Maldini", "london")
+        val validUser = User("gakshintala", "tarkansh@kt.com", "akshintala", "tark", "london")
         val result = nonBlockingEAValidator.validateUserWithRules(validUser).fix().mono.block()?.fix()
         assertTrue(result?.isValid ?: false)
     }
 
     @Test
     fun `FF on Invalid Email`() {
-        val invalidUser = User("gakshintala", "smaldini-kt.com${(0..251).map { "g" }}", "Stéphane", "Maldini", "london")
+        val invalidUser = User("gakshintala", "tarkansh-kt.com${(0..251).map { "g" }}", "akshintala", "tark", "london")
         val result = nonBlockingFFValidator.validateUserWithRules(invalidUser).fix().mono.block()?.fix()
         result?.run {
             assertTrue(isLeft())
@@ -63,7 +63,7 @@ class EffectValidatorTests {
 
     @Test
     fun `FF on Invalid Email No needle + Invalid City`() {
-        val invalidUser = User("gakshintala", "smaldini-kt.com${(0..251).map { "g" }}", "Stéphane", "Maldini", "vja")
+        val invalidUser = User("gakshintala", "tarkansh-kt.com${(0..251).map { "g" }}", "akshintala", "tark", "vja")
         val result = nonBlockingFFValidator.validateUserWithRules(invalidUser).fix().mono.block()?.fix()
         result?.run {
             assertTrue(isLeft())
@@ -76,7 +76,7 @@ class EffectValidatorTests {
 
     @Test
     fun `FF on Invalid Email Length + Invalid Login`() {
-        val invalidUser = User("smaldini", "smaldini@kt.com${(0..251).map { "g" }}", "Stéphane", "Maldini", "london")
+        val invalidUser = User("tarkansh", "tarkansh@kt.com${(0..251).map { "g" }}", "akshintala", "tark", "london")
         val result = nonBlockingFFValidator.validateUserWithRules(invalidUser).fix().mono.block()?.fix()
         result?.run {
             assertTrue(isLeft())
@@ -89,7 +89,7 @@ class EffectValidatorTests {
 
     @Test
     fun `FF on Invalid City + Invalid login`() {
-        val invalidUser = User("smaldini", "smaldini@kt.com", "Stéphane", "Maldini", "hyd")
+        val invalidUser = User("tarkansh", "tarkansh@kt.com", "akshintala", "tark", "hyd")
         val result = nonBlockingFFValidator.validateUserWithRules(invalidUser).fix().mono.block()?.fix()
         result?.run {
             assertTrue(isLeft())
@@ -102,13 +102,13 @@ class EffectValidatorTests {
 
     @Test
     fun `FF on only Invalid login`() {
-        val invalidUser = User("smaldini", "smaldini@kt.com", "Stéphane", "Maldini", "london")
+        val invalidUser = User("tarkansh", "tarkansh@kt.com", "akshintala", "tark", "london")
         val result = nonBlockingFFValidator.validateUserWithRules(invalidUser).fix().mono.block()?.fix()
         result?.run {
             assertTrue(isLeft())
             fold({
                 assertEquals(1, it.size)
-                assertEquals(ValidationError.UserLoginExits("smaldini"), it.head)
+                assertEquals(ValidationError.UserLoginExits("tarkansh"), it.head)
             }, {})
         }
     }

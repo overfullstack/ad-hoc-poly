@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id("org.jetbrains.kotlin.jvm") version "1.3.71"
     id("io.spring.dependency-management") version "1.0.9.RELEASE"
-    id("org.springframework.boot") version "2.3.0.M3"
+    id("org.springframework.boot") version "2.3.0.M1"
 }
 
 val arrowSnapshotVersion = "0.10.5-SNAPSHOT"
@@ -25,9 +25,7 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(group = "junit", module = "junit")
     }
-    testImplementation("org.springframework.boot:spring-boot-starter-webflux") {
-        exclude(group = "junit", module = "junit")
-    }
+    testImplementation("org.springframework.boot:spring-boot-starter-webflux")
 }
 
 repositories {

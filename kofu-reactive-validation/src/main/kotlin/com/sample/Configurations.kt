@@ -72,9 +72,9 @@ fun init(client: DatabaseClient,
     val createCity = "CREATE TABLE IF NOT EXISTS city (name varchar PRIMARY KEY);"
     client.execute(createUsers).then()
             .then(userRepository.deleteAll())
-            .then(userRepository.insert(User("smaldini", "smaldini@kt.com", "Stéphane", "Maldini", "london")))
-            .then(userRepository.insert(User("sdeleuze", "sdeleuze@kt.com", "Sébastien", "Deleuze", "sydney")))
-            .then(userRepository.insert(User("bclozel", "bclozel@kt.com", "Brian", "Clozel", "istanbul")))
+            .then(userRepository.insert(User("tarkansh", "tarkansh@kt.com", "akshintala", "tark", "london")))
+            .then(userRepository.insert(User("mguduri", "mguduri@kt.com", "guduri", "mango", "sydney")))
+            .then(userRepository.insert(User("gopals", "gopals@kt.com", "gosh", "shgo", "istanbul")))
             .block()
 
     client.execute(createCity).then()

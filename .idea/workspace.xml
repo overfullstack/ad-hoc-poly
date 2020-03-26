@@ -26,12 +26,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="135632bb-dfea-41ea-8c2e-d24ddd5a7cdb" name="Default Changelist" comment="Used ValidatedBiFunctor">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kofu-mvc-validation/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/kofu-mvc-validation/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kofu-mvc-validation/src/main/kotlin/com/sample/Configurations.kt" beforeDir="false" afterPath="$PROJECT_DIR$/kofu-mvc-validation/src/main/kotlin/com/sample/Configurations.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kofu-mvc-validation/src/test/kotlin/com/sample/IntegrationTests.kt" beforeDir="false" afterPath="$PROJECT_DIR$/kofu-mvc-validation/src/test/kotlin/com/sample/IntegrationTests.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kofu-reactive-validation/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/kofu-reactive-validation/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/validation-templates/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/validation-templates/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/validation-templates/src/main/kotlin/com/validation/rules/UserRules.kt" beforeDir="false" afterPath="$PROJECT_DIR$/validation-templates/src/main/kotlin/com/validation/rules/UserRules.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kofu-reactive-validation/src/main/kotlin/com/sample/Configurations.kt" beforeDir="false" afterPath="$PROJECT_DIR$/kofu-reactive-validation/src/main/kotlin/com/sample/Configurations.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kofu-reactive-validation/src/test/kotlin/com/sample/EffectValidatorTests.kt" beforeDir="false" afterPath="$PROJECT_DIR$/kofu-reactive-validation/src/test/kotlin/com/sample/EffectValidatorTests.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kofu-reactive-validation/src/test/kotlin/com/sample/IntegrationTests.kt" beforeDir="false" afterPath="$PROJECT_DIR$/kofu-reactive-validation/src/test/kotlin/com/sample/IntegrationTests.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kofu-reactive-validation/src/test/kotlin/com/sample/UserRepositoryTests.kt" beforeDir="false" afterPath="$PROJECT_DIR$/kofu-reactive-validation/src/test/kotlin/com/sample/UserRepositoryTests.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/validation-templates/src/test/kotlin/com/validation/EmailRulesTests.kt" beforeDir="false" afterPath="$PROJECT_DIR$/validation-templates/src/test/kotlin/com/validation/EmailRulesTests.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,7 +127,7 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.folding" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
     <property name="show.unlinked.gradle.project.popup" value="true" />
   </component>
   <component name="Push.Settings">
@@ -299,7 +305,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.EffectValidatorTests.FF on Invalid login">
+  <component name="RunManager" selected="JUnit.All in ad-hoc-poly.kofu-mvc-validation.test">
     <configuration default="true" type="CompoundRunConfigurationType">
       <toRun name="All in ad-hoc-poly.kofu-mvc-validation.test" type="JUnit" />
       <toRun name="All in ad-hoc-poly.validation-templates.test" type="JUnit" />
@@ -330,72 +336,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="EffectValidatorTests.FF on Invalid Email + Invalid Login" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ad-hoc-poly.kofu-reactive-validation.test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.sample.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.sample" />
-      <option name="MAIN_CLASS_NAME" value="com.sample.EffectValidatorTests" />
-      <option name="METHOD_NAME" value="FF on Invalid Email + Invalid Login" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="EffectValidatorTests.FF on Invalid login + Invalid City" type="JUnit" factoryName="JUnit" singleton="false" temporary="true" nameIsGenerated="true">
-      <module name="ad-hoc-poly.kofu-reactive-validation.test" />
-      <useClassPathOnly />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.sample.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.sample" />
-      <option name="MAIN_CLASS_NAME" value="com.sample.EffectValidatorTests" />
-      <option name="METHOD_NAME" value="FF on Invalid login + Invalid City" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="PARAMETERS" value="" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="EffectValidatorTests.FF on Invalid login" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ad-hoc-poly.kofu-reactive-validation.test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.sample.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.sample" />
-      <option name="MAIN_CLASS_NAME" value="com.sample.EffectValidatorTests" />
-      <option name="METHOD_NAME" value="FF on Invalid login" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <list>
       <item itemvalue="JUnit.All in ad-hoc-poly.kofu-mvc-validation.test" />
       <item itemvalue="JUnit.All in ad-hoc-poly.kofu-reactive-validation.test" />
       <item itemvalue="JUnit.All in ad-hoc-poly.validation-templates.test" />
-      <item itemvalue="JUnit.EffectValidatorTests.FF on Invalid Email + Invalid Login" />
-      <item itemvalue="JUnit.EffectValidatorTests.FF on Invalid login + Invalid City" />
-      <item itemvalue="JUnit.EffectValidatorTests.FF on Invalid login" />
       <item itemvalue="Compound.All Tests" />
     </list>
-    <recent_temporary>
-      <list>
-        <item itemvalue="JUnit.EffectValidatorTests.FF on Invalid login" />
-        <item itemvalue="JUnit.EffectValidatorTests.FF on Invalid login + Invalid City" />
-        <item itemvalue="JUnit.EffectValidatorTests.FF on Invalid Email + Invalid Login" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -458,7 +404,9 @@
       <workItem from="1584712799089" duration="767000" />
       <workItem from="1584773210220" duration="2605000" />
       <workItem from="1585024615104" duration="691000" />
-      <workItem from="1585028033514" duration="4769000" />
+      <workItem from="1585028033514" duration="5394000" />
+      <workItem from="1585220281347" duration="530000" />
+      <workItem from="1585220837755" duration="640000" />
     </task>
     <task id="LOCAL-00001" summary="temp">
       <created>1582778965605</created>
@@ -782,7 +730,14 @@
       <option name="project" value="LOCAL" />
       <updated>1584787614427</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="Used ValidatedBiFunctor">
+      <created>1585036440776</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1585036440777</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -904,10 +859,10 @@
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="218" y="218" key="#SQL_Dialects/0.23.1680.1027@0.23.1680.1027" timestamp="1582424874940" />
-    <state x="277" y="202" width="1234" height="676" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1584699595475">
+    <state x="277" y="202" width="1234" height="676" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1585220780156">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state x="277" y="202" width="1234" height="676" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1584699595475" />
+    <state x="277" y="202" width="1234" height="676" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1585220780156" />
     <state x="100" y="123" width="1480" height="827" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1584586086784">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
@@ -943,11 +898,11 @@
     </state>
     <state x="-2217" y="-270" key="CommitChangelistDialog2/-2560.-412.2560.1417/0.23.1680.1027@-2560.-412.2560.1417" timestamp="1583840296708" />
     <state x="225" y="126" key="CommitChangelistDialog2/0.23.1680.1027@0.23.1680.1027" timestamp="1584698684908" />
-    <state x="100" y="123" width="1480" height="827" key="DiffContextDialog" timestamp="1584167930574">
+    <state x="100" y="123" width="1480" height="827" key="DiffContextDialog" timestamp="1585221481929">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="100" y="123" width="1480" height="827" key="DiffContextDialog/-2560.-412.2560.1417/0.23.1680.1027@0.23.1680.1027" timestamp="1583125616472" />
-    <state x="100" y="123" width="1480" height="827" key="DiffContextDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1584167930574" />
+    <state x="100" y="123" width="1480" height="827" key="DiffContextDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1585221481929" />
     <state x="701" y="440" width="446" height="192" key="Github.ShareDialog" timestamp="1583201643941">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
@@ -956,33 +911,33 @@
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="396" y="248" key="Github.UntrackedFilesDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1583201726348" />
-    <state width="1470" height="287" key="GridCell.Tab.0.bottom" timestamp="1584705305355">
+    <state width="1470" height="317" key="GridCell.Tab.0.bottom" timestamp="1585221411304">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state width="2560" height="423" key="GridCell.Tab.0.bottom/-2560.-412.2560.1417/0.23.1680.1027@-2560.-412.2560.1417" timestamp="1583913047075" />
     <state width="1680" height="295" key="GridCell.Tab.0.bottom/-2560.-412.2560.1417/0.23.1680.1027@0.23.1680.1027" timestamp="1583907268826" />
-    <state width="1470" height="287" key="GridCell.Tab.0.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1584705305355" />
+    <state width="1470" height="317" key="GridCell.Tab.0.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1585221411304" />
     <state width="1680" height="358" key="GridCell.Tab.0.bottom/170.1103.1680.1027/0.23.1920.1057@0.23.1920.1057" timestamp="1584285089735" />
-    <state width="1470" height="287" key="GridCell.Tab.0.center" timestamp="1584705305355">
+    <state width="1470" height="317" key="GridCell.Tab.0.center" timestamp="1585221411303">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state width="2560" height="423" key="GridCell.Tab.0.center/-2560.-412.2560.1417/0.23.1680.1027@-2560.-412.2560.1417" timestamp="1583913047074" />
     <state width="1680" height="295" key="GridCell.Tab.0.center/-2560.-412.2560.1417/0.23.1680.1027@0.23.1680.1027" timestamp="1583907268824" />
-    <state width="1470" height="287" key="GridCell.Tab.0.center/0.23.1680.1027@0.23.1680.1027" timestamp="1584705305355" />
+    <state width="1470" height="317" key="GridCell.Tab.0.center/0.23.1680.1027@0.23.1680.1027" timestamp="1585221411303" />
     <state width="1680" height="358" key="GridCell.Tab.0.center/170.1103.1680.1027/0.23.1920.1057@0.23.1920.1057" timestamp="1584285089735" />
-    <state width="1470" height="287" key="GridCell.Tab.0.left" timestamp="1584705305354">
+    <state width="1470" height="317" key="GridCell.Tab.0.left" timestamp="1585221411302">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state width="2560" height="423" key="GridCell.Tab.0.left/-2560.-412.2560.1417/0.23.1680.1027@-2560.-412.2560.1417" timestamp="1583913047073" />
     <state width="1680" height="295" key="GridCell.Tab.0.left/-2560.-412.2560.1417/0.23.1680.1027@0.23.1680.1027" timestamp="1583907268824" />
-    <state width="1470" height="287" key="GridCell.Tab.0.left/0.23.1680.1027@0.23.1680.1027" timestamp="1584705305354" />
+    <state width="1470" height="317" key="GridCell.Tab.0.left/0.23.1680.1027@0.23.1680.1027" timestamp="1585221411302" />
     <state width="1680" height="358" key="GridCell.Tab.0.left/170.1103.1680.1027/0.23.1920.1057@0.23.1920.1057" timestamp="1584285089734" />
-    <state width="1470" height="287" key="GridCell.Tab.0.right" timestamp="1584705305355">
+    <state width="1470" height="317" key="GridCell.Tab.0.right" timestamp="1585221411304">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state width="2560" height="423" key="GridCell.Tab.0.right/-2560.-412.2560.1417/0.23.1680.1027@-2560.-412.2560.1417" timestamp="1583913047075" />
     <state width="1680" height="295" key="GridCell.Tab.0.right/-2560.-412.2560.1417/0.23.1680.1027@0.23.1680.1027" timestamp="1583907268825" />
-    <state width="1470" height="287" key="GridCell.Tab.0.right/0.23.1680.1027@0.23.1680.1027" timestamp="1584705305355" />
+    <state width="1470" height="317" key="GridCell.Tab.0.right/0.23.1680.1027@0.23.1680.1027" timestamp="1585221411304" />
     <state width="1680" height="358" key="GridCell.Tab.0.right/170.1103.1680.1027/0.23.1920.1057@0.23.1920.1057" timestamp="1584285089735" />
     <state width="1680" height="358" key="GridCell.Tab.1.bottom" timestamp="1584349823661">
       <screen x="0" y="23" width="1680" height="1027" />
@@ -1008,12 +963,12 @@
     <state width="2560" height="541" key="GridCell.Tab.1.right/-2560.-412.2560.1417/0.23.1680.1027@-2560.-412.2560.1417" timestamp="1583821834112" />
     <state width="1680" height="358" key="GridCell.Tab.1.right/0.23.1680.1027@0.23.1680.1027" timestamp="1584349823660" />
     <state width="1680" height="358" key="GridCell.Tab.1.right/170.1103.1680.1027/0.23.1920.1057@0.23.1920.1057" timestamp="1584285089727" />
-    <state x="428" y="286" key="IDE.errors.dialog" timestamp="1584699291808">
+    <state x="428" y="286" key="IDE.errors.dialog" timestamp="1585220731211">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="-1908" y="-49" key="IDE.errors.dialog/-2560.-412.2560.1417/0.23.1680.1027@-2560.-412.2560.1417" timestamp="1583818873886" />
     <state x="428" y="286" key="IDE.errors.dialog/-2560.-412.2560.1417/0.23.1680.1027@0.23.1680.1027" timestamp="1583920170053" />
-    <state x="428" y="286" key="IDE.errors.dialog/0.23.1680.1027@0.23.1680.1027" timestamp="1584699291808" />
+    <state x="428" y="286" key="IDE.errors.dialog/0.23.1680.1027@0.23.1680.1027" timestamp="1585220731211" />
     <state x="360" y="193" key="Registry" timestamp="1584009686311">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
@@ -1023,27 +978,27 @@
     </state>
     <state x="-1996" y="-104" key="RollbackChangesDialog/-2560.-412.2560.1417/0.23.1680.1027@-2560.-412.2560.1417" timestamp="1583840282212" />
     <state x="370" y="246" key="RollbackChangesDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1584698571430" />
-    <state x="341" y="175" key="SettingsEditor" timestamp="1584787526723">
+    <state x="341" y="175" key="SettingsEditor" timestamp="1585221058647">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="-2040" y="-202" key="SettingsEditor/-2560.-412.2560.1417/0.23.1680.1027@-2560.-412.2560.1417" timestamp="1583910796129" />
-    <state x="341" y="175" key="SettingsEditor/0.23.1680.1027@0.23.1680.1027" timestamp="1584787526723" />
-    <state width="555" height="616" key="SwitcherDM" timestamp="1585035878779">
+    <state x="341" y="175" key="SettingsEditor/0.23.1680.1027@0.23.1680.1027" timestamp="1585221058647" />
+    <state width="555" height="616" key="SwitcherDM" timestamp="1585221411278">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state width="846" height="795" key="SwitcherDM/-2560.-412.2560.1417/0.23.1680.1027@-2560.-412.2560.1417" timestamp="1583920599243" />
     <state width="555" height="616" key="SwitcherDM/-2560.-412.2560.1417/0.23.1680.1027@0.23.1680.1027" timestamp="1583919984429" />
-    <state width="555" height="616" key="SwitcherDM/0.23.1680.1027@0.23.1680.1027" timestamp="1585035878779" />
+    <state width="555" height="616" key="SwitcherDM/0.23.1680.1027@0.23.1680.1027" timestamp="1585221411278" />
     <state width="635" height="594" key="SwitcherDM/0.23.1920.1057@0.23.1920.1057" timestamp="1583842724458" />
     <state x="691" y="458" key="VCS.ChangelistChooser" timestamp="1584181388468">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="691" y="458" key="VCS.ChangelistChooser/0.23.1680.1027@0.23.1680.1027" timestamp="1584181388468" />
-    <state x="440" y="276" key="Vcs.Push.Dialog.v2" timestamp="1584702820988">
+    <state x="440" y="276" key="Vcs.Push.Dialog.v2" timestamp="1585036446123">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="-1890" y="-63" key="Vcs.Push.Dialog.v2/-2560.-412.2560.1417/0.23.1680.1027@-2560.-412.2560.1417" timestamp="1583911321563" />
-    <state x="440" y="276" key="Vcs.Push.Dialog.v2/0.23.1680.1027@0.23.1680.1027" timestamp="1584702820988" />
+    <state x="440" y="276" key="Vcs.Push.Dialog.v2/0.23.1680.1027@0.23.1680.1027" timestamp="1585036446123" />
     <state width="840" height="513" key="XDebugger.FullValuePopup" timestamp="1584334095029">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
@@ -1061,12 +1016,12 @@
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="627" y="457" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1680.1027@0.23.1680.1027" timestamp="1582778981257" />
-    <state x="544" y="484" width="695" height="566" key="find.popup" timestamp="1584712949556">
+    <state x="809" y="102" width="695" height="566" key="find.popup" timestamp="1585220672320">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="-1798" y="-42" width="1060" height="781" key="find.popup/-2560.-412.2560.1417/0.23.1680.1027@-2560.-412.2560.1417" timestamp="1583819077296" />
     <state x="500" y="291" width="695" height="566" key="find.popup/-2560.-412.2560.1417/0.23.1680.1027@0.23.1680.1027" timestamp="1583733229913" />
-    <state x="544" y="484" width="695" height="566" key="find.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1584712949556" />
+    <state x="809" y="102" width="695" height="566" key="find.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1585220672320" />
     <state x="217" y="149" key="new project wizard" timestamp="1583196456027">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
@@ -1079,12 +1034,12 @@
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="505" y="248" width="670" height="675" key="run.anything.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1584241868867" />
-    <state x="505" y="250" width="670" height="676" key="search.everywhere.popup" timestamp="1584699558676">
+    <state x="505" y="250" width="670" height="676" key="search.everywhere.popup" timestamp="1585220768682">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="-1790" y="-99" width="1021" height="933" key="search.everywhere.popup/-2560.-412.2560.1417/0.23.1680.1027@-2560.-412.2560.1417" timestamp="1583829777231" />
     <state x="505" y="250" width="670" height="676" key="search.everywhere.popup/-2560.-412.2560.1417/0.23.1680.1027@0.23.1680.1027" timestamp="1583731160588" />
-    <state x="505" y="250" width="670" height="676" key="search.everywhere.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1584699558676" />
+    <state x="505" y="250" width="670" height="676" key="search.everywhere.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1585220768682" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

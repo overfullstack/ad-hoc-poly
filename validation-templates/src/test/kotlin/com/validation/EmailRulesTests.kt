@@ -11,7 +11,7 @@ class EmailRulesTests {
 
     @Test
     fun `FF Email Rule Runner on Invalid user`() {
-        val invalidUser = User("smaldini", "smaldini-kt.com${(0..251).map { "g" }}", "Stéphane", "Maldini", "london")
+        val invalidUser = User("tarkansh", "tarkansh-kt.com${(0..251).map { "g" }}", "akshintala", "tark", "london")
         val result = failFast<ValidationError>().validateEmailWithRules(invalidUser.email).fix()
         Assertions.assertTrue(result.isLeft() ?: false)
         result.fold({
