@@ -26,10 +26,10 @@ val dataConfig = configuration {
         bean<CityRepository>()
         bean<Repo<ForMonoK>> {
             object : Repo<ForMonoK> {
-                override fun User.update() = ref<UserRepository>().update(this).k().void()
-                override fun User.insert() = ref<UserRepository>().insert(this).k().void()
-                override fun User.doesUserLoginExist() = ref<UserRepository>().doesUserExistsWith(login).k().map { it!! }
-                override fun User.isUserCityValid() = ref<CityRepository>().doesCityExistsWith(city).k().map { it!! }
+                override fun User.update(): MonoK<Unit> = ref<UserRepository>().update(this).k().void()
+                override fun User.insert(): MonoK<Unit> = ref<UserRepository>().insert(this).k().void()
+                override fun User.doesUserLoginExist(): MonoK<Boolean> = ref<UserRepository>().doesUserExistsWith(login).k().map { it!! }
+                override fun User.isUserCityValid(): MonoK<Boolean> = ref<CityRepository>().doesCityExistsWith(city).k().map { it!! }
             }
         }
         bean<EffectValidator<ForMonoK, ForErrorAccumulation<ValidationError>, ValidationError>> {

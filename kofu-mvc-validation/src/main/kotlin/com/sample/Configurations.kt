@@ -35,10 +35,10 @@ val dataConfig = configuration {
         bean<CityRepository>()
         bean<Repo<ForIO>> {
             object : Repo<ForIO> {
-                override fun User.update() = IO { ref<UserRepository>().update(this) }.void()
-                override fun User.insert() = IO { ref<UserRepository>().insert(this) }.void()
-                override fun User.doesUserLoginExist() = IO { ref<UserRepository>().doesUserExitsWith(login) }.handleError { false }
-                override fun User.isUserCityValid() = IO { ref<CityRepository>().doesCityExistsWith(city) }.handleError { false }
+                override fun User.update(): IO<Unit> = IO { ref<UserRepository>().update(this) }.void()
+                override fun User.insert(): IO<Unit> = IO { ref<UserRepository>().insert(this) }.void()
+                override fun User.doesUserLoginExist(): IO<Boolean> = IO { ref<UserRepository>().doesUserExitsWith(login) }.handleError { false }
+                override fun User.isUserCityValid(): IO<Boolean> = IO { ref<CityRepository>().doesCityExistsWith(city) }.handleError { false }
             }
         }
         bean<EffectValidator<ForIO, ForFailFast<ValidationError>, ValidationError>> {

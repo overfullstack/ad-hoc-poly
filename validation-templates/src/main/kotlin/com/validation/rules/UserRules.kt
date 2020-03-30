@@ -1,5 +1,6 @@
 package com.validation.rules
 
+import arrow.Kind
 import arrow.core.nel
 import com.validation.User
 import com.validation.ValidationError
@@ -10,7 +11,7 @@ import com.validation.typeclass.EffectValidator
 /**
  * ------------User Rules------------
  */
-private fun <F, S> EffectValidator<F, S, ValidationError>.cityShouldBeValid(user: User) = fx.async {
+private fun <F, S> EffectValidator<F, S, ValidationError>.cityShouldBeValid(user: User): Kind<F, Kind<S, Boolean>> = fx.async {
     repo.run {
         val cityValid = user.isUserCityValid().bind()
         if (cityValid) validatorAE.just(cityValid)
@@ -18,7 +19,7 @@ private fun <F, S> EffectValidator<F, S, ValidationError>.cityShouldBeValid(user
     }
 }
 
-private fun <F, S> EffectValidator<F, S, ValidationError>.loginShouldNotExit(user: User) = fx.async {
+private fun <F, S> EffectValidator<F, S, ValidationError>.loginShouldNotExit(user: User): Kind<F, Kind<S, Boolean>> = fx.async {
     repo.run {
         val loginExists = user.doesUserLoginExist().bind()
         if (loginExists) validatorAE.raiseError(UserLoginExits(user.login).nel())
@@ -26,11 +27,11 @@ private fun <F, S> EffectValidator<F, S, ValidationError>.loginShouldNotExit(use
     }
 }
 
-fun <F, S> EffectValidator<F, S, ValidationError>.validateUserWithRules(user: User) = fx.async {
+fun <F, S> EffectValidator<F, S, ValidationError>.validateUserWithRules(user: User): Kind<F, Kind<S, Unit>> = fx.async {
     validatorAE.run {
-        // 🚩 These are eager calls. So even in fail-fast mode, where `Either` is used
+        // 🚩 These are eager calls. So even in fail-fast mode, with `Either`
         // all these methods are called even after first `raiseError` 
-        // as `Either` doesn't have that short-circuit functionality.
+        // as `Either` doesn't have that short-circuit functionality. Looking for a better approach.
         mapN(  
                 validateEmailWithRules(user.email),
                 cityShouldBeValid(user).bind(),

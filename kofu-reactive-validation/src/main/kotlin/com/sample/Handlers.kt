@@ -1,9 +1,6 @@
 package com.sample
 
-import arrow.core.Either
-import arrow.core.fix
-import arrow.core.left
-import arrow.core.right
+import arrow.core.*
 import com.validation.User
 import com.validation.ValidationError
 import com.validation.rules.validateEmailWithRules
@@ -11,10 +8,12 @@ import com.validation.typeclass.errorAccumulation
 import com.validation.typeclass.failFast
 import org.springframework.http.MediaType
 import org.springframework.web.reactive.function.server.ServerRequest
+import org.springframework.web.reactive.function.server.ServerResponse
 import org.springframework.web.reactive.function.server.ServerResponse.badRequest
 import org.springframework.web.reactive.function.server.ServerResponse.ok
 import org.springframework.web.reactive.function.server.body
 import org.springframework.web.reactive.function.server.bodyToMono
+import reactor.core.publisher.Mono
 
 class Handlers(
         private val userRepository: UserRepository,
@@ -23,10 +22,10 @@ class Handlers(
     fun listApi(request: ServerRequest) =
             ok().contentType(MediaType.APPLICATION_JSON).body(userRepository.findAll())
 
-    fun upsert(request: ServerRequest) = // 👎🏼 This is struck with using FailFast strategy 
+    fun upsert(request: ServerRequest): Mono<ServerResponse> = // 👎🏼 This is struck with using FailFast strategy 
             request.bodyToMono<User>()
                     .flatMap { user ->
-                        val isEmailValid = validateEmailFailFast(user.email)
+                        val isEmailValid: Either<ValidationError, Unit> = validateEmailFailFast(user.email)
                         isEmailValid.fold(
                                 { badRequest().bodyValue("$user email validation errors: $it") },
                                 {
@@ -63,7 +62,7 @@ class Handlers(
                     ValidationError.DoesNotContain("@").left()
                 }
 
-        private fun validateEmailFailFastX(email: String) =
+        private fun validateEmailFailFastX(email: String): Either<NonEmptyList<ValidationError>, Unit> =
                 failFast<ValidationError>().run {
                     validateEmailWithRules(email).fix()
                 }
@@ -79,7 +78,7 @@ class Handlers(
             return if (errorList.isNotEmpty()) errorList.left() else Unit.right()
         }
 
-        private fun validateEmailErrorAccumulationX(email: String) =
+        private fun validateEmailErrorAccumulationX(email: String): Validated<NonEmptyList<ValidationError>, Unit> =
                 errorAccumulation<ValidationError>().run {
                     validateEmailWithRules(email).fix()
                 }

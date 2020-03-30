@@ -40,7 +40,7 @@ repositories {
 
 tasks.withType<KotlinCompile> {
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = JavaVersion.VERSION_13.toString()
         freeCompilerArgs = listOf("-Xjsr305=strict", "-Xjvm-default=enable")
     }
 }

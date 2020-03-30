@@ -7,7 +7,6 @@ plugins {
 }
 
 val arrowSnapshotVersion = "0.10.5-SNAPSHOT"
-val arrowVersion = "0.10.4"
 
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
@@ -40,7 +39,7 @@ repositories {
 
 tasks.withType<KotlinCompile> {
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = JavaVersion.VERSION_13.toString()
         freeCompilerArgs = listOf("-Xjsr305=strict", "-Xjvm-default=enable")
     }
 }

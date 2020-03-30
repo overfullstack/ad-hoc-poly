@@ -23,7 +23,7 @@ class Handlers(
 
     fun upsert(request: ServerRequest): ServerResponse { // 👎🏼 This is struck with using FailFast strategy
         val user = request.body<User>()
-        val isEmailValid = validateEmail(user.email)
+        val isEmailValid: Either<ValidationError, String> = validateEmail(user.email)
         return isEmailValid.fold(
                 { badRequest().body("$user email validation error: $it") },
                 {

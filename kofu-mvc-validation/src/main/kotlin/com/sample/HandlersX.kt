@@ -1,6 +1,10 @@
 package com.sample
 
+import arrow.Kind
+import arrow.Kind2
 import arrow.core.Either
+import arrow.core.ForEither
+import arrow.core.NonEmptyList
 import arrow.core.extensions.either.bifunctor.bifunctor
 import arrow.core.fix
 import arrow.fx.ForIO
@@ -20,7 +24,7 @@ class HandlersX(private val blockingValidator: EffectValidator<ForIO, ForFailFas
     fun upsertX(request: ServerRequest): ServerResponse {
         val user = request.body<User>()
         return blockingValidator.run {
-            val result = validateUserWithRules(user).fix().unsafeRunSync()
+            val result: Kind2<ForEither, NonEmptyList<ValidationError>, Unit> = validateUserWithRules(user).fix().unsafeRunSync()
             repo.run {
                 user.upsert(Either.bifunctor(), result).fix()
             }.fold(
