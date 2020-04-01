@@ -1,6 +1,7 @@
 /* gakshintala created on 3/14/20 */
 package com.sample
 
+import arrow.core.NonEmptyList
 import arrow.core.fix
 import arrow.fx.reactor.ForMonoK
 import arrow.fx.reactor.MonoK
@@ -9,6 +10,7 @@ import arrow.fx.reactor.fix
 import arrow.fx.typeclasses.Async
 import com.validation.User
 import com.validation.ValidationError
+import com.validation.ValidationError.*
 import com.validation.rules.validateUserWithRules
 import com.validation.typeclass.*
 import org.junit.jupiter.api.AfterAll
@@ -49,6 +51,19 @@ class EffectValidatorTests {
     }
 
     @Test
+    fun `EA on only Invalid login`() {
+        val invalidUser = User("tarkansh", "tarkansh@kt.com", "akshintala", "tark", "london")
+        val result = nonBlockingEAValidator.validateUserWithRules(invalidUser).fix().mono.block()?.fix()
+        result?.run {
+            assertTrue(isInvalid)
+            fold({
+                assertEquals(1, it.size)
+                assertEquals(ValidationError.UserLoginExits("tarkansh"), it.head)
+            }, {})
+        }
+    }
+
+    @Test
     fun `FF on Invalid Email`() {
         val invalidUser = User("gakshintala", "tarkansh-kt.com${(0..251).map { "g" }}", "akshintala", "tark", "london")
         val result = nonBlockingFFValidator.validateUserWithRules(invalidUser).fix().mono.block()?.fix()
@@ -56,11 +71,24 @@ class EffectValidatorTests {
             assertTrue(isLeft())
             fold({
                 assertEquals(1, it.size)
-                assertEquals(ValidationError.DoesNotContain("@"), it.head)
+                assertEquals(DoesNotContain("@"), it.head)
             }, {})
         }
     }
 
+    @Test
+    fun `EA on Invalid Email No needle + Email Max length + Invalid City`() {
+        val invalidUser = User("gakshintala", "tarkansh-kt.com${(0..251).map { "g" }}", "akshintala", "tark", "vja")
+        val result = nonBlockingEAValidator.validateUserWithRules(invalidUser).fix().mono.block()?.fix()
+        result?.run {
+            assertTrue(isInvalid)
+            fold({
+                assertEquals(3, it.size)
+                assertEquals(NonEmptyList(DoesNotContain("@"), EmailMaxLength(250), UserCityInvalid(invalidUser.city)), it)
+            }, {})
+        }
+    }
+    
     @Test
     fun `FF on Invalid Email No needle + Invalid City`() {
         val invalidUser = User("gakshintala", "tarkansh-kt.com${(0..251).map { "g" }}", "akshintala", "tark", "vja")
@@ -69,7 +97,7 @@ class EffectValidatorTests {
             assertTrue(isLeft())
             fold({
                 assertEquals(1, it.size)
-                assertEquals(ValidationError.DoesNotContain("@"), it.head)
+                assertEquals(DoesNotContain("@"), it.head)
             }, {})
         }
     }
@@ -82,7 +110,7 @@ class EffectValidatorTests {
             assertTrue(isLeft())
             fold({
                 assertEquals(1, it.size)
-                assertEquals(ValidationError.EmailMaxLength(250), it.head)
+                assertEquals(EmailMaxLength(250), it.head)
             }, {})
         }
     }
@@ -95,7 +123,7 @@ class EffectValidatorTests {
             assertTrue(isLeft())
             fold({
                 assertEquals(1, it.size)
-                assertEquals(ValidationError.UserCityInvalid("hyd"), it.head)
+                assertEquals(UserCityInvalid("hyd"), it.head)
             }, {})
         }
     }

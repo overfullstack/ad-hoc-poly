@@ -1,7 +1,5 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
-    id("org.jetbrains.kotlin.jvm") version "1.3.71"
+    id("org.jetbrains.kotlin.jvm")
     id("io.spring.dependency-management") version "1.0.9.RELEASE"
     id("org.springframework.boot") version "2.3.0.M1"
 }
@@ -41,17 +39,6 @@ repositories {
     maven("https://repo.spring.io/snapshot")
     maven(url = "https://dl.bintray.com/arrow-kt/arrow-kt/")
     maven(url = "https://oss.jfrog.org/artifactory/oss-snapshot-local/")
-}
-
-tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_13.toString()
-        freeCompilerArgs = listOf("-Xjsr305=strict", "-Xjvm-default=enable")
-    }
-}
-
-tasks.withType<Test> {
-    useJUnitPlatform()
 }
 
 configurations.all {

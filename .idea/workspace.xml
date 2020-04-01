@@ -25,19 +25,13 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="135632bb-dfea-41ea-8c2e-d24ddd5a7cdb" name="Default Changelist" comment="- Reverted Spring-boot upgrade&#10;- Changed names">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+    <list default="true" id="135632bb-dfea-41ea-8c2e-d24ddd5a7cdb" name="Default Changelist" comment="Added explicit return types for clarity during demonstration.">
+      <change afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kofu-mvc-validation/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/kofu-mvc-validation/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kofu-mvc-validation/src/main/kotlin/com/sample/Configurations.kt" beforeDir="false" afterPath="$PROJECT_DIR$/kofu-mvc-validation/src/main/kotlin/com/sample/Configurations.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kofu-mvc-validation/src/main/kotlin/com/sample/Handlers.kt" beforeDir="false" afterPath="$PROJECT_DIR$/kofu-mvc-validation/src/main/kotlin/com/sample/Handlers.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kofu-mvc-validation/src/main/kotlin/com/sample/HandlersX.kt" beforeDir="false" afterPath="$PROJECT_DIR$/kofu-mvc-validation/src/main/kotlin/com/sample/HandlersX.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kofu-reactive-validation/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/kofu-reactive-validation/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kofu-reactive-validation/src/main/kotlin/com/sample/Configurations.kt" beforeDir="false" afterPath="$PROJECT_DIR$/kofu-reactive-validation/src/main/kotlin/com/sample/Configurations.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kofu-reactive-validation/src/main/kotlin/com/sample/Handlers.kt" beforeDir="false" afterPath="$PROJECT_DIR$/kofu-reactive-validation/src/main/kotlin/com/sample/Handlers.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kofu-reactive-validation/src/main/kotlin/com/sample/HandlersX.kt" beforeDir="false" afterPath="$PROJECT_DIR$/kofu-reactive-validation/src/main/kotlin/com/sample/HandlersX.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kofu-reactive-validation/src/test/kotlin/com/sample/EffectValidatorTests.kt" beforeDir="false" afterPath="$PROJECT_DIR$/kofu-reactive-validation/src/test/kotlin/com/sample/EffectValidatorTests.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/validation-templates/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/validation-templates/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/validation-templates/src/main/kotlin/com/validation/rules/EmailRules.kt" beforeDir="false" afterPath="$PROJECT_DIR$/validation-templates/src/main/kotlin/com/validation/rules/EmailRules.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/validation-templates/src/main/kotlin/com/validation/rules/UserRules.kt" beforeDir="false" afterPath="$PROJECT_DIR$/validation-templates/src/main/kotlin/com/validation/rules/UserRules.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -145,12 +139,12 @@
     <selection>jr</selection>
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/validation-fx/src/main/kotlin/com/validation/typeclass" />
-      <recent name="$PROJECT_DIR$/validation-fx/src/main/kotlin/com/validation/rules" />
-      <recent name="$PROJECT_DIR$/http" />
-      <recent name="$PROJECT_DIR$/validation-fx/src/main/kotlin/com/validation" />
-      <recent name="$PROJECT_DIR$" />
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/validation-templates/src/main/kotlin/com/validation/rules" />
+      <recent name="$PROJECT_DIR$/kofu-reactive-validation/src/main/kotlin/com/sample" />
+      <recent name="$PROJECT_DIR$/validation-fx/src/main/kotlin" />
+      <recent name="$PROJECT_DIR$/kofu-servlet-validation/src/main/kotlin/com/sample" />
+      <recent name="$PROJECT_DIR$/kofu-servlet-minimal/src/main/kotlin/com/sample" />
     </key>
     <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
       <recent name="com.validation" />
@@ -163,12 +157,12 @@
       <recent name="com.sample.lib" />
       <recent name="com.sample" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/validation-templates/src/main/kotlin/com/validation/rules" />
-      <recent name="$PROJECT_DIR$/kofu-reactive-validation/src/main/kotlin/com/sample" />
-      <recent name="$PROJECT_DIR$/validation-fx/src/main/kotlin" />
-      <recent name="$PROJECT_DIR$/kofu-servlet-validation/src/main/kotlin/com/sample" />
-      <recent name="$PROJECT_DIR$/kofu-servlet-minimal/src/main/kotlin/com/sample" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/validation-fx/src/main/kotlin/com/validation/typeclass" />
+      <recent name="$PROJECT_DIR$/validation-fx/src/main/kotlin/com/validation/rules" />
+      <recent name="$PROJECT_DIR$/http" />
+      <recent name="$PROJECT_DIR$/validation-fx/src/main/kotlin/com/validation" />
+      <recent name="$PROJECT_DIR$" />
     </key>
   </component>
   <component name="RestClientSettings">
@@ -307,11 +301,49 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Compound.All Tests">
+  <component name="RunManager" selected="Gradle.EffectValidatorTests.EA on Invalid Email No needle + Email Max length + Invalid City">
     <configuration default="true" type="CompoundRunConfigurationType">
       <toRun name="All in ad-hoc-poly.kofu-mvc-validation.test" type="JUnit" />
       <toRun name="All in ad-hoc-poly.validation-templates.test" type="JUnit" />
       <toRun name="All in ad-hoc-poly.kofu-reactive-validation.test" type="JUnit" />
+      <method v="2" />
+    </configuration>
+    <configuration name="EffectValidatorTests.EA on Invalid Email No needle + Email Max length + Invalid City" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;com.sample.EffectValidatorTests.EA on Invalid Email No needle + Email Max length + Invalid City&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":kofu-reactive-validation:test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="EffectValidatorTests.EA on Invalid Email No needle + Invalid City" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;com.sample.EffectValidatorTests.EA on Invalid Email No needle + Invalid City&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":kofu-reactive-validation:test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
     <configuration name="All in ad-hoc-poly.kofu-mvc-validation.test" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
@@ -320,6 +352,7 @@
       <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
+        <option name="BSP.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <configuration name="All in ad-hoc-poly.kofu-reactive-validation.test" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
@@ -340,11 +373,19 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="Gradle.EffectValidatorTests.EA on Invalid Email No needle + Invalid City" />
+      <item itemvalue="Gradle.EffectValidatorTests.EA on Invalid Email No needle + Email Max length + Invalid City" />
       <item itemvalue="JUnit.All in ad-hoc-poly.kofu-mvc-validation.test" />
       <item itemvalue="JUnit.All in ad-hoc-poly.kofu-reactive-validation.test" />
       <item itemvalue="JUnit.All in ad-hoc-poly.validation-templates.test" />
       <item itemvalue="Compound.All Tests" />
     </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.EffectValidatorTests.EA on Invalid Email No needle + Email Max length + Invalid City" />
+        <item itemvalue="Gradle.EffectValidatorTests.EA on Invalid Email No needle + Invalid City" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -416,6 +457,8 @@
       <workItem from="1585323263228" duration="2042000" />
       <workItem from="1585360212755" duration="1590000" />
       <workItem from="1585576523571" duration="1240000" />
+      <workItem from="1585747643476" duration="1520000" />
+      <workItem from="1585749181943" duration="3102000" />
     </task>
     <task id="LOCAL-00001" summary="temp">
       <created>1582778965605</created>
@@ -927,33 +970,33 @@
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="396" y="248" key="Github.UntrackedFilesDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1583201726348" />
-    <state width="1470" height="317" key="GridCell.Tab.0.bottom" timestamp="1585576986954">
+    <state width="1680" height="363" key="GridCell.Tab.0.bottom" timestamp="1585742148579">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state width="2560" height="423" key="GridCell.Tab.0.bottom/-2560.-412.2560.1417/0.23.1680.1027@-2560.-412.2560.1417" timestamp="1583913047075" />
     <state width="1680" height="295" key="GridCell.Tab.0.bottom/-2560.-412.2560.1417/0.23.1680.1027@0.23.1680.1027" timestamp="1583907268826" />
-    <state width="1470" height="317" key="GridCell.Tab.0.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1585576986954" />
+    <state width="1680" height="363" key="GridCell.Tab.0.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1585742148579" />
     <state width="1680" height="358" key="GridCell.Tab.0.bottom/170.1103.1680.1027/0.23.1920.1057@0.23.1920.1057" timestamp="1584285089735" />
-    <state width="1470" height="317" key="GridCell.Tab.0.center" timestamp="1585576986953">
+    <state width="1680" height="363" key="GridCell.Tab.0.center" timestamp="1585742148578">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state width="2560" height="423" key="GridCell.Tab.0.center/-2560.-412.2560.1417/0.23.1680.1027@-2560.-412.2560.1417" timestamp="1583913047074" />
     <state width="1680" height="295" key="GridCell.Tab.0.center/-2560.-412.2560.1417/0.23.1680.1027@0.23.1680.1027" timestamp="1583907268824" />
-    <state width="1470" height="317" key="GridCell.Tab.0.center/0.23.1680.1027@0.23.1680.1027" timestamp="1585576986953" />
+    <state width="1680" height="363" key="GridCell.Tab.0.center/0.23.1680.1027@0.23.1680.1027" timestamp="1585742148578" />
     <state width="1680" height="358" key="GridCell.Tab.0.center/170.1103.1680.1027/0.23.1920.1057@0.23.1920.1057" timestamp="1584285089735" />
-    <state width="1470" height="317" key="GridCell.Tab.0.left" timestamp="1585576986952">
+    <state width="1680" height="363" key="GridCell.Tab.0.left" timestamp="1585742148578">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state width="2560" height="423" key="GridCell.Tab.0.left/-2560.-412.2560.1417/0.23.1680.1027@-2560.-412.2560.1417" timestamp="1583913047073" />
     <state width="1680" height="295" key="GridCell.Tab.0.left/-2560.-412.2560.1417/0.23.1680.1027@0.23.1680.1027" timestamp="1583907268824" />
-    <state width="1470" height="317" key="GridCell.Tab.0.left/0.23.1680.1027@0.23.1680.1027" timestamp="1585576986952" />
+    <state width="1680" height="363" key="GridCell.Tab.0.left/0.23.1680.1027@0.23.1680.1027" timestamp="1585742148578" />
     <state width="1680" height="358" key="GridCell.Tab.0.left/170.1103.1680.1027/0.23.1920.1057@0.23.1920.1057" timestamp="1584285089734" />
-    <state width="1470" height="317" key="GridCell.Tab.0.right" timestamp="1585576986953">
+    <state width="1680" height="363" key="GridCell.Tab.0.right" timestamp="1585742148579">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state width="2560" height="423" key="GridCell.Tab.0.right/-2560.-412.2560.1417/0.23.1680.1027@-2560.-412.2560.1417" timestamp="1583913047075" />
     <state width="1680" height="295" key="GridCell.Tab.0.right/-2560.-412.2560.1417/0.23.1680.1027@0.23.1680.1027" timestamp="1583907268825" />
-    <state width="1470" height="317" key="GridCell.Tab.0.right/0.23.1680.1027@0.23.1680.1027" timestamp="1585576986953" />
+    <state width="1680" height="363" key="GridCell.Tab.0.right/0.23.1680.1027@0.23.1680.1027" timestamp="1585742148579" />
     <state width="1680" height="358" key="GridCell.Tab.0.right/170.1103.1680.1027/0.23.1920.1057@0.23.1920.1057" timestamp="1584285089735" />
     <state width="1680" height="358" key="GridCell.Tab.1.bottom" timestamp="1584349823661">
       <screen x="0" y="23" width="1680" height="1027" />
@@ -989,22 +1032,22 @@
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="360" y="193" key="Registry/0.23.1680.1027@0.23.1680.1027" timestamp="1584009686311" />
-    <state x="370" y="246" key="RollbackChangesDialog" timestamp="1584698571430">
+    <state x="370" y="246" key="RollbackChangesDialog" timestamp="1585741285510">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="-1996" y="-104" key="RollbackChangesDialog/-2560.-412.2560.1417/0.23.1680.1027@-2560.-412.2560.1417" timestamp="1583840282212" />
-    <state x="370" y="246" key="RollbackChangesDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1584698571430" />
+    <state x="370" y="246" key="RollbackChangesDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1585741285510" />
     <state x="341" y="175" key="SettingsEditor" timestamp="1585577235848">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="-2040" y="-202" key="SettingsEditor/-2560.-412.2560.1417/0.23.1680.1027@-2560.-412.2560.1417" timestamp="1583910796129" />
     <state x="341" y="175" key="SettingsEditor/0.23.1680.1027@0.23.1680.1027" timestamp="1585577235848" />
-    <state width="555" height="616" key="SwitcherDM" timestamp="1585577405576">
+    <state width="555" height="616" key="SwitcherDM" timestamp="1585753934278">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state width="846" height="795" key="SwitcherDM/-2560.-412.2560.1417/0.23.1680.1027@-2560.-412.2560.1417" timestamp="1583920599243" />
     <state width="555" height="616" key="SwitcherDM/-2560.-412.2560.1417/0.23.1680.1027@0.23.1680.1027" timestamp="1583919984429" />
-    <state width="555" height="616" key="SwitcherDM/0.23.1680.1027@0.23.1680.1027" timestamp="1585577405576" />
+    <state width="555" height="616" key="SwitcherDM/0.23.1680.1027@0.23.1680.1027" timestamp="1585753934278" />
     <state width="635" height="594" key="SwitcherDM/0.23.1920.1057@0.23.1920.1057" timestamp="1583842724458" />
     <state x="691" y="458" key="VCS.ChangelistChooser" timestamp="1584181388468">
       <screen x="0" y="23" width="1680" height="1027" />
@@ -1023,11 +1066,11 @@
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="100" y="123" width="1480" height="827" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1584167930574" />
-    <state x="456" y="165" width="972" height="600" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1584242027415">
+    <state x="160" y="165" width="1268" height="669" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1585749145088">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="-1865" y="-216" width="1480" height="827" key="com.intellij.history.integration.ui.views.FileHistoryDialog/-2560.-412.2560.1417/0.23.1680.1027@0.23.1680.1027" timestamp="1582884188433" />
-    <state x="456" y="165" width="972" height="600" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1584242027415" />
+    <state x="160" y="165" width="1268" height="669" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1585749145088" />
     <state x="627" y="457" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1582778981257">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
