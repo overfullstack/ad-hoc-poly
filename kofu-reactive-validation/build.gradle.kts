@@ -1,44 +1,13 @@
 plugins {
-    id("org.jetbrains.kotlin.jvm")
-    id("io.spring.dependency-management") version "1.0.9.RELEASE"
     id("org.springframework.boot") version "2.3.0.M1"
 }
 
-val arrowSnapshotVersion = "0.10.5-SNAPSHOT"
+val arrowVersion = "0.10.5"
 
 dependencies {
-    implementation(kotlin("stdlib-jdk8"))
-    implementation("org.springframework.fu:spring-fu-kofu:0.3.0.M1")
     implementation("org.springframework.boot:spring-boot-starter-webflux")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-
     implementation("org.springframework.data:spring-data-r2dbc:1.0.0.RELEASE")
     implementation("io.r2dbc:r2dbc-h2")
-
-    implementation("io.arrow-kt:arrow-core:$arrowSnapshotVersion")
-    implementation("io.arrow-kt:arrow-fx:$arrowSnapshotVersion")
-    implementation("io.arrow-kt:arrow-fx-reactor:$arrowSnapshotVersion")
-
-    implementation(project(":validation-templates"))
-
-    testImplementation("org.springframework.boot:spring-boot-starter-test") {
-        exclude(group = "junit", module = "junit")
-    }
-}
-
-dependencyManagement {
-    imports {
-        mavenBom("io.r2dbc:r2dbc-bom:Arabba-SR2")
-    }
-}
-
-repositories {
-    mavenLocal()
-    mavenCentral()
-    maven("https://repo.spring.io/milestone")
-    maven("https://repo.spring.io/snapshot")
-    maven(url = "https://dl.bintray.com/arrow-kt/arrow-kt/")
-    maven(url = "https://oss.jfrog.org/artifactory/oss-snapshot-local/")
 }
 
 configurations.all {

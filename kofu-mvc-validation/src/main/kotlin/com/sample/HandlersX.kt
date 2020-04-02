@@ -1,6 +1,5 @@
 package com.sample
 
-import arrow.Kind
 import arrow.Kind2
 import arrow.core.Either
 import arrow.core.ForEither

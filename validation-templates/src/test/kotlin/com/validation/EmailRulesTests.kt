@@ -13,7 +13,7 @@ class EmailRulesTests {
     fun `FF Email Rule Runner on Invalid user`() {
         val invalidUser = User("tarkansh", "tarkansh-kt.com${(0..251).map { "g" }}", "akshintala", "tark", "london")
         val result = failFast<ValidationError>().validateEmailWithRules(invalidUser.email).fix()
-        Assertions.assertTrue(result.isLeft() ?: false)
+        Assertions.assertTrue(result.isLeft())
         result.fold({
             Assertions.assertEquals(1, it.size)
             Assertions.assertEquals(ValidationError.DoesNotContain("@"), it.head)

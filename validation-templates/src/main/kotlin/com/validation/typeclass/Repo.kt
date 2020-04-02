@@ -32,6 +32,9 @@ interface Repo<F> {
         "Inserted!! $this"
     }
 
+    /**
+     * In this case, `Bifunctor` let's us generalize two kinds of Bifunctors we are dealing with `Either` and `Validated`.
+     */
     fun <S> User.upsert(BF: Bifunctor<S>, result: Kind2<S, Nel<ValidationError>, Any>) =
             BF.run { result.bimap(toLeft(), toRight()) }
 }

@@ -24,4 +24,6 @@ fun <S> ValidatorAE<S, ValidationError>.validateEmailWithRules(email: String): K
     mapN(
             contains(email, "@"),
             maxLength(email, 250)
-    ) {}.handleErrorWith { raiseError(it) }
+    ) {
+        // We only care about `Nel` in the left state. 
+    }.handleErrorWith { raiseError(it) }

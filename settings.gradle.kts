@@ -8,15 +8,12 @@ include(
 
 pluginManagement {
     repositories {
+        mavenLocal()
+        mavenCentral()
         gradlePluginPortal()
+        maven("https://plugins.gradle.org/m2/")
         maven("https://repo.spring.io/milestone")
         maven("https://repo.spring.io/snapshot")
-
-        maven { setUrl("https://dl.bintray.com/kotlin/kotlin-eap") }
-
-        mavenCentral()
-
-        maven { setUrl("https://plugins.gradle.org/m2/") }
     }
     resolutionStrategy {
         eachPlugin {
