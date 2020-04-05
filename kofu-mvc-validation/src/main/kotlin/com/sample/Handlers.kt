@@ -14,8 +14,8 @@ import org.springframework.web.servlet.function.ServerResponse.ok
 import org.springframework.web.servlet.function.body
 
 class Handlers(
-        private val userRepository: UserRepository,
-        private val cityRepository: CityRepository
+    private val userRepository: UserRepository,
+    private val cityRepository: CityRepository
 ) {
     fun listApi(request: ServerRequest): ServerResponse {
         return ok().contentType(MediaType.APPLICATION_JSON).body(userRepository.findAll())
@@ -23,7 +23,7 @@ class Handlers(
 
     fun upsert(request: ServerRequest): ServerResponse { // 👎🏼 This is struck with using FailFast strategy
         val user = request.body<User>()
-        val isEmailValid: Either<ValidationError, String> = validateEmail(user.email)
+        val isEmailValid: Either<ValidationError, Unit> = validateEmail(user.email)
         return isEmailValid.fold(
                 { badRequest().body("$user email validation error: $it") },
                 {
@@ -43,10 +43,10 @@ class Handlers(
     }
 
     companion object Utils {
-        private fun validateEmail(email: String): Either<ValidationError, String> =
+        private fun validateEmail(email: String): Either<ValidationError, Unit> =
                 if (email.contains("@", false)) {
                     if (email.length <= 250) {
-                        email.right()
+                        Unit.right()
                     } else {
                         ValidationError.EmailMaxLength(250).left()
                     }
@@ -54,7 +54,7 @@ class Handlers(
                     ValidationError.DoesNotContain("@").left()
                 }
 
-        private fun validateEmailFailFastX(email: String): Either<NonEmptyList<ValidationError>, Unit> =
+        private fun validateEmailFailFastX(email: String): Either<NonEmptyList<ValidationError>, Tuple2<String, String>> =
                 failFast<ValidationError>().run {
                     validateEmailWithRules(email).fix()
                 }
@@ -70,7 +70,7 @@ class Handlers(
             return if (errorList.isNotEmpty()) errorList.left() else Unit.right()
         }
 
-        private fun validateEmailErrorAccumulationX(email: String): Validated<NonEmptyList<ValidationError>, Unit> =
+        private fun validateEmailErrorAccumulationX(email: String): Validated<NonEmptyList<ValidationError>, Tuple2<String, String>> =
                 errorAccumulation<ValidationError>().run {
                     validateEmailWithRules(email).fix()
                 }

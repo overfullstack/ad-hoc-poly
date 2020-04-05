@@ -29,9 +29,9 @@ private fun <F, S> EffectValidator<F, S, ValidationError>.loginShouldNotExit(use
 
 fun <F, S> EffectValidator<F, S, ValidationError>.validateUserWithRules(user: User): Kind<F, Kind<S, Unit>> = fx.async {
     validatorAE.run {
-        // 🚩 These are eager calls. So even in fail-fast mode, with `Either`
-        // all these methods are called even after first `raiseError` 
-        // as `Either` doesn't have that short-circuit functionality. Looking for a better approach.
+        // 🚩 These are eager calls. So even in fail-fast mode, with `Either` AE
+        // all these methods are called even after first `raiseError` on AE
+        // as `Either` AE doesn't have that short-circuit functionality. Looking for a better approach.
         mapN(  
                 validateEmailWithRules(user.email),
                 cityShouldBeValid(user).bind(),

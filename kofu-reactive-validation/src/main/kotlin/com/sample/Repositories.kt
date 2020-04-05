@@ -56,5 +56,3 @@ class CityRepository(private val client: DatabaseClient) {
             client.insert().into<City>().table("city").using(city).then()
 }
 
-
-

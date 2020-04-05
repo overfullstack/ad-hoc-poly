@@ -16,8 +16,8 @@ import org.springframework.web.reactive.function.server.bodyToMono
 import reactor.core.publisher.Mono
 
 class Handlers(
-        private val userRepository: UserRepository,
-        private val cityRepository: CityRepository
+    private val userRepository: UserRepository,
+    private val cityRepository: CityRepository
 ) {
     fun listApi(request: ServerRequest) =
             ok().contentType(MediaType.APPLICATION_JSON).body(userRepository.findAll())
@@ -62,7 +62,7 @@ class Handlers(
                     ValidationError.DoesNotContain("@").left()
                 }
 
-        private fun validateEmailFailFastX(email: String): Either<NonEmptyList<ValidationError>, Unit> =
+        private fun validateEmailFailFastX(email: String): Either<NonEmptyList<ValidationError>, Tuple2<String, String>> =
                 failFast<ValidationError>().run {
                     validateEmailWithRules(email).fix()
                 }
@@ -78,7 +78,7 @@ class Handlers(
             return if (errorList.isNotEmpty()) errorList.left() else Unit.right()
         }
 
-        private fun validateEmailErrorAccumulationX(email: String): Validated<NonEmptyList<ValidationError>, Unit> =
+        private fun validateEmailErrorAccumulationX(email: String): Validated<NonEmptyList<ValidationError>, Tuple2<String, String>> =
                 errorAccumulation<ValidationError>().run {
                     validateEmailWithRules(email).fix()
                 }

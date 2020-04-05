@@ -64,9 +64,10 @@ val webFlux = configuration {
     }
 }
 
-fun init(client: DatabaseClient,
-         userRepository: UserRepository,
-         cityRepository: CityRepository
+fun init(
+    client: DatabaseClient,
+    userRepository: UserRepository,
+    cityRepository: CityRepository
 ) {
     val createUsers = "CREATE TABLE IF NOT EXISTS users (login varchar PRIMARY KEY, email varchar, first_name varchar, last_name varchar, city varchar);"
     val createCity = "CREATE TABLE IF NOT EXISTS city (name varchar PRIMARY KEY);"

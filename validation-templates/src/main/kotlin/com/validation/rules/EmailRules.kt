@@ -1,6 +1,7 @@
 package com.validation.rules
 
 import arrow.Kind
+import arrow.core.Tuple2
 import arrow.core.nel
 import com.validation.ValidationError
 import com.validation.typeclass.ValidatorAE
@@ -20,10 +21,8 @@ private fun <S> ValidatorAE<S, ValidationError>.maxLength(email: String, maxLeng
 /**
  * Some rules that use the applicative syntax to validate and gather errors.
  */
-fun <S> ValidatorAE<S, ValidationError>.validateEmailWithRules(email: String): Kind<S, Unit> =
-    mapN(
+fun <S> ValidatorAE<S, ValidationError>.validateEmailWithRules(email: String): Kind<S, Tuple2<String, String>> =
+    tupledN(
             contains(email, "@"),
             maxLength(email, 250)
-    ) {
-        // We only care about `Nel` in the left state. 
-    }.handleErrorWith { raiseError(it) }
+    ).handleErrorWith { raiseError(it) }
