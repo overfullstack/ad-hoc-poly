@@ -1,8 +1,9 @@
 rootProject.name = "ad-hoc-poly"
 
 include(
-        "kofu-reactive-validation",
         "kofu-mvc-validation",
+        "kofu-reactive-validation",
+        "kofu-coroutines-validation",
         "validation-templates"
 )
 

@@ -4,5 +4,6 @@
     <enableDetekt>true</enableDetekt>
     <enableFormatting>true</enableFormatting>
     <buildUponDefaultConfig>true</buildUponDefaultConfig>
+    <rulesPath>$USER_HOME$/Dropbox/my-configs/my-detekt-config.yml</rulesPath>
   </component>
 </project>

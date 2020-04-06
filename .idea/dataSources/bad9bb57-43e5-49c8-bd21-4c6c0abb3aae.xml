@@ -172,5 +172,63 @@
     <collation id="160" parent="2" name="UKRAINIAN_UKRAINE"/>
     <collation id="161" parent="2" name="VIETNAMESE"/>
     <collation id="162" parent="2" name="VIETNAMESE_VIETNAM"/>
+    <table id="163" parent="4" name="CITY">
+      <ObjectId>6</ObjectId>
+    </table>
+    <table id="164" parent="4" name="USERS">
+      <ObjectId>3</ObjectId>
+    </table>
+    <column id="165" parent="163" name="NAME">
+      <Position>1</Position>
+      <DataType>VARCHAR|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="166" parent="163" name="PRIMARY_KEY_1">
+      <ObjectId>7</ObjectId>
+      <NameSurrogate>1</NameSurrogate>
+      <SourceTextLength>70</SourceTextLength>
+      <ColNames>NAME</ColNames>
+      <Unique>1</Unique>
+      <AutoCreated>1</AutoCreated>
+    </index>
+    <key id="167" parent="163" name="CONSTRAINT_1">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>NAME</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="168" parent="164" name="LOGIN">
+      <Position>1</Position>
+      <DataType>VARCHAR|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="169" parent="164" name="EMAIL">
+      <Position>2</Position>
+      <DataType>VARCHAR|0s</DataType>
+    </column>
+    <column id="170" parent="164" name="FIRST_NAME">
+      <Position>3</Position>
+      <DataType>VARCHAR|0s</DataType>
+    </column>
+    <column id="171" parent="164" name="LAST_NAME">
+      <Position>4</Position>
+      <DataType>VARCHAR|0s</DataType>
+    </column>
+    <column id="172" parent="164" name="CITY">
+      <Position>5</Position>
+      <DataType>VARCHAR|0s</DataType>
+    </column>
+    <index id="173" parent="164" name="PRIMARY_KEY_4">
+      <ObjectId>4</ObjectId>
+      <NameSurrogate>1</NameSurrogate>
+      <SourceTextLength>72</SourceTextLength>
+      <ColNames>LOGIN</ColNames>
+      <Unique>1</Unique>
+      <AutoCreated>1</AutoCreated>
+    </index>
+    <key id="174" parent="164" name="CONSTRAINT_4">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>LOGIN</ColNames>
+      <Primary>1</Primary>
+    </key>
   </database-model>
 </dataSource>

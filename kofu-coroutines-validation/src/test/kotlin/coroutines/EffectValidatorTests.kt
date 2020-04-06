@@ -1,13 +1,14 @@
 /* gakshintala created on 3/14/20 */
-package reactive
+package coroutines
 
-import arrow.core.NonEmptyList
 import arrow.core.fix
-import arrow.fx.reactor.ForMonoK
-import arrow.fx.reactor.MonoK
-import arrow.fx.reactor.extensions.monok.async.async
-import arrow.fx.reactor.fix
+import arrow.core.nel
+import arrow.fx.ForIO
+import arrow.fx.IO
+import arrow.fx.extensions.io.async.async
+import arrow.fx.fix
 import arrow.fx.typeclasses.Async
+import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -30,32 +31,32 @@ class EffectValidatorTests {
     }
 
     private lateinit var context: ConfigurableApplicationContext
-    private lateinit var nonBlockingEAValidator: EffectValidator<ForMonoK, ForErrorAccumulation<ValidationError>, ValidationError>
-    private lateinit var nonBlockingFFValidator: EffectValidator<ForMonoK, ForFailFast<ValidationError>, ValidationError>
+    private lateinit var coroutineFFValidator: EffectValidator<ForIO, ForFailFast<ValidationError>, ValidationError>
+    private lateinit var coroutineEAValidator: EffectValidator<ForIO, ForErrorAccumulation<ValidationError>, ValidationError>
 
     @BeforeAll
     fun beforeAll() {
         context = dataApp.run(profiles = "test")
-        nonBlockingEAValidator = context.getBean()
-        nonBlockingFFValidator = object : EffectValidator<ForMonoK, ForFailFast<ValidationError>, ValidationError>, Async<ForMonoK> by MonoK.async() {
-            override val repo = context.getBean<Repo<ForMonoK>>()
-            override val validatorAE = failFast<ValidationError>()
+        coroutineFFValidator = context.getBean()
+        coroutineEAValidator = object : EffectValidator<ForIO, ForErrorAccumulation<ValidationError>, ValidationError>, Async<ForIO> by IO.async() {
+            override val repo = context.getBean<Repo<ForIO>>()
+            override val validatorAE = errorAccumulation<ValidationError>()
         }
     }
 
     @Test
-    fun `EA on Valid user`() {
+    fun `EA on Valid user`() = runBlocking {
         val validUser = User("gakshintala", "tarkansh@kt.com", "akshintala", "tark", "london")
-        val result = nonBlockingEAValidator.validateUserWithRules(validUser).fix().mono.block()?.fix()
-        assertTrue(result?.isValid ?: false)
+        val result = coroutineFFValidator.validateUserWithRules(validUser).fix().suspended().fix()
+        assertTrue(result.isRight())
     }
 
     @Test
-    fun `EA on only Invalid login`() {
+    fun `EA on only Invalid login`() = runBlocking {
         val invalidUser = User("tarkansh", "tarkansh@kt.com", "akshintala", "tark", "london")
-        val result = nonBlockingEAValidator.validateUserWithRules(invalidUser).fix().mono.block()?.fix()
-        result?.run {
-            assertTrue(isInvalid)
+        val result = coroutineFFValidator.validateUserWithRules(invalidUser).fix().suspended().fix()
+        result.run {
+            assertTrue(isLeft())
             fold({
                 assertEquals(1, it.size)
                 assertEquals(ValidationError.UserLoginExits("tarkansh"), it.head)
@@ -64,76 +65,76 @@ class EffectValidatorTests {
     }
 
     @Test
-    fun `FF on Invalid Email`() {
+    fun `FF on Invalid Email`() = runBlocking {
         val invalidUser = User("gakshintala", "tarkansh-kt.com${(0..251).map { "g" }}", "akshintala", "tark", "london")
-        val result = nonBlockingFFValidator.validateUserWithRules(invalidUser).fix().mono.block()?.fix()
-        result?.run {
-            assertTrue(isLeft())
+        val result = coroutineEAValidator.validateUserWithRules(invalidUser).fix().suspended().fix()
+        result.run {
+            assertTrue(isInvalid)
             fold({
-                assertEquals(1, it.size)
+                assertEquals(2, it.size)
                 assertEquals(DoesNotContain("@"), it.head)
             }, {})
         }
     }
 
     @Test
-    fun `EA on Invalid Email No needle + Email Max length + Invalid City`() {
+    fun `EA on Invalid Email No needle + Email Max length + Invalid City`() = runBlocking {
         val invalidUser = User("gakshintala", "tarkansh-kt.com${(0..251).map { "g" }}", "akshintala", "tark", "vja")
-        val result = nonBlockingEAValidator.validateUserWithRules(invalidUser).fix().mono.block()?.fix()
-        result?.run {
+        val result = coroutineFFValidator.validateUserWithRules(invalidUser).fix().suspended().fix()
+        result.run {
+            assertTrue(isLeft())
+            fold({
+                assertEquals(1, it.size)
+                assertEquals(DoesNotContain("@").nel(), it)
+            }, {})
+        }
+    }
+
+    @Test
+    fun `FF on Invalid Email No needle + Invalid City`() = runBlocking {
+        val invalidUser = User("gakshintala", "tarkansh-kt.com${(0..251).map { "g" }}", "akshintala", "tark", "vja")
+        val result = coroutineEAValidator.validateUserWithRules(invalidUser).fix().suspended().fix()
+        result.run {
             assertTrue(isInvalid)
             fold({
                 assertEquals(3, it.size)
-                assertEquals(NonEmptyList(DoesNotContain("@"), EmailMaxLength(250), UserCityInvalid(invalidUser.city)), it)
-            }, {})
-        }
-    }
-
-    @Test
-    fun `FF on Invalid Email No needle + Invalid City`() {
-        val invalidUser = User("gakshintala", "tarkansh-kt.com${(0..251).map { "g" }}", "akshintala", "tark", "vja")
-        val result = nonBlockingFFValidator.validateUserWithRules(invalidUser).fix().mono.block()?.fix()
-        result?.run {
-            assertTrue(isLeft())
-            fold({
-                assertEquals(1, it.size)
                 assertEquals(DoesNotContain("@"), it.head)
             }, {})
         }
     }
 
     @Test
-    fun `FF on Invalid Email Length + Invalid Login`() {
+    fun `FF on Invalid Email Length + Invalid Login`() = runBlocking {
         val invalidUser = User("tarkansh", "tarkansh@kt.com${(0..251).map { "g" }}", "akshintala", "tark", "london")
-        val result = nonBlockingFFValidator.validateUserWithRules(invalidUser).fix().mono.block()?.fix()
-        result?.run {
-            assertTrue(isLeft())
+        val result = coroutineEAValidator.validateUserWithRules(invalidUser).fix().suspended().fix()
+        result.run {
+            assertTrue(isInvalid)
             fold({
-                assertEquals(1, it.size)
+                assertEquals(2, it.size)
                 assertEquals(EmailMaxLength(250), it.head)
             }, {})
         }
     }
 
     @Test
-    fun `FF on Invalid City + Invalid login`() {
+    fun `FF on Invalid City + Invalid login`() = runBlocking {
         val invalidUser = User("tarkansh", "tarkansh@kt.com", "akshintala", "tark", "hyd")
-        val result = nonBlockingFFValidator.validateUserWithRules(invalidUser).fix().mono.block()?.fix()
-        result?.run {
-            assertTrue(isLeft())
+        val result = coroutineEAValidator.validateUserWithRules(invalidUser).fix().suspended().fix()
+        result.run {
+            assertTrue(isInvalid)
             fold({
-                assertEquals(1, it.size)
+                assertEquals(2, it.size)
                 assertEquals(UserCityInvalid("hyd"), it.head)
             }, {})
         }
     }
 
     @Test
-    fun `FF on only Invalid login`() {
+    fun `FF on only Invalid login`() = runBlocking {
         val invalidUser = User("tarkansh", "tarkansh@kt.com", "akshintala", "tark", "london")
-        val result = nonBlockingFFValidator.validateUserWithRules(invalidUser).fix().mono.block()?.fix()
-        result?.run {
-            assertTrue(isLeft())
+        val result = coroutineEAValidator.validateUserWithRules(invalidUser).fix().suspended().fix()
+        result.run {
+            assertTrue(isInvalid)
             fold({
                 assertEquals(1, it.size)
                 assertEquals(ValidationError.UserLoginExits("tarkansh"), it.head)

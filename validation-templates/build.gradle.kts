@@ -8,7 +8,8 @@ dependencies {
     implementation("org.springframework.data:spring-data-r2dbc:1.0.0.RC1")
 
     testImplementation("org.junit.jupiter:junit-jupiter:+") {
-        exclude(group = "junit", module = "junit")
+        exclude("junit", "junit")
+        exclude("org.junit.vintage", "junit-vintage-engine")
     }
 }
 

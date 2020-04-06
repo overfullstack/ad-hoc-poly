@@ -13,6 +13,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/kofu-coroutines-validation" />
             <option value="$PROJECT_DIR$/kofu-mvc-validation" />
             <option value="$PROJECT_DIR$/kofu-reactive-validation" />
             <option value="$PROJECT_DIR$/validation-templates" />

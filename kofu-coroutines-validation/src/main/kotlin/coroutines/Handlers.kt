@@ -1,12 +1,10 @@
-package mvc
+package coroutines
 
 import arrow.core.*
 import org.springframework.http.MediaType
-import org.springframework.web.servlet.function.ServerRequest
-import org.springframework.web.servlet.function.ServerResponse
-import org.springframework.web.servlet.function.ServerResponse.badRequest
-import org.springframework.web.servlet.function.ServerResponse.ok
-import org.springframework.web.servlet.function.body
+import org.springframework.web.reactive.function.server.*
+import org.springframework.web.reactive.function.server.ServerResponse.badRequest
+import org.springframework.web.reactive.function.server.ServerResponse.ok
 import top.User
 import top.ValidationError
 import top.rules.validateEmailWithRules
@@ -17,26 +15,25 @@ class Handlers(
         private val userRepository: UserRepository,
         private val cityRepository: CityRepository
 ) {
-    fun listApi(request: ServerRequest): ServerResponse {
-        return ok().contentType(MediaType.APPLICATION_JSON).body(userRepository.findAll())
-    }
+    suspend fun listApi(request: ServerRequest) =
+            ok().contentType(MediaType.APPLICATION_JSON).bodyAndAwait<User>(userRepository.findAll())
 
-    fun upsert(request: ServerRequest): ServerResponse { // 👎🏼 This is struck with using FailFast strategy
-        val user = request.body<User>()
+    suspend fun upsert(request: ServerRequest): ServerResponse { // 👎🏼 This is struck with using FailFast strategy
+        val user = request.awaitBody<User>()
         val isEmailValid: Either<ValidationError, Unit> = validateEmailFailFast(user.email)
         return isEmailValid.fold(
-                { badRequest().body("$user email validation error: $it") },
+                { badRequest().bodyValueAndAwait("$user email validation error: $it") },
                 {
                     if (cityRepository.doesCityExistsWith(user.city)) {
-                        if (userRepository.doesUserExitsWith(user.login)) {
+                        if (userRepository.doesUserExistsWith(user.login)) {
                             userRepository.update(user)
-                            ok().body("Updated!! $user")
+                            ok().bodyValueAndAwait("Updated!! $user")
                         } else {
                             userRepository.insert(user)
-                            ok().body("Inserted!! $user")
+                            ok().bodyValueAndAwait("Inserted!! $user")
                         }
                     } else {
-                        badRequest().body("City is invalid!! : $user")
+                        badRequest().bodyValueAndAwait("City is invalid!! : $user")
                     }
                 }
         )
@@ -74,5 +71,6 @@ class Handlers(
                 errorAccumulation<ValidationError>().run {
                     validateEmailWithRules(email).fix()
                 }
+
     }
 }

@@ -19,10 +19,10 @@ import top.rules.validateUserWithRules
 import top.typeclass.EffectValidator
 import top.typeclass.ForFailFast
 
-class HandlersX(private val blockingValidator: EffectValidator<ForIO, ForFailFast<ValidationError>, ValidationError>) {
+class HandlersX(private val blockingFFValidator: EffectValidator<ForIO, ForFailFast<ValidationError>, ValidationError>) {
     fun upsertX(request: ServerRequest): ServerResponse {
         val user = request.body<User>()
-        return blockingValidator.run {
+        return blockingFFValidator.run {
             val result: Kind2<ForEither, NonEmptyList<ValidationError>, Unit> = validateUserWithRules(user).fix().unsafeRunSync()
             repo.run {
                 user.upsert(Either.bifunctor(), result).fix()

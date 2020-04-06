@@ -17,7 +17,8 @@ import top.rules.validateUserWithRules
 import top.typeclass.EffectValidator
 import top.typeclass.ForErrorAccumulation
 
-class HandlersX(private val nonBlockingReactorEAValidator: EffectValidator<ForMonoK, ForErrorAccumulation<ValidationError>, ValidationError>) {
+class HandlersX(private val nonBlockingReactorEAValidator: EffectValidator<ForMonoK,
+        ForErrorAccumulation<ValidationError>, ValidationError>) {
     fun upsertX(request: ServerRequest): Mono<ServerResponse> =
             request.bodyToMono<User>()
                     .flatMap { user ->
