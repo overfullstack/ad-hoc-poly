@@ -1,20 +1,21 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-plugins {
+plugins { // apply false doesn't apply these for root project. This is only for managing version numbers.
     id("org.jetbrains.kotlin.jvm") version "1.3.71" apply false
     id("io.spring.dependency-management") version "1.0.9.RELEASE" apply false
     id("org.springframework.boot") version "2.3.0.M4" apply false
+    id("io.gitlab.arturbosch.detekt") version "1.7.4"
 }
 
 subprojects {
-    apply {
+    apply { // Above plugins are applied here.
         plugin("org.jetbrains.kotlin.jvm")
         plugin("io.spring.dependency-management") // This takes care of spring related version management
     }
 
     repositories {
         mavenLocal()
-        mavenCentral()
+        jcenter()
         maven("https://repo.spring.io/milestone")
         maven("https://repo.spring.io/snapshot")
         maven("https://dl.bintray.com/arrow-kt/arrow-kt/")
@@ -37,7 +38,6 @@ subprojects {
     tasks.withType<KotlinCompile> {
         kotlinOptions {
             jvmTarget = JavaVersion.VERSION_13.toString()
-            freeCompilerArgs = listOf("-Xjsr305=strict", "-Xjvm-default=enable")
         }
     }
 

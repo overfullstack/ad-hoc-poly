@@ -10,7 +10,7 @@ include(
 pluginManagement {
     repositories {
         mavenLocal()
-        mavenCentral()
+        jcenter()
         gradlePluginPortal()
         maven("https://plugins.gradle.org/m2/")
         maven("https://repo.spring.io/milestone")
