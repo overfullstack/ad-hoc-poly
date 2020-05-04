@@ -15,10 +15,7 @@ import org.springframework.fu.kofu.webflux.webFlux
 import top.City
 import top.User
 import top.ValidationError
-import top.typeclass.EffectValidator
-import top.typeclass.ForErrorAccumulation
-import top.typeclass.Repo
-import top.typeclass.errorAccumulation
+import top.typeclass.*
 
 val dataConfig = configuration {
     beans {
@@ -34,8 +31,8 @@ val dataConfig = configuration {
                 override fun User.isUserCityValid(): MonoK<Boolean> = cityRepository.doesCityExistsWith(city).k().map { it!! }
             }
         }
-        bean<EffectValidator<ForMonoK, ForErrorAccumulation<ValidationError>, ValidationError>> {
-            object : EffectValidator<ForMonoK, ForErrorAccumulation<ValidationError>, ValidationError>, Async<ForMonoK> by MonoK.async() {
+        bean<EffectValidatorErrorAccumulation<ForMonoK, ValidationError>> {
+            object : EffectValidatorErrorAccumulation<ForMonoK, ValidationError>, Async<ForMonoK> by MonoK.async() {
                 override val repo = ref<Repo<ForMonoK>>()
                 override val validatorAE = errorAccumulation<ValidationError>()
             }

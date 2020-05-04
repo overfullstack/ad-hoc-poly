@@ -4,10 +4,7 @@
     <annotationProcessing>
       <profile default="true" name="Default" enabled="true" />
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="ad-hoc-poly.kofu-coroutine-validation.main" target="14" />
-      <module name="ad-hoc-poly.kofu-coroutine-validation.test" target="14" />
-    </bytecodeTargetLevel>
+    <bytecodeTargetLevel target="14" />
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_STRING" value="--enable-preview" />

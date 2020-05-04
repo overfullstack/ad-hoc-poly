@@ -14,8 +14,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate
 import top.City
 import top.User
 import top.ValidationError
-import top.typeclass.EffectValidator
-import top.typeclass.ForFailFast
+import top.typeclass.EffectValidatorFailFast
 import top.typeclass.Repo
 import top.typeclass.failFast
 
@@ -43,8 +42,8 @@ val dataConfig = configuration {
                 override fun User.isUserCityValid(): IO<Boolean> = IO { cityRepository.doesCityExistsWith(city) }.handleError { false }
             }
         }
-        bean<EffectValidator<ForIO, ForFailFast<ValidationError>, ValidationError>> {
-            object : EffectValidator<ForIO, ForFailFast<ValidationError>, ValidationError>, Async<ForIO> by IO.async() {
+        bean<EffectValidatorFailFast<ForIO, ValidationError>> {
+            object : EffectValidatorFailFast<ForIO, ValidationError>, Async<ForIO> by IO.async() {
                 override val repo = ref<Repo<ForIO>>()
                 override val validatorAE = failFast<ValidationError>()
             }

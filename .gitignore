@@ -38,3 +38,4 @@ secrets.yml
 .sts4-cache
 rebel.xml
 .idea/workspace.xml
+*.patch

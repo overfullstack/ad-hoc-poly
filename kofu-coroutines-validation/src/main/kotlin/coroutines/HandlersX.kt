@@ -16,7 +16,6 @@ import org.springframework.web.reactive.function.server.awaitBody
 import org.springframework.web.reactive.function.server.bodyValueAndAwait
 import top.User
 import top.ValidationError
-import top.rules.validateUserWithRules
 import top.typeclass.EffectValidator
 import top.typeclass.ForFailFast
 

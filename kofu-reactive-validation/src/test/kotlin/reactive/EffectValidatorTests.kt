@@ -20,7 +20,6 @@ import org.springframework.fu.kofu.application
 import top.User
 import top.ValidationError
 import top.ValidationError.*
-import top.rules.validateUserWithRules
 import top.typeclass.*
 
 class EffectValidatorTests {
@@ -30,14 +29,14 @@ class EffectValidatorTests {
     }
 
     private lateinit var context: ConfigurableApplicationContext
-    private lateinit var nonBlockingEAValidator: EffectValidator<ForMonoK, ForErrorAccumulation<ValidationError>, ValidationError>
-    private lateinit var nonBlockingFFValidator: EffectValidator<ForMonoK, ForFailFast<ValidationError>, ValidationError>
+    private lateinit var nonBlockingEAValidator: EffectValidatorErrorAccumulation<ForMonoK, ValidationError>
+    private lateinit var nonBlockingFFValidator: EffectValidatorFailFast<ForMonoK, ValidationError>
 
     @BeforeAll
     fun beforeAll() {
         context = dataApp.run(profiles = "test")
         nonBlockingEAValidator = context.getBean()
-        nonBlockingFFValidator = object : EffectValidator<ForMonoK, ForFailFast<ValidationError>, ValidationError>, Async<ForMonoK> by MonoK.async() {
+        nonBlockingFFValidator = object : EffectValidatorFailFast<ForMonoK, ValidationError>, Async<ForMonoK> by MonoK.async() {
             override val repo = context.getBean<Repo<ForMonoK>>()
             override val validatorAE = failFast<ValidationError>()
         }

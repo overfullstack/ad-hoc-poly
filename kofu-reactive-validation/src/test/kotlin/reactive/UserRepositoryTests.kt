@@ -26,7 +26,7 @@ class UserRepositoryTests {
 
     @Test
     fun count() {
-        assertEquals(3, repository.count().block())
+        assertEquals(3, repository.count().block()!!)
     }
 
     @Test

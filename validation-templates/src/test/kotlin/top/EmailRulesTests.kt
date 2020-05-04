@@ -4,8 +4,8 @@ package top
 import arrow.core.fix
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
-import top.rules.validateEmailWithRules
 import top.typeclass.failFast
+import top.typeclass.validateEmailWithRules
 
 class EmailRulesTests {
 

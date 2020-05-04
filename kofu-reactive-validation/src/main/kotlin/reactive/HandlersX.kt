@@ -13,12 +13,10 @@ import org.springframework.web.reactive.function.server.bodyToMono
 import reactor.core.publisher.Mono
 import top.User
 import top.ValidationError
-import top.rules.validateUserWithRules
-import top.typeclass.EffectValidator
-import top.typeclass.ForErrorAccumulation
+import top.typeclass.EffectValidatorErrorAccumulation
+import top.typeclass.validateUserWithRules
 
-class HandlersX(private val nonBlockingReactorEAValidator: EffectValidator<ForMonoK,
-        ForErrorAccumulation<ValidationError>, ValidationError>) {
+class HandlersX(private val nonBlockingReactorEAValidator: EffectValidatorErrorAccumulation<ForMonoK, ValidationError>) {
     fun upsertX(request: ServerRequest): Mono<ServerResponse> =
             request.bodyToMono<User>()
                     .flatMap { user ->

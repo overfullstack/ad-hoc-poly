@@ -11,9 +11,9 @@ import org.springframework.web.reactive.function.server.bodyToMono
 import reactor.core.publisher.Mono
 import top.User
 import top.ValidationError
-import top.rules.validateEmailWithRules
 import top.typeclass.errorAccumulation
 import top.typeclass.failFast
+import top.typeclass.validateEmailWithRules
 
 class Handlers(
         private val userRepository: UserRepository,
@@ -62,7 +62,7 @@ class Handlers(
                     ValidationError.DoesNotContain("@").left()
                 }
 
-        private fun validateEmailFailFastX(email: String): Either<NonEmptyList<ValidationError>, Tuple2<String, String>> =
+        private fun validateEmailFailFastX(email: String): Either<NonEmptyList<ValidationError>, String> =
                 failFast<ValidationError>().run {
                     validateEmailWithRules(email).fix()
                 }
@@ -78,10 +78,9 @@ class Handlers(
             return if (errorList.isNotEmpty()) errorList.left() else Unit.right()
         }
 
-        private fun validateEmailErrorAccumulationX(email: String): Validated<NonEmptyList<ValidationError>, Tuple2<String, String>> =
+        private fun validateEmailErrorAccumulationX(email: String): Validated<NonEmptyList<ValidationError>, Unit> =
                 errorAccumulation<ValidationError>().run {
                     validateEmailWithRules(email).fix()
                 }
-
     }
 }
