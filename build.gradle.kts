@@ -5,6 +5,7 @@ plugins { // apply false doesn't apply these for root project. This is only for 
     id("io.spring.dependency-management") version "1.0.9.RELEASE" apply false
     id("org.springframework.boot") version "2.3.0.M4" apply false
     id("io.gitlab.arturbosch.detekt") version "1.7.4"
+    id("com.adarshr.test-logger") version "2.0.0"
 }
 
 subprojects {
@@ -42,7 +43,9 @@ subprojects {
     }
 
     tasks.withType<Test> {
-        useJUnitPlatform()
+        useJUnitPlatform {
+            excludeEngines("junit-vintage")
+        }
     }
 }
 
@@ -59,9 +62,24 @@ configure(subprojects.filter { it.name != "validation-templates" }) {
         implementation(project(":validation-templates"))
         implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
         testImplementation("org.springframework.boot:spring-boot-starter-webflux")
-        testImplementation("org.springframework.boot:spring-boot-starter-test") {
-            exclude("junit", "junit")
-            exclude("org.junit.vintage", "junit-vintage-engine")
-        }
+        testImplementation("org.springframework.boot:spring-boot-starter-test")
     }
+}
+
+testlogger {
+    setTheme("mocha")
+    showExceptions=true
+    showStackTraces=true
+    showFullStackTraces=false
+    showCauses=true
+    slowThreshold=2000
+    showSummary=true
+    showSimpleNames=true
+    showPassed=true
+    showSkipped=true
+    showFailed=true
+    showStandardStreams=true
+    showPassedStandardStreams=true
+    showSkippedStandardStreams=true
+    showFailedStandardStreams=true
 }

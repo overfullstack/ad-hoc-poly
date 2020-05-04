@@ -20,11 +20,11 @@ typealias ErrorAccumulation<E> = ValidatorAE<ForErrorAccumulation<E>, E>
 fun <E> failFast(): FailFast<E> = Either.applicativeError() // This is just a less verbose alternative to using `object: ... by ...` notation
 fun <E> errorAccumulation(): ErrorAccumulation<E> = Validated.applicativeError(NonEmptyList.semigroup())
 
-fun ErrorAccumulation<ValidationError>.validateEmailWithRules(email: String) =
+fun ErrorAccumulation<ValidationError>.validateEmailWithRules(email: String): Validated<NonEmptyList<ValidationError>, Unit> =
         mapN(
                 contains(email, "@"),
                 maxLength(email, 250)
         ) {}.fix()
 
-fun FailFast<ValidationError>.validateEmailWithRules(email: String) =
+fun FailFast<ValidationError>.validateEmailWithRules(email: String): Either<NonEmptyList<ValidationError>, String> =
         contains(email, "@").flatMap { maxLength(email, 250).fix() }
