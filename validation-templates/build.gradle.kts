@@ -1,7 +1,3 @@
-plugins {
-    id("org.jetbrains.kotlin.jvm")
-}
-
 val arrowVersion = "0.10.5"
 dependencies {
     implementation("io.r2dbc:r2dbc-h2")
@@ -13,5 +9,3 @@ dependencies {
         exclude("org.junit.vintage", "junit-vintage-engine")
     }
 }
-
-

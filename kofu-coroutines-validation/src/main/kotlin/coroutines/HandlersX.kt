@@ -16,14 +16,14 @@ import org.springframework.web.reactive.function.server.awaitBody
 import org.springframework.web.reactive.function.server.bodyValueAndAwait
 import top.User
 import top.ValidationError
-import top.typeclass.EffectValidator
-import top.typeclass.ForFailFast
+import top.typeclass.EffectValidatorFailFast
+import top.typeclass.validateUserWithRules
 
-class HandlersX(private val coroutineFFValidator: EffectValidator<ForIO, ForFailFast<ValidationError>, ValidationError>) {
+class HandlersX(private val coroutineFFValidator: EffectValidatorFailFast<ForIO, ValidationError>) {
     suspend fun upsertX(request: ServerRequest): ServerResponse {
         val user = request.awaitBody<User>()
         return coroutineFFValidator.run {
-            val result: Kind2<ForEither, NonEmptyList<ValidationError>, Unit> = validateUserWithRules(user).fix().suspended()
+            val result: Kind2<ForEither, NonEmptyList<ValidationError>, Any> = validateUserWithRules(user).fix().suspended()
             repo.run {
                 user.upsert(Either.bifunctor(), result).fix()
             }.fold(

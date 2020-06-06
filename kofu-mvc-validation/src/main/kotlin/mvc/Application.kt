@@ -1,10 +1,8 @@
 package mvc
 
-import org.springframework.boot.WebApplicationType
-import org.springframework.fu.kofu.application
+import org.springframework.fu.kofu.webApplication
 
-
-val app = application(WebApplicationType.SERVLET) {
+val app = webApplication {
     beans {
         bean<Handlers>()
     }
@@ -12,9 +10,6 @@ val app = application(WebApplicationType.SERVLET) {
     enable(webConfig)
 }
 
-
 fun main() {
     app.run()
 }
-
-

@@ -15,6 +15,7 @@ pluginManagement {
         maven("https://plugins.gradle.org/m2/")
         maven("https://repo.spring.io/milestone")
         maven("https://repo.spring.io/snapshot")
+        maven("https://dl.bintray.com/kotlin/kotlin-eap")
     }
     resolutionStrategy {
         eachPlugin {

@@ -1,9 +1,8 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins { // apply false doesn't apply these for root project. This is only for managing version numbers.
-    id("org.jetbrains.kotlin.jvm") version "1.3.71" apply false
-    id("io.spring.dependency-management") version "1.0.9.RELEASE" apply false
-    id("org.springframework.boot") version "2.3.0.M4" apply false
+    id("org.jetbrains.kotlin.jvm") version "1.4-M2" apply false
+    id("org.springframework.boot") version "2.3.0.RELEASE" apply false
     id("io.gitlab.arturbosch.detekt") version "1.7.4"
     id("com.adarshr.test-logger") version "2.0.0"
 }
@@ -11,12 +10,12 @@ plugins { // apply false doesn't apply these for root project. This is only for 
 subprojects {
     apply { // Above plugins are applied here.
         plugin("org.jetbrains.kotlin.jvm")
-        plugin("io.spring.dependency-management") // This takes care of spring related version management
     }
 
     repositories {
         mavenLocal()
         jcenter()
+        maven("https://dl.bintray.com/kotlin/kotlin-eap")
         maven("https://repo.spring.io/milestone")
         maven("https://repo.spring.io/snapshot")
         maven("https://dl.bintray.com/arrow-kt/arrow-kt/")
@@ -27,10 +26,10 @@ subprojects {
     val arrowVersion = "0.10.5"
 
     dependencies {
-        implementation(platform("io.r2dbc:r2dbc-bom:Arabba-SR3")) // This is same as mavenBom
+        implementation(platform("io.r2dbc:r2dbc-bom:Arabba-SR3")) // This is same as importing `mavenBom` using `io.spring.dependency-management` plugin
 
         implementation(kotlin("stdlib-jdk8"))
-        implementation("org.springframework.fu:spring-fu-kofu:0.3.0.BUILD-SNAPSHOT")
+        implementation("org.springframework.fu:spring-fu-kofu:0.4.0-SNAPSHOT")
         implementation("io.arrow-kt:arrow-core:$arrowVersion")
         implementation("io.arrow-kt:arrow-fx:$arrowVersion")
         implementation("io.arrow-kt:arrow-fx-reactor:$arrowVersion")
