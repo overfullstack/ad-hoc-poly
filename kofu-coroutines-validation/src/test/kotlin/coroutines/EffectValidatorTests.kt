@@ -15,30 +15,28 @@ import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.getBean
-import org.springframework.boot.WebApplicationType
 import org.springframework.context.ConfigurableApplicationContext
 import org.springframework.fu.kofu.application
 import top.User
 import top.ValidationError
 import top.ValidationError.*
-import top.rules.validateUserWithRules
 import top.typeclass.*
 
 class EffectValidatorTests {
 
-    private val dataApp = application(WebApplicationType.NONE) {
+    private val dataApp = application {
         enable(dataConfig)
     }
 
     private lateinit var context: ConfigurableApplicationContext
-    private lateinit var coroutineFFValidator: EffectValidator<ForIO, ForFailFast<ValidationError>, ValidationError>
-    private lateinit var coroutineEAValidator: EffectValidator<ForIO, ForErrorAccumulation<ValidationError>, ValidationError>
+    private lateinit var coroutineFFValidator: EffectValidatorFailFast<ForIO, ValidationError>
+    private lateinit var coroutineEAValidator: EffectValidatorErrorAccumulation<ForIO, ValidationError>
 
     @BeforeAll
     fun beforeAll() {
         context = dataApp.run(profiles = "test")
         coroutineFFValidator = context.getBean()
-        coroutineEAValidator = object : EffectValidator<ForIO, ForErrorAccumulation<ValidationError>, ValidationError>, Async<ForIO> by IO.async() {
+        coroutineEAValidator = object : EffectValidatorErrorAccumulation<ForIO, ValidationError>, Async<ForIO> by IO.async() {
             override val repo = context.getBean<Repo<ForIO>>()
             override val validatorAE = errorAccumulation<ValidationError>()
         }

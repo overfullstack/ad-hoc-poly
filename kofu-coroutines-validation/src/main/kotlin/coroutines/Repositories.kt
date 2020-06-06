@@ -48,4 +48,3 @@ class CityRepository(private val client: DatabaseClient) {
     suspend fun insert(city: City) =
             client.insert().into<City>().table("city").using(city).await()
 }
-

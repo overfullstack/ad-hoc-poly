@@ -18,7 +18,6 @@ import top.typeclass.EffectValidatorFailFast
 import top.typeclass.Repo
 import top.typeclass.failFast
 
-
 val dataConfig = configuration {
     beans {
         bean {

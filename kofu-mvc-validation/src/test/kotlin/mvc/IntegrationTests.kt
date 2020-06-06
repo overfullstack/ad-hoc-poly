@@ -17,7 +17,6 @@ class IntegrationTests {
 
     private val client = WebTestClient.bindToServer().baseUrl("http://localhost:8181").build()
 
-
     private lateinit var context: ConfigurableApplicationContext
 
     @BeforeAll

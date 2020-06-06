@@ -27,4 +27,5 @@ fun ErrorAccumulation<ValidationError>.validateEmailWithRules(email: String): Va
         ) {}.fix()
 
 fun FailFast<ValidationError>.validateEmailWithRules(email: String): Either<NonEmptyList<ValidationError>, String> =
-        contains(email, "@").flatMap { maxLength(email, 250).fix() }
+        contains(email, "@")
+                .flatMap { maxLength(email, 250).fix() }
