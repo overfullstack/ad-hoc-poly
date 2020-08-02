@@ -1,8 +1,8 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins { // apply false doesn't apply these for root project. This is only for managing version numbers.
-    id("org.jetbrains.kotlin.jvm") version "1.4-M2" apply false
-    id("org.springframework.boot") version "2.3.0.RELEASE" apply false
+    kotlin("jvm") apply false
+    id("org.springframework.boot") version "2.4.0-SNAPSHOT" apply false
     id("io.gitlab.arturbosch.detekt") version "1.7.4"
     id("com.adarshr.test-logger") version "2.0.0"
 }
@@ -13,9 +13,7 @@ subprojects {
     }
 
     repositories {
-        mavenLocal()
         jcenter()
-        maven("https://dl.bintray.com/kotlin/kotlin-eap")
         maven("https://repo.spring.io/milestone")
         maven("https://repo.spring.io/snapshot")
         maven("https://dl.bintray.com/arrow-kt/arrow-kt/")
@@ -28,7 +26,6 @@ subprojects {
     dependencies {
         implementation(platform("io.r2dbc:r2dbc-bom:Arabba-SR3")) // This is same as importing `mavenBom` using `io.spring.dependency-management` plugin
 
-        implementation(kotlin("stdlib-jdk8"))
         implementation("org.springframework.fu:spring-fu-kofu:0.4.0-SNAPSHOT")
         implementation("io.arrow-kt:arrow-core:$arrowVersion")
         implementation("io.arrow-kt:arrow-fx:$arrowVersion")
@@ -37,27 +34,24 @@ subprojects {
 
     tasks.withType<KotlinCompile> {
         kotlinOptions {
-            jvmTarget = JavaVersion.VERSION_13.toString()
+            jvmTarget = JavaVersion.VERSION_14.toString()
         }
     }
 
     tasks.withType<Test> {
         useJUnitPlatform {
+            includeEngines("junit-jupiter")
             excludeEngines("junit-vintage")
         }
     }
 }
 
-// Filters dependencies irrelevant for "validation-templates" project
+// Dependencies except for "validation-templates" project
 configure(subprojects.filter { it.name != "validation-templates" }) {
     val implementation by configurations
     val testImplementation by configurations
-
-    apply {
-        plugin("org.springframework.boot")
-    }
-
     dependencies {
+        implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES)) // For spring boot bom
         implementation(project(":validation-templates"))
         implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
         testImplementation("org.springframework.boot:spring-boot-starter-webflux")

@@ -9,7 +9,6 @@ include(
 
 pluginManagement {
     repositories {
-        mavenLocal()
         jcenter()
         gradlePluginPortal()
         maven("https://plugins.gradle.org/m2/")
@@ -17,11 +16,8 @@ pluginManagement {
         maven("https://repo.spring.io/snapshot")
         maven("https://dl.bintray.com/kotlin/kotlin-eap")
     }
-    resolutionStrategy {
-        eachPlugin {
-            if (requested.id.id == "org.springframework.boot") {
-                useModule("org.springframework.boot:spring-boot-gradle-plugin:${requested.version}")
-            }
-        }
+    val kotlinEap: String by settings
+    plugins {
+        kotlin("jvm") version kotlinEap // This is handy if there are multiple modules. This lets you declare version at one place.
     }
 }
