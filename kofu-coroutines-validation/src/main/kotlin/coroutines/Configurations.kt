@@ -12,7 +12,7 @@ import org.springframework.boot.context.event.ApplicationReadyEvent
 import org.springframework.data.r2dbc.core.DatabaseClient
 import org.springframework.data.r2dbc.core.await
 import org.springframework.fu.kofu.configuration
-import org.springframework.fu.kofu.r2dbc.r2dbcH2
+import org.springframework.fu.kofu.r2dbc.r2dbc
 import org.springframework.fu.kofu.webflux.webFlux
 import top.City
 import top.User
@@ -48,7 +48,9 @@ val dataConfig = configuration {
             init(ref(), ref(), ref())
         }
     }
-    r2dbcH2()
+    r2dbc {
+        url = "r2dbc:h2:mem:///testdb;DB_CLOSE_DELAY=-1"
+    }
 }
 
 fun Any?.toUnit() = Unit

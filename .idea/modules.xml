@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/kofu-mvc-validation/ad-hoc-poly.kofu-mvc-validation.main.iml" filepath="$PROJECT_DIR$/.idea/modules/kofu-mvc-validation/ad-hoc-poly.kofu-mvc-validation.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/kofu-mvc-validation/ad-hoc-poly.kofu-mvc-validation.test.iml" filepath="$PROJECT_DIR$/.idea/modules/kofu-mvc-validation/ad-hoc-poly.kofu-mvc-validation.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/kofu-reactive-validation/ad-hoc-poly.kofu-reactive-validation.main.iml" filepath="$PROJECT_DIR$/.idea/modules/kofu-reactive-validation/ad-hoc-poly.kofu-reactive-validation.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/kofu-reactive-validation/ad-hoc-poly.kofu-reactive-validation.test.iml" filepath="$PROJECT_DIR$/.idea/modules/kofu-reactive-validation/ad-hoc-poly.kofu-reactive-validation.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/validation-templates/ad-hoc-poly.validation-templates.main.iml" filepath="$PROJECT_DIR$/.idea/modules/validation-templates/ad-hoc-poly.validation-templates.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/validation-templates/ad-hoc-poly.validation-templates.test.iml" filepath="$PROJECT_DIR$/.idea/modules/validation-templates/ad-hoc-poly.validation-templates.test.iml" />
+    </modules>
+  </component>
+</project>
