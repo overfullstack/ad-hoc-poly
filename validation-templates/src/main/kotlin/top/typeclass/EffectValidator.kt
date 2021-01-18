@@ -18,10 +18,11 @@ interface EffectValidatorFailFast<F, E> : EffectValidator<F, ForFailFast<E>, E>
 interface EffectValidatorErrorAccumulation<F, E> : EffectValidator<F, ForErrorAccumulation<E>, E>
 
 fun <F> EffectValidatorFailFast<F, ValidationError>.validateUserWithRules(user: User): Kind<F, Either<NonEmptyList<ValidationError>, Any>> = fx.async {
+    // `validateEmailWithRulesResult` is the cheapest validation, which doesn't need any db calls. So this is done first.
     val validateEmailWithRulesResult: Either<NonEmptyList<ValidationError>, String> = validatorAE.validateEmailWithRules(user.email)
-    // with `bind()`, the `flatMap` is done on F not on the `Either` which is returned from `validateUserWithRules`
-    // You can't put `bind()` inside the `flatMap`. So 
     if (validateEmailWithRulesResult.isRight()) {
+        // with `bind()`, the `flatMap` is done on F.
+        // You can't put `bind()` inside the `flatMap`. So computing them separately and using `flatMap`.
         val cityShouldBeValid: Either<NonEmptyList<ValidationError>, Boolean> = cityShouldBeValid(user).bind().fix()
         val loginShouldNotExit: Either<NonEmptyList<ValidationError>, Boolean> = loginShouldNotExit(user).bind().fix()
         cityShouldBeValid

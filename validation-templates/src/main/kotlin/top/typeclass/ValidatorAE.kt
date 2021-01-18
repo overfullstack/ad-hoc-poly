@@ -9,15 +9,15 @@ import top.ValidationError
 import top.rules.contains
 import top.rules.maxLength
 
-typealias ValidatorAE<S, E> = ApplicativeError<S, Nel<E>> // AE needs an effect `S` to manage `E` 
+typealias ValidatorAE<S, E> = ApplicativeError<S, Nel<E>> // AE needs an Effect `S` to manage Error `E` (for FailFast or ErrorAccumulation)
 
-typealias ForFailFast<E> = EitherPartialOf<Nel<E>> // Effect
+typealias ForFailFast<E> = EitherPartialOf<Nel<E>> // Effect S
 typealias FailFast<E> = ValidatorAE<ForFailFast<E>, E>
 
-typealias ForErrorAccumulation<E> = ValidatedPartialOf<Nel<E>> // Effect
+typealias ForErrorAccumulation<E> = ValidatedPartialOf<Nel<E>> // Effect S
 typealias ErrorAccumulation<E> = ValidatorAE<ForErrorAccumulation<E>, E>
 
-fun <E> failFast(): FailFast<E> = Either.applicativeError() // This is just a less verbose alternative to using `object: ... by ...` notation
+fun <E> failFast(): FailFast<E> = Either.applicativeError()
 fun <E> errorAccumulation(): ErrorAccumulation<E> = Validated.applicativeError(NonEmptyList.semigroup())
 
 fun ErrorAccumulation<ValidationError>.validateEmailWithRules(email: String): Validated<NonEmptyList<ValidationError>, Unit> =

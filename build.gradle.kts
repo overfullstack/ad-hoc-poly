@@ -3,8 +3,8 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins { // apply false doesn't apply these for root project. This is only for managing version numbers.
     kotlin("jvm") apply false
     id("org.springframework.boot") version "2.4.0-SNAPSHOT" apply false
-    id("com.adarshr.test-logger") version "2.1.0"
-    id("io.gitlab.arturbosch.detekt") version "1.11.0"
+    id("io.gitlab.arturbosch.detekt") version "1.14.1"
+    id("com.adarshr.test-logger") version "2.1.1"
 }
 
 subprojects {
@@ -41,7 +41,7 @@ subprojects {
 
     tasks.withType<KotlinCompile> {
         kotlinOptions {
-            jvmTarget = JavaVersion.VERSION_14.toString()
+            jvmTarget = JavaVersion.VERSION_15.toString()
         }
     }
 

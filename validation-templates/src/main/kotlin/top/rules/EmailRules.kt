@@ -9,6 +9,7 @@ import top.typeclass.ValidatorAE
  * ------------Email Rules------------
  * Arbitrary rules can be defined anywhere outside the Rules algebra.
  */
+
 fun <S> ValidatorAE<S, ValidationError>.contains(email: String, needle: String): Kind<S, String> =
         if (email.contains(needle, false)) just(email)
         else raiseError(ValidationError.DoesNotContain(needle).nel())

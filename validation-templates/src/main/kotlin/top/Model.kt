@@ -3,15 +3,15 @@ package top
 import org.springframework.data.annotation.Id
 
 data class User(
-        @Id val login: String,
-        val email: String,
-        val firstName: String,
-        val lastName: String,
-        val city: String
+    @Id val login: String,
+    val email: String,
+    val firstName: String,
+    val lastName: String,
+    val city: String
 )
 
 data class City(
-        @Id val name: String
+    @Id val name: String
 )
 
 sealed class ValidationError(val msg: String) {
